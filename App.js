@@ -1,20 +1,15 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useDeviceOrientation } from "@react-native-community/hooks";
+import LogIn from "./UI/Login";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import Product from "./UI/Product";
 
 export default function App() {
+  const orientation = useDeviceOrientation();
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    //   In the new version SafeAreProvider is needed to use SafeAreView
+    <SafeAreaProvider>
+      <LogIn></LogIn>
+      {/* <Product> </Product>  */}
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
