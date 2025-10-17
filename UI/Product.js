@@ -1,21 +1,23 @@
 import { StyleSheet, View } from "react-native";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import colors from "../config/colors";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Product() {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.menuContainer}>
-        <View style={styles.controllerBoxes}></View>
+      <View style={styles.controllersMainContainer}>
+        <View style={styles.controllersContainer}>
+          <AntDesign name="close-circle" size={24} color="black" />
+        </View>
 
-        <View style={styles.controllerBoxes}></View>
+        <View style={styles.controllersContainer}>
+          <AntDesign name="delete" size={24} color="black" />
+        </View>
       </View>
 
       <View style={styles.mainAreaContainer}></View>
-
-      <View style={[styles.button1, styles.buttonContainer]}></View>
-
-      <View style={[styles.button2, styles.buttonContainer]}></View>
     </SafeAreaView>
   );
 }
@@ -23,17 +25,17 @@ export default function Product() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#3eaed1ff",
+    backgroundColor: colors.bg.white,
     width: "100%",
   },
-  menuContainer: {
+  controllersMainContainer: {
     flex: 3,
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  controllerBoxes: {
-    backgroundColor: "#9ec560ff",
+  controllersContainer: {
+    backgroundColor: colors.bg.white,
     width: 30,
     height: 30,
     margin: 20,
@@ -41,26 +43,7 @@ const styles = StyleSheet.create({
   mainAreaContainer: {
     marginTop: 5,
     width: "100%",
-    backgroundColor: "#aa0c46ff",
+    backgroundColor: colors.bg.primary,
     flex: 13,
-  },
-  textContainer: {
-    textAlign: "center",
-    color: "white",
-    fontSize: 25,
-    fontWeight: "600",
-  },
-  buttonContainer: {
-    flex: 2,
-    justifyContent: "center",
-    width: "100%",
-    fontSize: 40,
-    cursor: "pointer",
-  },
-  button1: {
-    backgroundColor: "black",
-  },
-  button2: {
-    backgroundColor: "black",
   },
 });

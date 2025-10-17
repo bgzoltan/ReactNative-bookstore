@@ -11,12 +11,12 @@ export default function App() {
     //   In the new version SafeAreProvider is needed to use SafeAreView
     <SafeAreaProvider>
       {/* <LogIn />*/}
-      {/* <Product />*/}
-      <Card
+      <Product />
+      {/* <Card
         title={"Greeks"}
         subTitle={"Mythology"}
         imageSource={require("./assets/greek_mythology.jpg")}
-      />
+      /> */}
     </SafeAreaProvider>
   );
 }
