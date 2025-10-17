@@ -6,6 +6,7 @@ const colors = {
   bg: {
     primary: "#EA686B",
     secondary: "#73CAC3",
+    gray: "#F2F2F2",
     black: "#000000",
     white: "#FFFFFF",
   },
