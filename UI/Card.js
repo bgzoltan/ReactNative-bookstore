@@ -1,6 +1,7 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import colors from "../config/colors";
 import { SafeAreaView } from "react-native-safe-area-context";
+import UserList from "./UserList";
 
 export default function Card({ title, subTitle, imageSource }) {
   return (
@@ -10,7 +11,7 @@ export default function Card({ title, subTitle, imageSource }) {
           <Image
             source={imageSource}
             resizeMode="contain"
-            style={{ width: 150, height: 150 }}
+            style={{ width: 100, height: 100 }}
           />
         </View>
 
@@ -22,7 +23,7 @@ export default function Card({ title, subTitle, imageSource }) {
       </View>
 
       <View style={styles.cardInformation}>
-        <Text>Information</Text>
+        <UserList />
       </View>
     </SafeAreaView>
   );
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   imageContainer: {
-    flex: 2,
+    flex: 1,
     width: "100%",
     backgroundColor: colors.bg.gray,
     padding: 20,
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   cardInformation: {
-    flex: 3,
+    flex: 2,
     backgroundColor: colors.bg.primary,
     width: "100%",
     justifyContent: "center",
