@@ -8,8 +8,10 @@ export default function Screen({ children }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    display: "flex",
+    flexDirection: "column",
     width: "100%",
     paddingTop: Constants.statusBarHeight,
+    paddingHorizontal: 10,
   },
 });

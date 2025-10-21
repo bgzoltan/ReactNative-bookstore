@@ -13,7 +13,7 @@ import {
 
 export default function ListItem({ name, title, image, renderRightActions }) {
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={{ flex: 1, width: "100%" }}>
       <Swipeable
         containerStyle={styles.container}
         friction={2}
@@ -41,8 +41,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     width: "100%",
-    backgroundColor: colors.bg.secondary,
-    margin: 2,
     borderRadius: 10,
   },
   userDescription: {

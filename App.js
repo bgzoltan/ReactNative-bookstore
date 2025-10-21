@@ -3,6 +3,7 @@ import LogIn from "./UI/Login";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Product from "./UI/Product";
 import Card from "./UI/Card";
+import { MyAccount } from "./UI/MyAccount";
 
 export default function App() {
   const orientation = useDeviceOrientation();
@@ -13,12 +14,13 @@ export default function App() {
       {/* <LogIn />*/}
 
       {/* <Product /> */}
+      <MyAccount />
 
-      <Card
+      {/* <Card
         title={"Greeks"}
         subTitle={"Mythology"}
         imageSource={require("./assets/greek_mythology.jpg")}
-      />
+      /> */}
     </SafeAreaProvider>
   );
 }

@@ -11,6 +11,7 @@ const colors = {
     black: "#000000",
     white: "#FFFFFF",
     danger: "#FF5252",
+    yellow: "#ffe66d",
   },
 };
 
