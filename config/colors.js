@@ -2,6 +2,7 @@ const colors = {
   text: {
     primary: "#FFFFFF",
     secondary: "#000000",
+    separator: "#aba8a8ff",
   },
   bg: {
     primary: "#EA686B",

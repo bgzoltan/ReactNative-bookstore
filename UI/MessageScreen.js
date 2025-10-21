@@ -5,6 +5,7 @@ import Screen from "../components/Screen";
 import ListItem from "./ListItem";
 
 import { useState } from "react";
+import ListItemSeparator from "../components/ListItemSeparator";
 
 export default function MessageScreen() {
   const initialMessages = [
@@ -49,6 +50,7 @@ export default function MessageScreen() {
             )}
           />
         )}
+        ItemSeparatorComponent={<ListItemSeparator />}
       />
     </Screen>
   );
