@@ -30,6 +30,7 @@ export default function MessageScreen() {
   ];
 
   const [messages, setMessages] = useState(initialMessages);
+  const [refreshing, setRefreshing] = useState(false);
 
   const handleDelete = (item) => {
     setMessages(messages.filter((message) => message.id !== item.id));
@@ -51,6 +52,10 @@ export default function MessageScreen() {
           />
         )}
         ItemSeparatorComponent={<ListItemSeparator />}
+        refreshing={refreshing}
+        onRefresh={() => {
+          setMessages(initialMessages);
+        }}
       />
     </Screen>
   );
