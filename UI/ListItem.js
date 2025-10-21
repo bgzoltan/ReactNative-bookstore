@@ -11,7 +11,7 @@ import {
   Swipeable,
 } from "react-native-gesture-handler";
 
-export default function UserItem({ name, title, image, renderRightActions }) {
+export default function ListItem({ name, title, image, renderRightActions }) {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Swipeable

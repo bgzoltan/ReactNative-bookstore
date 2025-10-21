@@ -1,13 +1,13 @@
-import { SafeAreaView } from "react-native-safe-area-context";
-import UserItem from "./UserItem";
 import { StyleSheet, FlatList } from "react-native";
 import colors from "../config/colors";
 import ItemDeleteAction from "../components/ItemDeleteAction";
+import Screen from "../components/Screen";
+import ListItem from "./ListItem";
 
 import { useState } from "react";
 
-export default function UserList() {
-  const initialUsers = [
+export default function MessageScreen() {
+  const initialMessages = [
     {
       id: "1",
       name: "Zoltan Bagdany",
@@ -28,19 +28,19 @@ export default function UserList() {
     },
   ];
 
-  const [users, setUsers] = useState(initialUsers);
+  const [messages, setMessages] = useState(initialMessages);
 
   const handleDelete = (item) => {
-    setUsers(users.filter((user) => user.id !== item.id));
+    setMessages(messages.filter((message) => message.id !== item.id));
   };
   return (
-    <SafeAreaView style={styles.container}>
+    <Screen>
       <FlatList
         style={{ flex: 1, width: "100%", height: "auto" }}
-        data={users}
-        keyExtractor={(user) => user.id}
+        data={messages}
+        keyExtractor={(message) => message.id}
         renderItem={({ item }) => (
-          <UserItem
+          <ListItem
             name={item.name}
             title={item.title}
             image={item.image}
@@ -50,7 +50,7 @@ export default function UserList() {
           />
         )}
       />
-    </SafeAreaView>
+    </Screen>
   );
 }
 

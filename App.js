@@ -3,7 +3,6 @@ import LogIn from "./UI/Login";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Product from "./UI/Product";
 import Card from "./UI/Card";
-import UserList from "./UI/UserList";
 
 export default function App() {
   const orientation = useDeviceOrientation();

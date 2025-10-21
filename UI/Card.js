@@ -1,7 +1,8 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import colors from "../config/colors";
 import { SafeAreaView } from "react-native-safe-area-context";
-import UserList from "./UserList";
+import UserList from "./MessageScreen";
+import MessageScreen from "./MessageScreen";
 
 export default function Card({ title, subTitle, imageSource }) {
   return (
@@ -23,7 +24,7 @@ export default function Card({ title, subTitle, imageSource }) {
       </View>
 
       <View style={styles.cardInformation}>
-        <UserList />
+        <MessageScreen />
       </View>
     </SafeAreaView>
   );
