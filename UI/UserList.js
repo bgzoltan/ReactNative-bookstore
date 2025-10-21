@@ -4,8 +4,10 @@ import { StyleSheet, FlatList } from "react-native";
 import colors from "../config/colors";
 import ItemDeleteAction from "../components/ItemDeleteAction";
 
+import { useState } from "react";
+
 export default function UserList() {
-  const users = [
+  const initialUsers = [
     {
       id: "1",
       name: "Zoltan Bagdany",
@@ -26,8 +28,10 @@ export default function UserList() {
     },
   ];
 
-  const handleDelete = () => {
-    console.log("Delete action triggered");
+  const [users, setUsers] = useState(initialUsers);
+
+  const handleDelete = (item) => {
+    setUsers(users.filter((user) => user.id !== item.id));
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -41,7 +45,7 @@ export default function UserList() {
             title={item.title}
             image={item.image}
             renderRightActions={() => (
-              <ItemDeleteAction handleDelete={handleDelete} />
+              <ItemDeleteAction handleDelete={() => handleDelete(item)} />
             )}
           />
         )}
