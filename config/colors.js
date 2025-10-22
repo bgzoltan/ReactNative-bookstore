@@ -13,6 +13,10 @@ const colors = {
     danger: "#FF5252",
     yellow: "#ffe66d",
   },
+  icon: {
+    primary: "#FFFFFF",
+    secondary: "#000000",
+  },
 };
 
 export default colors;

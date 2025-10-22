@@ -1,14 +1,12 @@
-import { TouchableOpacity, View } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { StyleSheet, Text } from "react-native";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import colors from "../config/colors";
+import { Icon } from "../components/Icon";
 
 export function MyListings() {
   return (
     <TouchableOpacity style={styles.container}>
-      <View style={styles.iconContainer}>
-        <MaterialIcons name="format-list-bulleted" size={28} color="black" />
-      </View>
+      <Icon name="format-list-bulleted" size={28} color={colors.bg.primary} />
       <Text>My Listings</Text>
     </TouchableOpacity>
   );
@@ -23,15 +21,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     width: "100%",
-  },
-  iconContainer: {
-    backgroundColor: colors.bg.primary,
-    padding: 5,
-    borderRadius: 25,
-    height: 50,
-    width: 50,
-    justifyContent: "center",
-    alignItems: "center",
   },
 });
 
