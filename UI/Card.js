@@ -1,45 +1,30 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import colors from "../config/colors";
-import { SafeAreaView } from "react-native-safe-area-context";
-import UserList from "./MessageScreen";
-import MessageScreen from "./MessageScreen";
 
 export default function Card({ title, subTitle, imageSource }) {
   return (
-    <SafeAreaView style={styles.cardContainer}>
-      <View style={styles.imageContainer}>
-        <View style={styles.imageBackground}>
-          <Image
-            source={imageSource}
-            resizeMode="contain"
-            style={{ width: 100, height: 100 }}
-          />
-        </View>
-
-        <View style={styles.imageDescription}>
-          <Text>
-            {title} {subTitle}
-          </Text>
-        </View>
+    <View style={styles.imageContainer}>
+      <View style={styles.imageBackground}>
+        <Image
+          source={imageSource}
+          resizeMode="contain"
+          style={{ width: 100, height: 100 }}
+        />
       </View>
-
-      <View style={styles.cardInformation}>
-        <MessageScreen />
-      </View>
-    </SafeAreaView>
+      <Text style={styles.imageDescription}>
+        {title} {subTitle}
+      </Text>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  cardContainer: {
-    flex: 1,
-    backgroundColor: colors.bg.white,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   imageContainer: {
-    flex: 1,
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
     width: "100%",
+    height: 300,
     backgroundColor: colors.bg.gray,
     padding: 20,
   },
@@ -58,14 +43,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.bg.secondary,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
-    padding: 10,
-  },
-  cardInformation: {
-    flex: 2,
-    backgroundColor: colors.bg.white,
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
     padding: 10,
   },
 });

@@ -4,6 +4,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import Product from "./UI/Product";
 import Card from "./UI/Card";
 import { AccountScreen } from "./UI/AccountScreen";
+import ListingScreen from "./UI/ListingScreen";
 
 export default function App() {
   const orientation = useDeviceOrientation();
@@ -13,13 +14,7 @@ export default function App() {
     <SafeAreaProvider>
       {/* <LogIn />*/}
       {/* <Product /> */}
-      <AccountScreen />
-
-      {/* <Card
-        title={"Greeks"}
-        subTitle={"Mythology"}
-        imageSource={require("./assets/greek_mythology.jpg")}
-      /> */}
+      <ListingScreen />
     </SafeAreaProvider>
   );
 }
