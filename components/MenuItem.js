@@ -1,13 +1,12 @@
-import { TouchableOpacity } from "react-native";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Icon } from "./Icon";
 import colors from "../config/colors";
-import { Icon } from "../components/Icon";
 
-export function MyMessages() {
+export default function MenuItem({ name, icon }) {
   return (
     <TouchableOpacity style={styles.container}>
-      <Icon name="email" size={28} color={colors.bg.secondary} />
-      <Text>My Messages</Text>
+      <Icon name={icon.name} size={icon.size} color={icon.backgroundColor} />
+      <Text>{name}</Text>
     </TouchableOpacity>
   );
 }
@@ -16,12 +15,11 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     flexDirection: "row",
-    padding: 20,
+    padding: 15,
     gap: 10,
     justifyContent: "flex-start",
     alignItems: "center",
     width: "100%",
+    backgroundColor: colors.bg.white,
   },
 });
-
-export default MyMessages;

@@ -23,10 +23,10 @@ export default function ListItem({ name, title, image, renderRightActions }) {
       >
         <TouchableHighlight underlayColor={colors.bg.gray}>
           <View style={styles.container}>
-            <Image style={styles.userImage} source={image} />
+            {image && <Image style={styles.userImage} source={image} />}
             <View style={styles.userDescription}>
               <Text style={{ fontWeight: "600" }}>{name}</Text>
-              <Text>{title}</Text>
+              <Text>{title && title}</Text>
             </View>
           </View>
         </TouchableHighlight>
@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     width: "100%",
-    borderRadius: 10,
   },
   userDescription: {
     marginLeft: 10,
