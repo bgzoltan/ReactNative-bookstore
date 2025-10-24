@@ -1,4 +1,4 @@
-import { TextInput, View, StyleSheet } from "react-native";
+import { TextInput, View } from "react-native";
 import Screen from "../Screen";
 import { Icon } from "../Icon.js";
 import { defaultStyles } from "../../config/defaultStyles.js";

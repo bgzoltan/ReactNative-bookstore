@@ -1,5 +1,5 @@
 import { View, StyleSheet } from "react-native";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import colors from "../config/colors";
 
 export function Icon({
@@ -10,7 +10,7 @@ export function Icon({
 }) {
   return (
     <View style={[styles.iconContainer, { backgroundColor: backgroundColor }]}>
-      <MaterialIcons name={name} size={size} color={color} />
+      <MaterialCommunityIcons name={name} size={size} color={color} />
     </View>
   );
 }

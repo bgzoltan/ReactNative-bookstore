@@ -20,4 +20,16 @@ export const defaultStyles = {
     borderColor: "gray",
     borderWidth: 1,
   },
+  pickerBackground: {
+    display: "flex",
+    position: "relative",
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 2,
+    gap: 10,
+    width: "100%",
+    backgroundColor: colors.bg.gray,
+    borderColor: "gray",
+    borderWidth: 1,
+  },
 };

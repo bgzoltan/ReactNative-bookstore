@@ -9,6 +9,8 @@ import { Text } from "react-native";
 import { AppTextInput } from "./components/AppTextInput/AppTextInput";
 import { useState } from "react";
 import colors from "./config/colors";
+import { AppPicker } from "./components/AppPicker/AppPicker";
+import AppText from "./components/AppText/AppText";
 
 export default function App() {
   const orientation = useDeviceOrientation();
@@ -24,6 +26,17 @@ export default function App() {
       {/* <Product /> */}
       {/* <ListingScreen /> */}
 
+      <AppPicker
+        icon={{
+          name: "apps",
+          size: 25,
+          color: colors.icon.secondary,
+          backgroundColor: colors.icon.gray,
+        }}
+        placeHolder="Category"
+        value={value}
+        onChangeText={(text) => onChangeTextHandler(text)}
+      />
       <AppTextInput
         icon={{
           name: "email",
@@ -31,7 +44,7 @@ export default function App() {
           color: colors.icon.secondary,
           backgroundColor: colors.icon.gray,
         }}
-        placeholder="Type your e-mail"
+        placeholder="Email"
         value={value}
         onChangeText={(text) => onChangeTextHandler(text)}
       />
