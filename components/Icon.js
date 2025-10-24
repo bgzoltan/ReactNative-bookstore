@@ -2,10 +2,15 @@ import { View, StyleSheet } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import colors from "../config/colors";
 
-export function Icon({ name, size, color }) {
+export function Icon({
+  name,
+  size = 26,
+  color = colors.icon.primary,
+  backgroundColor = colors.icon.primary,
+}) {
   return (
-    <View style={[styles.iconContainer, { backgroundColor: color }]}>
-      <MaterialIcons name={name} size={size} color={colors.icon.primary} />
+    <View style={[styles.iconContainer, { backgroundColor: backgroundColor }]}>
+      <MaterialIcons name={name} size={size} color={color} />
     </View>
   );
 }

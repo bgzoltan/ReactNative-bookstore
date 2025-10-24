@@ -2,7 +2,8 @@ const colors = {
   text: {
     primary: "#FFFFFF",
     secondary: "#000000",
-    separator: "#aba8a8ff",
+    separator: "#838080ff",
+    gray: "#535151ff",
   },
   bg: {
     primary: "#EA686B",
@@ -15,7 +16,8 @@ const colors = {
   },
   icon: {
     primary: "#FFFFFF",
-    secondary: "#000000",
+    secondary: "#b3adadff",
+    gray: "#F2F2F2",
   },
 };
 
