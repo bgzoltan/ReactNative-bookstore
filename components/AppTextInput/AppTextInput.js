@@ -1,53 +1,22 @@
-import { TextInput, View, StyleSheet, Platform } from "react-native";
+import { TextInput, View, StyleSheet } from "react-native";
 import Screen from "../Screen";
 import { Icon } from "../Icon.js";
-import colors from "../../config/colors";
+import { defaultStyles } from "../../config/defaultStyles.js";
 
-export function AppTextInput({
-  icon,
-  placeholder,
-  value,
-  onChangeText,
-  secureTextEntry,
-}) {
+export function AppTextInput({ icon, ...props }) {
   return (
     <Screen>
-      <View style={styles.container}>
+      <View style={defaultStyles.inputBackground}>
         <Icon
           name={icon.name}
           size={icon.size}
           color={icon.color}
           backgroundColor={icon.backgroundColor}
         />
-        <TextInput
-          style={styles.text}
-          placeholder={placeholder}
-          value={value}
-          onChangeText={onChangeText}
-          secureTextEntry={secureTextEntry}
-        />
+        <TextInput style={defaultStyles.inputText} {...props} />
       </View>
     </Screen>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 2,
-    gap: 10,
-    width: "100%",
-    backgroundColor: colors.bg.gray,
-    borderRadius: 25,
-    borderColor: "gray",
-    borderWidth: 1,
-  },
-  text: {
-    color: colors.text.gray,
-    borderRadius: 5,
-    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
-    fontSize: 16,
-  },
-});
+export default AppTextInput;
