@@ -16,6 +16,12 @@ export default function App() {
   const orientation = useDeviceOrientation();
   const [value, setValue] = useState("");
 
+  const categories = [
+    { label: "Furniture", value: 1 },
+    { label: "Clothing", value: 2 },
+    { label: "Cameras", value: 3 },
+  ];
+
   const onChangeTextHandler = (text) => {
     setValue(text);
   };
@@ -33,6 +39,7 @@ export default function App() {
           color: colors.icon.secondary,
           backgroundColor: colors.icon.gray,
         }}
+        items={categories}
         placeHolder="Category"
         value={value}
         onChangeText={(text) => onChangeTextHandler(text)}

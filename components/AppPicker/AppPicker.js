@@ -1,10 +1,14 @@
-import { View, TouchableOpacity } from "react-native";
+import { View, Modal, StyleSheet, FlatList } from "react-native";
 import Screen from "../Screen";
 import { Icon } from "../Icon.js";
 import { defaultStyles } from "../../config/defaultStyles.js";
 import AppText from "../AppText/AppText.js";
+import { useState } from "react";
+import colors from "../../config/colors.js";
+import PickerItem from "../PickerItem.js";
 
-export function AppPicker({ icon, placeHolder, ...props }) {
+export function AppPicker({ icon, items, placeHolder, ...props }) {
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <Screen>
       <View style={defaultStyles.pickerBackground}>
@@ -15,7 +19,7 @@ export function AppPicker({ icon, placeHolder, ...props }) {
           backgroundColor={icon.backgroundColor}
         />
         <AppText>{placeHolder}</AppText>
-        <TouchableOpacity
+        <View
           style={{
             display: "flex",
             position: "absolute",
@@ -23,15 +27,42 @@ export function AppPicker({ icon, placeHolder, ...props }) {
           }}
         >
           <Icon
+            handlePress={() => setModalVisible(true)}
             name={"chevron-down"}
             size={icon.size}
             color={icon.color}
             backgroundColor={icon.backgroundColor}
           />
-        </TouchableOpacity>
+        </View>
       </View>
+      <Modal visible={modalVisible} animationType="fade">
+        <Screen>
+          <Icon
+            handlePress={() => setModalVisible(false)}
+            name={"close"}
+            size={24}
+            color={colors.text.primary}
+            backgroundColor={colors.bg.primary}
+          />
+          <FlatList
+            style={styles.list}
+            data={items}
+            keyExtractor={(item) => item.value.toString()}
+            renderItem={({ item }) => <PickerItem item={item} />}
+          ></FlatList>
+        </Screen>
+      </Modal>
     </Screen>
   );
 }
 
 export default AppPicker;
+
+const styles = StyleSheet.create({
+  list: {
+    borderBlockColor: colors.bg.black,
+    borderTopRightRadius: 25,
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
+  },
+});
