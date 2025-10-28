@@ -4,12 +4,14 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   primary: {
     backgroundColor: colors.bg.primary,
-    flex: 1.5,
+    display: "flex",
+    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     cursor: "pointer",
-    margin: 5,
     borderRadius: 50,
+    width: "100%",
+    height: 50,
   },
 
   secondary: {

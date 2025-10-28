@@ -11,6 +11,7 @@ import { useState } from "react";
 import colors from "./config/colors";
 import { AppPicker } from "./components/AppPicker/AppPicker";
 import AppText from "./components/AppText/AppText";
+import LoginScreen from "./UI/LoginScreen";
 
 export default function App() {
   const orientation = useDeviceOrientation();
@@ -28,11 +29,13 @@ export default function App() {
   return (
     //   In the new version SafeAreProvider is needed to use SafeAreView
     <SafeAreaProvider>
-      {/* <LogIn />*/}
+      {/* <LogIn /> */}
       {/* <Product /> */}
       {/* <ListingScreen /> */}
 
-      <AppPicker
+      <LoginScreen />
+
+      {/* <AppPicker
         icon={{
           name: "apps",
           size: 25,
@@ -43,8 +46,8 @@ export default function App() {
         placeHolder="Category"
         value={value}
         onChangeText={(text) => onChangeTextHandler(text)}
-      />
-      <AppTextInput
+      /> */}
+      {/* <AppTextInput
         icon={{
           name: "email",
           size: 25,
@@ -54,7 +57,7 @@ export default function App() {
         placeholder="Email"
         value={value}
         onChangeText={(text) => onChangeTextHandler(text)}
-      />
+      /> */}
     </SafeAreaProvider>
   );
 }

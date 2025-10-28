@@ -1,10 +1,10 @@
 import { TouchableOpacity, StyleSheet } from "react-native";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import colors from "../config/colors";
 
 export function Icon({
   name,
-  size = 26,
+  size = 24,
   color = colors.icon.primary,
   backgroundColor = colors.icon.primary,
   handlePress = () => {},
@@ -14,7 +14,7 @@ export function Icon({
       onPress={handlePress}
       style={[styles.iconContainer, { backgroundColor: backgroundColor }]}
     >
-      <MaterialCommunityIcons name={name} size={size} color={color} />
+      <MaterialIcons name={name} size={size} color={color} />
     </TouchableOpacity>
   );
 }
@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
   iconContainer: {
     padding: 5,
     borderRadius: 25,
-    height: 50,
-    width: 50,
+    height: 40,
+    width: 40,
     justifyContent: "center",
     alignItems: "center",
   },
