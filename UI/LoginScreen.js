@@ -6,6 +6,7 @@ import AppButton from "../components/AppButton/AppButton";
 import ListItemSeparator from "../components/ListItemSeparator.js";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import ErrorMessage from "../components/ErrorMessage.js";
 
 const validationSchema = Yup.object({
   email: Yup.string().required().email().label("Email"),
@@ -24,9 +25,9 @@ export default function LoginScreen() {
         onSubmit={(values, errors) => console.log(values, errors)}
         validationSchema={validationSchema}
       >
-        {({ errors, handleChange, handleSubmit }) => (
+        {({ errors, handleChange, handleSubmit, setFieldTouched, touched }) => (
           <>
-            <Text>{errors.email}</Text>
+            {touched.email && <ErrorMessage error={errors.email} />}
             <AppTextInput
               autoCapitalize="none"
               autoCorrect={false}
@@ -36,9 +37,10 @@ export default function LoginScreen() {
               icon={{
                 name: "email",
               }}
+              onBlur={() => setFieldTouched("email")}
             />
             <ListItemSeparator color={colors.bg.white} height={20} />
-            <Text>{errors.password}</Text>
+            {touched.password && <ErrorMessage error={errors.password} />}
             <AppTextInput
               autoCapitalize="none"
               autCorrenct={false}
@@ -49,6 +51,7 @@ export default function LoginScreen() {
               textContentType={"password"}
               secureTextEntry
               onChangeText={handleChange("password")}
+              onBlur={() => setFieldTouched("password")}
             />
             <ListItemSeparator color={colors.bg.white} height={60} />
             <AppButton type={"primary"} onPress={handleSubmit}>
