@@ -7,6 +7,7 @@ export const defaultStyles = {
     borderRadius: 5,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
     fontSize: 16,
+    width: "100%",
   },
   inputBackground: {
     display: "flex",
