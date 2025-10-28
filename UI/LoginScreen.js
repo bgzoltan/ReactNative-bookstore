@@ -1,12 +1,9 @@
-import AppTextInput from "../components/AppTextInput/AppTextInput";
 import Screen from "../components/Screen";
-import { Image, StyleSheet, Text } from "react-native";
-import colors from "../config/colors";
+import { Image, StyleSheet } from "react-native";
 import AppButton from "../components/AppButton/AppButton";
-import ListItemSeparator from "../components/ListItemSeparator.js";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import ErrorMessage from "../components/ErrorMessage.js";
+import { AppFormField } from "../components/AppFormField.js";
 
 const validationSchema = Yup.object({
   email: Yup.string().required().email().label("Email"),
@@ -25,35 +22,32 @@ export default function LoginScreen() {
         onSubmit={(values, errors) => console.log(values, errors)}
         validationSchema={validationSchema}
       >
-        {({ errors, handleChange, handleSubmit, setFieldTouched, touched }) => (
+        {({ handleSubmit }) => (
           <>
-            {touched.email && <ErrorMessage error={errors.email} />}
-            <AppTextInput
+            <AppFormField
               autoCapitalize="none"
               autoCorrect={false}
-              keyboardType={"email=address"}
-              textContentType={"emailAddres"}
-              onChangeText={handleChange("email")}
+              keyboardType={"email-address"}
+              textContentType={"emailAddress"}
+              inputName={"email"}
+              placeholder={"Type in your email"}
               icon={{
                 name: "email",
               }}
-              onBlur={() => setFieldTouched("email")}
+              required
             />
-            <ListItemSeparator color={colors.bg.white} height={20} />
-            {touched.password && <ErrorMessage error={errors.password} />}
-            <AppTextInput
+            <AppFormField
               autoCapitalize="none"
               autCorrenct={false}
+              placeholder={"Type in your password"}
+              textContentType={"password"}
+              secureTextEntry
+              inputName={"password"}
               icon={{
                 name: "lock",
               }}
-              placeholder={"Password"}
-              textContentType={"password"}
-              secureTextEntry
-              onChangeText={handleChange("password")}
-              onBlur={() => setFieldTouched("password")}
+              required
             />
-            <ListItemSeparator color={colors.bg.white} height={60} />
             <AppButton type={"primary"} onPress={handleSubmit}>
               LOGIN
             </AppButton>

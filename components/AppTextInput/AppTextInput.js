@@ -1,15 +1,17 @@
-import { TextInput, View } from "react-native";
+import { TextInput, View, Text } from "react-native";
 import { Icon } from "../Icon.js";
 import { defaultStyles } from "../../config/defaultStyles.js";
 import colors from "../../config/colors.js";
+import AppText from "../AppText/AppText.js";
 
-export function AppTextInput({ icon, ...props }) {
+export function AppTextInput({ icon, ...otherProps }) {
   const {
     name,
     size = 24,
     color = colors.icon.secondary,
     backgroundColor = colors.bg.white,
   } = icon;
+  const { required } = otherProps;
   return (
     <View style={defaultStyles.inputBackground}>
       <Icon
@@ -18,7 +20,8 @@ export function AppTextInput({ icon, ...props }) {
         color={color}
         backgroundColor={backgroundColor}
       />
-      <TextInput style={defaultStyles.inputText} {...props} />
+      {required ? <Text style={{ color: colors.bg.danger }}>*</Text> : <></>}
+      <TextInput style={defaultStyles.inputText} {...otherProps} />
     </View>
   );
 }
