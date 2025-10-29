@@ -12,6 +12,7 @@ import colors from "./config/colors";
 import { AppPicker } from "./components/AppPicker/AppPicker";
 import AppText from "./components/AppText/AppText";
 import LoginScreen from "./UI/LoginScreen";
+import RegisterScreen from "./UI/RegisterScreen";
 
 export default function App() {
   const orientation = useDeviceOrientation();
@@ -33,7 +34,8 @@ export default function App() {
       {/* <Product /> */}
       {/* <ListingScreen /> */}
 
-      <LoginScreen />
+      <RegisterScreen />
+      {/* <LoginScreen /> */}
 
       {/* <AppPicker
         icon={{

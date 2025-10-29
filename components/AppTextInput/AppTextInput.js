@@ -2,12 +2,12 @@ import { TextInput, View, Text } from "react-native";
 import { Icon } from "../Icon.js";
 import { defaultStyles } from "../../config/defaultStyles.js";
 import colors from "../../config/colors.js";
-import AppText from "../AppText/AppText.js";
 
 export function AppTextInput({ icon, ...otherProps }) {
   const {
     name,
     size = 24,
+    type = "MaterialIcons",
     color = colors.icon.secondary,
     backgroundColor = colors.bg.white,
   } = icon;
@@ -17,6 +17,7 @@ export function AppTextInput({ icon, ...otherProps }) {
       <Icon
         name={name}
         size={size}
+        type={type}
         color={color}
         backgroundColor={backgroundColor}
       />
