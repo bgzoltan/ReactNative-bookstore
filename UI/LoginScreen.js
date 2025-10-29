@@ -1,16 +1,15 @@
 import Screen from "../components/Screen";
 import { Image, StyleSheet } from "react-native";
-import * as Yup from "yup";
-import { AppFormField } from "../components/AppFormField.js";
-import AppForm from "../components/AppForm.js";
-import AppFormSubmitButton from "../components/AppFormSubmitButton.js";
+import LoginScreenForm, {
+  initialValues,
+  validationSchema,
+} from "./Forms/LoginScreenForm.js";
 
-const validationSchema = Yup.object({
-  email: Yup.string().required().email().label("Email"),
-  password: Yup.string().required().min(4).label("Password"),
-});
+import AppForm from "../components/Form/AppForm.js";
 
 export default function LoginScreen() {
+  const onSubmit = (values) => console.log("Submitted...", values);
+
   return (
     <Screen>
       <Image
@@ -18,35 +17,11 @@ export default function LoginScreen() {
         source={require("../assets/bookstoplogo.png")}
       />
       <AppForm
-        initialValues={{ email: "", password: "" }}
-        onSubmit={() => console.log("Submitted.........")}
+        initialValues={initialValues}
+        onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
-        <AppFormField
-          autoCapitalize="none"
-          autoCorrect={false}
-          keyboardType={"email-address"}
-          textContentType={"emailAddress"}
-          inputName={"email"}
-          placeholder={"Type in your email"}
-          icon={{
-            name: "email",
-          }}
-          required
-        />
-        <AppFormField
-          autoCapitalize="none"
-          autCorrenct={false}
-          placeholder={"Type in your password"}
-          textContentType={"password"}
-          secureTextEntry
-          inputName={"password"}
-          icon={{
-            name: "lock",
-          }}
-          required
-        />
-        <AppFormSubmitButton type={"primary"}>LOGIN</AppFormSubmitButton>
+        <LoginScreenForm />
       </AppForm>
     </Screen>
   );

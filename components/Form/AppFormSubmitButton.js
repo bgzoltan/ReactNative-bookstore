@@ -1,4 +1,4 @@
-import AppButton from "./AppButton/AppButton";
+import AppButton from "../AppButton/AppButton";
 import { useFormikContext } from "formik";
 
 export default function AppFormSubmitButton({ type }) {
