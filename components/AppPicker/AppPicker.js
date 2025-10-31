@@ -15,7 +15,7 @@ export function AppPicker({ inputName, icon, items, placeHolder }) {
     <View style={styles.container}>
       <View style={defaultStyles.pickerBackground}>
         <AppText style={styles.selected}>
-          {values[inputName].length > 0 ? values[inputName] : placeHolder}
+          {values[inputName] ? values[inputName].label : placeHolder}
         </AppText>
         <View
           style={{
@@ -47,7 +47,7 @@ export function AppPicker({ inputName, icon, items, placeHolder }) {
                 item={item}
                 onSelectItem={() => {
                   setModalVisible(false);
-                  setFieldValue(inputName, item.label);
+                  setFieldValue(inputName, item);
                 }}
               />
             )}

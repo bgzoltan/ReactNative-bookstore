@@ -4,23 +4,18 @@ import { defaultStyles } from "../../config/defaultStyles.js";
 import colors from "../../config/colors.js";
 
 export function AppTextInput({ icon, ...otherProps }) {
-  const {
-    name,
-    size = 24,
-    type = "MaterialIcons",
-    color = colors.icon.secondary,
-    backgroundColor = colors.bg.white,
-  } = icon;
   const { required } = otherProps;
   return (
     <View style={defaultStyles.inputBackground}>
-      {icon.name && (
+      {icon && (
         <Icon
-          name={name}
-          size={size}
-          type={type}
-          color={color}
-          backgroundColor={backgroundColor}
+          name={icon.name}
+          size={icon.size ? icon.size : 24}
+          type={icon.type ? icon.type : "MaterialIcons"}
+          color={icon.color ? icon.color : colors.icon.secondary}
+          backgroundColor={
+            icon.backgroundColor ? icon.backgroundColor : colors.bg.white
+          }
         />
       )}
       {required ? (
@@ -30,6 +25,9 @@ export function AppTextInput({ icon, ...otherProps }) {
       )}
       <TextInput
         style={[defaultStyles.inputText, { paddingLeft: required ? 0 : 10 }]}
+        alwaysBounceVertical
+        multiline
+        // scrollEnabled={false}
         {...otherProps}
       />
     </View>

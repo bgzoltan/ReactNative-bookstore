@@ -7,7 +7,7 @@ import colors from "../../config/colors.js";
 export const initialValues = {
   price: 0,
   title: "",
-  category: "",
+  category: null,
   description: "",
 };
 export const validationSchema = Yup.object({
@@ -16,7 +16,7 @@ export const validationSchema = Yup.object({
     .min(1, "Must be at least 1 character")
     .label("Title"),
   price: Yup.number().min(1).max(1000).label("Price"),
-  category: Yup.string().required().label("Category"),
+  category: Yup.object().required().nullable().label("Category"),
   description: Yup.string().label("Description"),
 });
 
@@ -33,30 +33,23 @@ export default function ListingEditScreenForm() {
   return (
     <>
       <AppFormField
-        autoCapitalize="none"
+        inputName="title"
+        placeholder="Title"
+        autoCapitalize="sentences"
         autoCorrect={false}
-        keyboardType={"default"}
-        textContentType={"none"}
-        inputName={"title"}
-        placeholder={"Title"}
-        icon={{
-          name: "",
-        }}
+        maxLength={20}
         required
       />
       <AppFormField
-        autoCapitalize="none"
-        autoCorrect={false}
-        keyboardType={"numeric"}
-        textContentType={"none"}
-        inputName={"price"}
-        placeholder={"Price"}
-        icon={{
-          name: "",
-        }}
+        inputName="price"
+        placeholder="Price"
+        keyboardType="numeric"
+        maxLength={8}
       />
       <AppFormPicker
         inputName="category"
+        placeHolder="Select CATEGORY from scrollabel list"
+        items={categories}
         icon={{
           name: "list",
           size: 25,
@@ -64,19 +57,13 @@ export default function ListingEditScreenForm() {
           color: colors.icon.secondary,
           backgroundColor: colors.icon.gray,
         }}
-        items={categories}
-        placeHolder="Select CATEGORY from scrollabel list"
       />
       <AppFormField
+        inputName="description"
+        placeholder="Description"
         autoCapitalize="none"
         autoCorrect={false}
-        keyboardType={"default"}
-        textContentType={"none"}
-        inputName={"description"}
-        placeholder={"Description"}
-        icon={{
-          name: "",
-        }}
+        maxLength={255}
       />
 
       <AppFormSubmitButton type={"primary"}>POST</AppFormSubmitButton>

@@ -22,7 +22,7 @@ export function AppFormPicker({
         onBlur={() => setFieldTouched(inputName)}
         {...otherProps}
       />
-      <View style={styles.field}>
+      <View style={styles.errorMessage}>
         {touched[inputName] && <ErrorMessage error={errors[inputName]} />}
       </View>
     </>
@@ -30,7 +30,7 @@ export function AppFormPicker({
 }
 
 const styles = StyleSheet.create({
-  field: {
+  errorMessage: {
     height: 30,
     left: 50,
     marginLeft: 5,
