@@ -14,15 +14,24 @@ export function AppTextInput({ icon, ...otherProps }) {
   const { required } = otherProps;
   return (
     <View style={defaultStyles.inputBackground}>
-      <Icon
-        name={name}
-        size={size}
-        type={type}
-        color={color}
-        backgroundColor={backgroundColor}
+      {icon.name && (
+        <Icon
+          name={name}
+          size={size}
+          type={type}
+          color={color}
+          backgroundColor={backgroundColor}
+        />
+      )}
+      {required ? (
+        <Text style={{ color: colors.bg.danger, paddingLeft: 10 }}>*</Text>
+      ) : (
+        <></>
+      )}
+      <TextInput
+        style={[defaultStyles.inputText, { paddingLeft: required ? 0 : 10 }]}
+        {...otherProps}
       />
-      {required ? <Text style={{ color: colors.bg.danger }}>*</Text> : <></>}
-      <TextInput style={defaultStyles.inputText} {...otherProps} />
     </View>
   );
 }

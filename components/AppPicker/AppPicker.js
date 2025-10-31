@@ -1,24 +1,22 @@
-import { View, Modal, StyleSheet, FlatList } from "react-native";
-import Screen from "../Screen";
+import { View, StyleSheet, FlatList } from "react-native";
 import { Icon } from "../Icon.js";
 import { defaultStyles } from "../../config/defaultStyles.js";
 import AppText from "../AppText/AppText.js";
 import { useState } from "react";
 import colors from "../../config/colors.js";
 import PickerItem from "../PickerItem.js";
+import { useFormikContext } from "formik";
 
-export function AppPicker({ icon, items, placeHolder, ...props }) {
+export function AppPicker({ inputName, icon, items, placeHolder }) {
   const [modalVisible, setModalVisible] = useState(false);
+  const { values, setFieldValue } = useFormikContext();
+
   return (
-    <Screen>
+    <View style={styles.container}>
       <View style={defaultStyles.pickerBackground}>
-        <Icon
-          name={icon.name}
-          size={icon.size}
-          color={icon.color}
-          backgroundColor={icon.backgroundColor}
-        />
-        <AppText>{placeHolder}</AppText>
+        <AppText style={styles.selected}>
+          {values[inputName].length > 0 ? values[inputName] : placeHolder}
+        </AppText>
         <View
           style={{
             display: "flex",
@@ -27,42 +25,63 @@ export function AppPicker({ icon, items, placeHolder, ...props }) {
           }}
         >
           <Icon
-            handlePress={() => setModalVisible(true)}
+            handlePress={() => setModalVisible(!modalVisible)}
             name={"chevron-down"}
             size={icon.size}
+            type={"FontAwesome"}
             color={icon.color}
             backgroundColor={icon.backgroundColor}
           />
         </View>
       </View>
-      <Modal visible={modalVisible} animationType="fade">
-        <Screen>
-          <Icon
-            handlePress={() => setModalVisible(false)}
-            name={"close"}
-            size={24}
-            color={colors.text.primary}
-            backgroundColor={colors.bg.primary}
-          />
+
+      {modalVisible && (
+        <View style={styles.modal}>
           <FlatList
-            style={styles.list}
+            style={styles.itemContainer}
             data={items}
             keyExtractor={(item) => item.value.toString()}
-            renderItem={({ item }) => <PickerItem item={item} />}
-          ></FlatList>
-        </Screen>
-      </Modal>
-    </Screen>
+            showsVerticalScrollIndicator
+            renderItem={({ item }) => (
+              <PickerItem
+                item={item}
+                onSelectItem={() => {
+                  setModalVisible(false);
+                  setFieldValue(inputName, item.label);
+                }}
+              />
+            )}
+          />
+        </View>
+      )}
+    </View>
   );
 }
 
 export default AppPicker;
 
 const styles = StyleSheet.create({
-  list: {
-    borderBlockColor: colors.bg.black,
-    borderTopRightRadius: 25,
-    borderBottomLeftRadius: 25,
-    borderBottomRightRadius: 25,
+  container: {
+    display: "flex",
+    position: "relative",
+    width: "100%",
+  },
+  selected: {
+    padding: 10,
+  },
+  itemContainer: {
+    flex: 1,
+  },
+  modal: {
+    display: "flex",
+    position: "absolute",
+    top: 50,
+    zIndex: 10,
+    width: "100%",
+    borderColor: colors.bg.border,
+    borderWidth: 1,
+    backgroundColor: colors.bg.gray,
+    height: 200,
+    opacity: 0.95,
   },
 });

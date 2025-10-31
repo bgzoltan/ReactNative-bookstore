@@ -1,17 +1,16 @@
 import { View, Text, StyleSheet } from "react-native";
 import colors from "../../config/colors";
 
-export function AppText({ children, ...props }) {
+export function AppText({ children, ...otherProps }) {
   return (
-    <View>
-      <Text style={styles.text} {...props}>
-        {children}
-      </Text>
+    <View style={styles.container}>
+      <Text style={[styles.text, otherProps.style]}>{children}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: { width: "100%" },
   text: {
     color: colors.text.secondary,
     backgroundColor: colors.bg.gray,

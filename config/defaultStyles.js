@@ -20,10 +20,10 @@ export const defaultStyles = {
     borderRadius: 25,
     borderColor: "gray",
     borderWidth: 1,
+    height: 50,
   },
   pickerBackground: {
     display: "flex",
-    position: "relative",
     flexDirection: "row",
     alignItems: "center",
     padding: 2,
@@ -32,5 +32,7 @@ export const defaultStyles = {
     backgroundColor: colors.bg.gray,
     borderColor: "gray",
     borderWidth: 1,
+    height: 50,
+    // borderRadius: 25,
   },
 };

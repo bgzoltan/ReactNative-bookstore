@@ -8,5 +8,5 @@ export default function ErrorMessage({ error }) {
 }
 
 const styles = StyleSheet.create({
-  error: { color: colors.bg.danger },
+  error: { color: colors.bg.danger, backgroundColor: colors.bg.white },
 });

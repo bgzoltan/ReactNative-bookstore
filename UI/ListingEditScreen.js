@@ -1,12 +1,12 @@
 import Screen from "../components/Screen.js";
-import RegisterScreenForm, {
+import ListingEditScreenForm, {
   initialValues,
   validationSchema,
-} from "./Forms/RegisterScreenForm.js";
+} from "./Forms/ListingEditScreenForm.js";
 
 import AppForm from "../components/Form/AppForm.js";
 
-export default function RegisterScreen() {
+export default function ListingEditScreen() {
   const onSubmit = (values) => console.log("Submitted...", values);
 
   return (
@@ -16,7 +16,7 @@ export default function RegisterScreen() {
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
-        <RegisterScreenForm />
+        <ListingEditScreenForm />
       </AppForm>
     </Screen>
   );

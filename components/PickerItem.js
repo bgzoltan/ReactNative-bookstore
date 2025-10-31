@@ -1,20 +1,19 @@
-import { View, StyleSheet } from "react-native";
+import { TouchableOpacity, StyleSheet } from "react-native";
 import AppText from "./AppText/AppText";
 import colors from "../config/colors";
 
-export default function PickerItem({ item }) {
+export default function PickerItem({ item, onSelectItem }) {
   return (
-    <View style={styles.item}>
-      <AppText>{item.label}</AppText>
-    </View>
+    <TouchableOpacity onPress={onSelectItem}>
+      <AppText style={[styles.text]}>{item.label}</AppText>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  item: {
+  text: {
     padding: 10,
-    borderColor: colors.bg.black,
-    borderBottomWidth: 1,
-    backgroundColor: colors.bg.gray,
+    borderBottomColor: colors.bg.border,
+    borderTopColor: colors.bg.border,
   },
 });

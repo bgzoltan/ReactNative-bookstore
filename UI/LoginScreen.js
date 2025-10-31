@@ -35,9 +35,4 @@ const styles = StyleSheet.create({
     marginTop: 50,
     marginBottom: 20,
   },
-  button: {
-    display: "flex",
-    width: "100%",
-    height: "auto",
-  },
 });
