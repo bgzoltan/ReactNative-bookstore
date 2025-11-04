@@ -3,13 +3,14 @@ import { useFormikContext } from "formik";
 import ErrorMessage from "../ErrorMessage";
 import { StyleSheet, View } from "react-native";
 
-export function AppFormField({ inputName, ...otherProps }) {
+export function AppFormField({ inputName, width, ...otherProps }) {
   const { errors, handleChange, setFieldTouched, touched } = useFormikContext();
   return (
     <>
       <AppTextInput
         onChangeText={handleChange(inputName)}
         onBlur={() => setFieldTouched(inputName)}
+        width={width}
         {...otherProps}
       />
       <View style={styles.field}>
@@ -22,8 +23,7 @@ export function AppFormField({ inputName, ...otherProps }) {
 const styles = StyleSheet.create({
   field: {
     height: 30,
-    left: 50,
-    marginLeft: 5,
+    marginLeft: 15,
     paddingVertical: 1,
   },
 });

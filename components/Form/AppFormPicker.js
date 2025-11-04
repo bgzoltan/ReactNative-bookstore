@@ -8,6 +8,7 @@ export function AppFormPicker({
   icon,
   items,
   placeHolder,
+  width,
   ...otherProps
 }) {
   const { errors, handleChange, setFieldTouched, touched } = useFormikContext();
@@ -20,6 +21,7 @@ export function AppFormPicker({
         placeHolder={placeHolder}
         onChangeText={handleChange(inputName)}
         onBlur={() => setFieldTouched(inputName)}
+        width={width}
         {...otherProps}
       />
       <View style={styles.errorMessage}>

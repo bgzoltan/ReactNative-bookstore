@@ -14,6 +14,8 @@ import AppText from "./components/AppText/AppText";
 import LoginScreen from "./UI/LoginScreen";
 import RegisterScreen from "./UI/RegisterScreen";
 import ListingEditScreen from "./UI/ListingEditScreen";
+import ListItem from "./UI/ListItem";
+import MessageScreen from "./UI/MessageScreen";
 
 export default function App() {
   const orientation = useDeviceOrientation();
@@ -34,10 +36,12 @@ export default function App() {
       {/* <LogIn /> */}
       {/* <Product /> */}
       {/* <ListingScreen /> */}
-
+      {/* <ListItem /> */}
       <ListingEditScreen />
       {/* <RegisterScreen /> */}
       {/* <LoginScreen /> */}
+
+      {/* <MessageScreen /> */}
 
       {/* <AppPicker
         icon={{

@@ -7,13 +7,13 @@ import colors from "../../config/colors.js";
 import PickerItem from "../PickerItem.js";
 import { useFormikContext } from "formik";
 
-export function AppPicker({ inputName, icon, items, placeHolder }) {
+export function AppPicker({ inputName, icon, items, placeHolder, width }) {
   const [modalVisible, setModalVisible] = useState(false);
   const { values, setFieldValue } = useFormikContext();
 
   return (
     <View style={styles.container}>
-      <View style={defaultStyles.pickerBackground}>
+      <View style={[defaultStyles.pickerBackground, { width: width }]}>
         <AppText style={styles.selected}>
           {values[inputName] ? values[inputName].label : placeHolder}
         </AppText>
@@ -36,7 +36,7 @@ export function AppPicker({ inputName, icon, items, placeHolder }) {
       </View>
 
       {modalVisible && (
-        <View style={styles.modal}>
+        <View style={[styles.modal, { width: width }]}>
           <FlatList
             style={styles.itemContainer}
             data={items}
@@ -64,7 +64,6 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     position: "relative",
-    width: "100%",
   },
   selected: {
     padding: 10,
@@ -77,7 +76,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 50,
     zIndex: 10,
-    width: "100%",
     borderColor: colors.bg.border,
     borderWidth: 1,
     backgroundColor: colors.bg.gray,

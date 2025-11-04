@@ -1,21 +1,15 @@
-import {
-  StyleSheet,
-  Image,
-  View,
-  Text,
-  TouchableHighlight,
-} from "react-native";
+import { StyleSheet, Image, View, TouchableHighlight } from "react-native";
 import colors from "../config/colors";
 import {
   GestureHandlerRootView,
   Swipeable,
 } from "react-native-gesture-handler";
+import AppText from "../components/AppText/AppText";
 
 export default function ListItem({ name, title, image, renderRightActions }) {
   return (
-    <GestureHandlerRootView style={{ flex: 1, width: "100%" }}>
+    <GestureHandlerRootView>
       <Swipeable
-        containerStyle={styles.container}
         friction={2}
         enableTrackpadTwoFingerGesture
         rightThreshold={40}
@@ -25,8 +19,17 @@ export default function ListItem({ name, title, image, renderRightActions }) {
           <View style={styles.container}>
             {image && <Image style={styles.userImage} source={image} />}
             <View style={styles.userDescription}>
-              <Text style={{ fontWeight: "600" }}>{name}</Text>
-              <Text>{title && title}</Text>
+              <AppText
+                style={{ fontWeight: "600", backgroundColor: colors.bg.white }}
+              >
+                {name}
+              </AppText>
+              <AppText
+                style={{ backgroundColor: colors.bg.white }}
+                numberOfLines={5}
+              >
+                {title && title}
+              </AppText>
             </View>
           </View>
         </TouchableHighlight>
@@ -37,14 +40,16 @@ export default function ListItem({ name, title, image, renderRightActions }) {
 
 const styles = StyleSheet.create({
   container: {
+    display: "flex",
+    color: colors.text.gray,
     flexDirection: "row",
     alignItems: "center",
-    padding: 10,
     width: "100%",
   },
   userDescription: {
-    marginLeft: 10,
+    flex: 1,
     flexDirection: "column",
+    padding: 10,
   },
   userImage: {
     width: 50,

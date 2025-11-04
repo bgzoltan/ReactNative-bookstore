@@ -4,7 +4,9 @@ import colors from "../../config/colors";
 export function AppText({ children, ...otherProps }) {
   return (
     <View style={styles.container}>
-      <Text style={[styles.text, otherProps.style]}>{children}</Text>
+      <Text style={[styles.text, otherProps.style]} {...otherProps}>
+        {children}
+      </Text>
     </View>
   );
 }

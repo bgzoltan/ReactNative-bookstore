@@ -1,4 +1,4 @@
-import { StyleSheet, FlatList } from "react-native";
+import { StyleSheet, FlatList, View } from "react-native";
 import colors from "../config/colors";
 import ItemDeleteAction from "../components/ItemDeleteAction";
 import Screen from "../components/Screen";
@@ -6,13 +6,15 @@ import ListItem from "./ListItem";
 
 import { useState } from "react";
 import ListItemSeparator from "../components/ListItemSeparator";
+import { Icon } from "../components/Icon";
 
 export default function MessageScreen() {
   const initialMessages = [
     {
       id: "1",
       name: "Zoltan Bagdany",
-      title: "Developer",
+      title:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
       image: require("../assets/icon.png"),
     },
     {
@@ -38,18 +40,30 @@ export default function MessageScreen() {
   return (
     <Screen>
       <FlatList
-        style={{ flex: 1, width: "100%", height: "auto" }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          backgroundColor: colors.bg.white,
+        }}
         data={messages}
         keyExtractor={(message) => message.id}
         renderItem={({ item }) => (
-          <ListItem
-            name={item.name}
-            title={item.title}
-            image={item.image}
-            renderRightActions={() => (
-              <ItemDeleteAction handleDelete={() => handleDelete(item)} />
-            )}
-          />
+          <View style={styles.itemRow}>
+            <ListItem
+              name={item.name}
+              title={item.title}
+              image={item.image}
+              renderRightActions={() => (
+                <ItemDeleteAction handleDelete={() => handleDelete(item)} />
+              )}
+            />
+            <Icon
+              name="chevron-right"
+              type="FontAwesome"
+              color={colors.icon.secondary}
+            />
+          </View>
         )}
         ItemSeparatorComponent={<ListItemSeparator />}
         refreshing={refreshing}
@@ -68,5 +82,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.bg.white,
     alignItems: "center",
     justifyContent: "center",
+  },
+  itemRow: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
   },
 });

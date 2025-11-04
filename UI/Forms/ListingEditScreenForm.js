@@ -45,6 +45,8 @@ export default function ListingEditScreenForm() {
         placeholder="Price"
         keyboardType="numeric"
         maxLength={8}
+        width={120}
+        textAlign="right"
       />
       <AppFormPicker
         inputName="category"
@@ -57,6 +59,7 @@ export default function ListingEditScreenForm() {
           color: colors.icon.secondary,
           backgroundColor: colors.icon.gray,
         }}
+        width={"90%"}
       />
       <AppFormField
         inputName="description"
