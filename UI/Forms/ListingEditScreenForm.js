@@ -3,6 +3,7 @@ import { AppFormField } from "../../components/Form/AppFormField.js";
 import { AppFormPicker } from "../../components/Form/AppFormPicker.js";
 import * as Yup from "yup";
 import colors from "../../config/colors.js";
+import CategoryPickerItem from "../../components/CategoryPickerItem.js";
 
 export const initialValues = {
   price: 0,
@@ -22,13 +23,76 @@ export const validationSchema = Yup.object({
 
 export default function ListingEditScreenForm() {
   const categories = [
-    { label: "Furniture", value: 1 },
-    { label: "Clothing", value: 2 },
-    { label: "Camera", value: 3 },
-    { label: "Disc", value: 4 },
-    { label: "Tool", value: 5 },
-    { label: "Shoe", value: 6 },
-    { label: "Book", value: 7 },
+    {
+      label: "Furniture",
+      value: 1,
+      icon: {
+        name: "table-furniture",
+        type: "MaterialCommunityIcons",
+        color: colors.icon.primary,
+        backgroundColor: colors.bg.primary,
+      },
+    },
+    {
+      label: "Clothing",
+      value: 2,
+      icon: {
+        name: "table-furniture",
+        type: "MaterialCommunityIcons",
+        color: colors.icon.primary,
+        backgroundColor: colors.bg.primary,
+      },
+    },
+    {
+      label: "Camera",
+      value: 3,
+      icon: {
+        name: "table-furniture",
+        type: "MaterialCommunityIcons",
+        color: colors.icon.primary,
+        backgroundColor: colors.bg.primary,
+      },
+    },
+    {
+      label: "Disc",
+      value: 4,
+      icon: {
+        name: "table-furniture",
+        type: "MaterialCommunityIcons",
+        color: colors.icon.primary,
+        backgroundColor: colors.bg.primary,
+      },
+    },
+    {
+      label: "Tool",
+      value: 5,
+      icon: {
+        name: "table-furniture",
+        type: "MaterialCommunityIcons",
+        color: colors.icon.primary,
+        backgroundColor: colors.bg.primary,
+      },
+    },
+    {
+      label: "Shoe",
+      value: 6,
+      icon: {
+        name: "table-furniture",
+        type: "MaterialCommunityIcons",
+        color: colors.icon.primary,
+        backgroundColor: colors.bg.primary,
+      },
+    },
+    {
+      label: "Book",
+      value: 7,
+      icon: {
+        name: "table-furniture",
+        type: "MaterialCommunityIcons",
+        color: colors.icon.primary,
+        backgroundColor: colors.bg.primary,
+      },
+    },
   ];
   return (
     <>
@@ -60,6 +124,7 @@ export default function ListingEditScreenForm() {
           backgroundColor: colors.icon.gray,
         }}
         width={"90%"}
+        PickerItemComponent={CategoryPickerItem}
       />
       <AppFormField
         inputName="description"

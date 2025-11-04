@@ -1,6 +1,7 @@
 import { TouchableOpacity, StyleSheet } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import colors from "../config/colors";
 
 export function Icon({
@@ -19,6 +20,9 @@ export function Icon({
       {type == "MaterialIcons" && (
         <MaterialIcons name={name} size={size} color={color} />
       )}
+      {type == "MaterialCommunityIcons" && (
+        <MaterialCommunityIcons name={name} size={size} color={color} />
+      )}
       {type == "FontAwesome" && (
         <FontAwesome name={name} size={size} color={color} />
       )}
@@ -28,6 +32,8 @@ export function Icon({
 
 const styles = StyleSheet.create({
   iconContainer: {
+    display: "flex",
+    flexDirection: "row",
     padding: 5,
     borderRadius: 25,
     height: 40,

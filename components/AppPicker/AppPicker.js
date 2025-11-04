@@ -4,10 +4,16 @@ import { defaultStyles } from "../../config/defaultStyles.js";
 import AppText from "../AppText/AppText.js";
 import { useState } from "react";
 import colors from "../../config/colors.js";
-import PickerItem from "../PickerItem.js";
 import { useFormikContext } from "formik";
 
-export function AppPicker({ inputName, icon, items, placeHolder, width }) {
+export function AppPicker({
+  inputName,
+  icon,
+  items,
+  placeHolder,
+  width,
+  PickerItemComponent = "PickerItem",
+}) {
   const [modalVisible, setModalVisible] = useState(false);
   const { values, setFieldValue } = useFormikContext();
 
@@ -42,8 +48,9 @@ export function AppPicker({ inputName, icon, items, placeHolder, width }) {
             data={items}
             keyExtractor={(item) => item.value.toString()}
             showsVerticalScrollIndicator
+            numColumns={3}
             renderItem={({ item }) => (
-              <PickerItem
+              <PickerItemComponent
                 item={item}
                 onSelectItem={() => {
                   setModalVisible(false);
@@ -69,7 +76,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   itemContainer: {
-    flex: 1,
+    display: "flex",
   },
   modal: {
     display: "flex",
