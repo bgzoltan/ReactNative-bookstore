@@ -19,6 +19,15 @@ const colors = {
     primary: "#FFFFFF",
     secondary: "#615e5eff",
     gray: "#F2F2F2",
+    red: "#F78174",
+    orange: "#F8A95D",
+    yellow: "#FDD657",
+    green: "#6FD294",
+    greenBlue: "#65C6C4",
+    lightBlue: "#65B1F3",
+    blue: "#5D8BED",
+    purple: "#A87EEC",
+    darkGrey: "#8597AE",
   },
 };
 

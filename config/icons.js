@@ -13,6 +13,11 @@ import {
   User,
   LogOut,
   List,
+  Car,
+  Dice5,
+  Volleyball,
+  Headphones,
+  AppWindowMac,
 } from "lucide-react-native";
 
 const LucideIcons = {
@@ -30,6 +35,11 @@ const LucideIcons = {
   user: User,
   logout: LogOut,
   list: List,
+  cars: Car,
+  games: Dice5,
+  sports: Volleyball,
+  movies: Headphones,
+  others: AppWindowMac,
 };
 
 export default LucideIcons;

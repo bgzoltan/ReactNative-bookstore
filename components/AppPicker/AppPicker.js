@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     borderColor: colors.bg.border,
     borderWidth: 1,
     backgroundColor: colors.bg.gray,
-    height: 200,
+    height: 250,
     opacity: 0.95,
   },
 });

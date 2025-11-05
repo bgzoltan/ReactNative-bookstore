@@ -29,16 +29,16 @@ export default function ListingEditScreenForm() {
       icon: {
         name: "furniture",
         color: colors.icon.primary,
-        backgroundColor: colors.bg.primary,
+        backgroundColor: colors.icon.red,
       },
     },
     {
-      label: "Clothing",
+      label: "Cars",
       value: 2,
       icon: {
-        name: "clothing",
+        name: "cars",
         color: colors.icon.primary,
-        backgroundColor: colors.bg.primary,
+        backgroundColor: colors.icon.orange,
       },
     },
     {
@@ -47,25 +47,61 @@ export default function ListingEditScreenForm() {
       icon: {
         name: "electronics",
         color: colors.icon.primary,
-        backgroundColor: colors.bg.primary,
+        backgroundColor: colors.icon.yellow,
       },
     },
     {
-      label: "Tools",
+      label: "Games",
+      value: 4,
+      icon: {
+        name: "games",
+        color: colors.icon.primary,
+        backgroundColor: colors.icon.green,
+      },
+    },
+    {
+      label: "Clothing",
       value: 5,
       icon: {
-        name: "tools",
+        name: "clothing",
         color: colors.icon.primary,
-        backgroundColor: colors.bg.primary,
+        backgroundColor: colors.icon.greenBlue,
+      },
+    },
+    {
+      label: "Sports",
+      value: 6,
+      icon: {
+        name: "sports",
+        color: colors.icon.primary,
+        backgroundColor: colors.icon.lightBlue,
+      },
+    },
+    {
+      label: "Movies and music",
+      value: 7,
+      icon: {
+        name: "movies",
+        color: colors.icon.primary,
+        backgroundColor: colors.icon.blue,
       },
     },
     {
       label: "Books",
-      value: 6,
+      value: 8,
       icon: {
         name: "books",
         color: colors.icon.primary,
-        backgroundColor: colors.bg.primary,
+        backgroundColor: colors.icon.purple,
+      },
+    },
+    {
+      label: "Others",
+      value: 9,
+      icon: {
+        name: "others",
+        color: colors.icon.primary,
+        backgroundColor: colors.icon.darkGrey,
       },
     },
   ];
