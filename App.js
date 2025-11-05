@@ -9,7 +9,6 @@ import { Text } from "react-native";
 import { AppTextInput } from "./components/AppTextInput/AppTextInput";
 import { useState } from "react";
 import colors from "./config/colors";
-import { AppPicker } from "./components/AppPicker/AppPicker";
 import AppText from "./components/AppText/AppText";
 import LoginScreen from "./UI/LoginScreen";
 import RegisterScreen from "./UI/RegisterScreen";
@@ -18,14 +17,7 @@ import ListItem from "./UI/ListItem";
 import MessageScreen from "./UI/MessageScreen";
 
 export default function App() {
-  const orientation = useDeviceOrientation();
   const [value, setValue] = useState("");
-
-  const categories = [
-    { label: "Furniture", value: 1 },
-    { label: "Clothing", value: 2 },
-    { label: "Cameras", value: 3 },
-  ];
 
   const onChangeTextHandler = (text) => {
     setValue(text);
@@ -33,31 +25,21 @@ export default function App() {
   return (
     //   In the new version SafeAreProvider is needed to use SafeAreView
     <SafeAreaProvider>
+      {/* <AccountScreen /> */}
       {/* <LogIn /> */}
       {/* <Product /> */}
       {/* <ListingScreen /> */}
       {/* <ListItem /> */}
-      <ListingEditScreen />
+      {/* <ListingEditScreen /> */}
       {/* <RegisterScreen /> */}
-      {/* <LoginScreen /> */}
+      <LoginScreen />
 
       {/* <MessageScreen /> */}
 
-      {/* <AppPicker
-        icon={{
-          name: "apps",
-          size: 25,
-          color: colors.icon.secondary,
-          backgroundColor: colors.icon.gray,
-        }}
-        items={categories}
-        placeHolder="Category"
-        value={value}
-        onChangeText={(text) => onChangeTextHandler(text)}
-      /> */}
       {/* <AppTextInput
         icon={{
-          name: "email",
+          name: "mail",
+          type: "Lucide",
           size: 25,
           color: colors.icon.secondary,
           backgroundColor: colors.icon.gray,

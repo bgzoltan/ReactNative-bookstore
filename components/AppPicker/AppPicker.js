@@ -5,6 +5,7 @@ import AppText from "../AppText/AppText.js";
 import { useState } from "react";
 import colors from "../../config/colors.js";
 import { useFormikContext } from "formik";
+import CategoryPickerItem from "../CategoryPickerItem.js";
 
 export function AppPicker({
   inputName,
@@ -32,9 +33,8 @@ export function AppPicker({
         >
           <Icon
             handlePress={() => setModalVisible(!modalVisible)}
-            name={"chevron-down"}
+            name={"chevronDown"}
             size={icon.size}
-            type={"FontAwesome"}
             color={icon.color}
             backgroundColor={icon.backgroundColor}
           />
@@ -48,7 +48,9 @@ export function AppPicker({
             data={items}
             keyExtractor={(item) => item.value.toString()}
             showsVerticalScrollIndicator
-            numColumns={3}
+            numColumns={
+              PickerItemComponent.name == "CategoryPickerItem" ? 3 : 0
+            }
             renderItem={({ item }) => (
               <PickerItemComponent
                 item={item}

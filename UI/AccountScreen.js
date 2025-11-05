@@ -16,25 +16,22 @@ export function AccountScreen() {
     {
       name: "My Listings",
       icon: {
-        name: "format-list-bulleted",
-        size: 28,
-        backgroundColor: colors.bg.primary,
+        name: "list",
+        color: colors.icon.secondary,
       },
     },
     {
       name: "My Messages",
       icon: {
-        name: "email",
-        size: 28,
-        backgroundColor: colors.bg.secondary,
+        name: "mail",
+        color: colors.icon.secondary,
       },
     },
     {
       name: "Log ot",
       icon: {
         name: "logout",
-        size: 28,
-        backgroundColor: colors.bg.yellow,
+        color: colors.icon.secondary,
       },
     },
   ];
@@ -42,7 +39,7 @@ export function AccountScreen() {
   return (
     <Screen>
       <View style={styles.container}>
-        <View style={styles.menuItem}>
+        <View style={styles.userItem}>
           <ListItem
             name={user.name}
             title={user.title}
@@ -71,9 +68,14 @@ export function AccountScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.bg.gray,
+    backgroundColor: colors.bg.white,
     width: "100%",
     height: "100%",
+  },
+  userItem: {
+    display: "flex",
+    flexDirection: "row",
+    padding: 10,
   },
   menuItem: {
     display: "flex",

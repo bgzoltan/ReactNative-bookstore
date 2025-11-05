@@ -1,11 +1,15 @@
 import { StyleSheet, TouchableOpacity } from "react-native";
 import colors from "../config/colors";
-import AntDesign from "@expo/vector-icons/AntDesign";
+import { Icon } from "./Icon";
 
 export default function ItemDeleteAction({ handleDelete }) {
   return (
     <TouchableOpacity style={styles.container} onPress={handleDelete}>
-      <AntDesign name="delete" size={24} color="black" />
+      <Icon
+        name="bin"
+        color={colors.icon.primary}
+        backgroundColor={colors.bg.danger}
+      />
     </TouchableOpacity>
   );
 }

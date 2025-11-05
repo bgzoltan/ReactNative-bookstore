@@ -27,8 +27,7 @@ export default function ListingEditScreenForm() {
       label: "Furniture",
       value: 1,
       icon: {
-        name: "table-furniture",
-        type: "MaterialCommunityIcons",
+        name: "furniture",
         color: colors.icon.primary,
         backgroundColor: colors.bg.primary,
       },
@@ -37,58 +36,34 @@ export default function ListingEditScreenForm() {
       label: "Clothing",
       value: 2,
       icon: {
-        name: "table-furniture",
-        type: "MaterialCommunityIcons",
+        name: "clothing",
         color: colors.icon.primary,
         backgroundColor: colors.bg.primary,
       },
     },
     {
-      label: "Camera",
+      label: "Electronics",
       value: 3,
       icon: {
-        name: "table-furniture",
-        type: "MaterialCommunityIcons",
+        name: "electronics",
         color: colors.icon.primary,
         backgroundColor: colors.bg.primary,
       },
     },
     {
-      label: "Disc",
-      value: 4,
-      icon: {
-        name: "table-furniture",
-        type: "MaterialCommunityIcons",
-        color: colors.icon.primary,
-        backgroundColor: colors.bg.primary,
-      },
-    },
-    {
-      label: "Tool",
+      label: "Tools",
       value: 5,
       icon: {
-        name: "table-furniture",
-        type: "MaterialCommunityIcons",
+        name: "tools",
         color: colors.icon.primary,
         backgroundColor: colors.bg.primary,
       },
     },
     {
-      label: "Shoe",
+      label: "Books",
       value: 6,
       icon: {
-        name: "table-furniture",
-        type: "MaterialCommunityIcons",
-        color: colors.icon.primary,
-        backgroundColor: colors.bg.primary,
-      },
-    },
-    {
-      label: "Book",
-      value: 7,
-      icon: {
-        name: "table-furniture",
-        type: "MaterialCommunityIcons",
+        name: "books",
         color: colors.icon.primary,
         backgroundColor: colors.bg.primary,
       },
@@ -119,7 +94,7 @@ export default function ListingEditScreenForm() {
         icon={{
           name: "list",
           size: 25,
-          type: "FontAwesome",
+          type: "Lucide",
           color: colors.icon.secondary,
           backgroundColor: colors.icon.gray,
         }}

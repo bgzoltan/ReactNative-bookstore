@@ -17,7 +17,7 @@ const colors = {
   },
   icon: {
     primary: "#FFFFFF",
-    secondary: "#b3adadff",
+    secondary: "#615e5eff",
     gray: "#F2F2F2",
   },
 };

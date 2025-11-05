@@ -11,15 +11,16 @@ export function AppTextInput({ icon, width = "100%", ...otherProps }) {
         <Icon
           name={icon.name}
           size={icon.size ? icon.size : 24}
-          type={icon.type ? icon.type : "MaterialIcons"}
           color={icon.color ? icon.color : colors.icon.secondary}
           backgroundColor={
-            icon.backgroundColor ? icon.backgroundColor : colors.bg.white
+            icon.backgroundColor ? icon.backgroundColor : colors.bg.gray
           }
         />
       )}
       {required ? (
-        <Text style={{ color: colors.bg.danger, paddingLeft: 10 }}>*</Text>
+        <Text style={{ color: colors.bg.danger, paddingLeft: icon ? 0 : 5 }}>
+          *
+        </Text>
       ) : (
         <></>
       )}
@@ -27,8 +28,8 @@ export function AppTextInput({ icon, width = "100%", ...otherProps }) {
         style={[
           defaultStyles.inputText,
           {
-            paddingLeft: required ? 0 : 10,
-            paddingRight: 5,
+            paddingLeft: 8,
+            paddingRight: 10,
           },
           { textAlign: otherProps.textAlign },
         ]}

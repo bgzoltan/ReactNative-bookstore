@@ -58,11 +58,7 @@ export default function MessageScreen() {
                 <ItemDeleteAction handleDelete={() => handleDelete(item)} />
               )}
             />
-            <Icon
-              name="chevron-right"
-              type="FontAwesome"
-              color={colors.icon.secondary}
-            />
+            <Icon name="chevronRight" color={colors.icon.secondary} />
           </View>
         )}
         ItemSeparatorComponent={<ListItemSeparator />}

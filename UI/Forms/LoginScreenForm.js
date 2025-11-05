@@ -19,7 +19,7 @@ export default function LoginScreenForm() {
         inputName={"email"}
         placeholder={"Type in your email"}
         icon={{
-          name: "email",
+          name: "mail",
         }}
         required
       />

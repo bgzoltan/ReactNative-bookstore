@@ -21,7 +21,6 @@ export default function RegisterScreenForm() {
         placeholder={"Type in your name"}
         icon={{
           name: "user",
-          type: "FontAwesome",
         }}
         required
       />
@@ -33,7 +32,7 @@ export default function RegisterScreenForm() {
         inputName={"email"}
         placeholder={"Type in your email"}
         icon={{
-          name: "email",
+          name: "mail",
         }}
         required
       />

@@ -1,31 +1,21 @@
 import { TouchableOpacity, StyleSheet } from "react-native";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import LucideIcons from "../config/icons";
 import colors from "../config/colors";
 
 export function Icon({
   name,
   size = 24,
   color = colors.icon.primary,
-  type,
   backgroundColor = colors.icon.primary,
   handlePress = () => {},
 }) {
+  const IconComponent = LucideIcons[name];
   return (
     <TouchableOpacity
       onPress={handlePress}
       style={[styles.iconContainer, { backgroundColor: backgroundColor }]}
     >
-      {type == "MaterialIcons" && (
-        <MaterialIcons name={name} size={size} color={color} />
-      )}
-      {type == "MaterialCommunityIcons" && (
-        <MaterialCommunityIcons name={name} size={size} color={color} />
-      )}
-      {type == "FontAwesome" && (
-        <FontAwesome name={name} size={size} color={color} />
-      )}
+      <IconComponent size={size} color={color} />
     </TouchableOpacity>
   );
 }

@@ -5,7 +5,14 @@ import colors from "../config/colors";
 export default function MenuItem({ name, icon }) {
   return (
     <TouchableOpacity style={styles.container}>
-      <Icon name={icon.name} size={icon.size} color={icon.backgroundColor} />
+      <Icon
+        name={icon.name}
+        size={icon.size ? icon.size : 24}
+        color={icon.color ? icon.color : colors.icon.primary}
+        backgroundColor={
+          icon.backgroundColor ? icon.backgroundColor : colors.bg.gray
+        }
+      />
       <Text>{name}</Text>
     </TouchableOpacity>
   );

@@ -8,7 +8,6 @@ export default function CategoryPickerItem({ item, onSelectItem }) {
     <TouchableOpacity style={styles.container} onPress={onSelectItem}>
       <Icon
         name={item.icon ? item.icon.name : ""}
-        type={item.icon ? item.icon.type : "MaterialIcons"}
         color={item.icon ? item.icon.color : colors.icon.primary}
         backgroundColor={
           item.icon ? item.icon.backgroundColor : colors.icon.backgroundColor
