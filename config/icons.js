@@ -18,6 +18,7 @@ import {
   Volleyball,
   Headphones,
   AppWindowMac,
+  Camera,
 } from "lucide-react-native";
 
 const LucideIcons = {
@@ -40,6 +41,7 @@ const LucideIcons = {
   sports: Volleyball,
   movies: Headphones,
   others: AppWindowMac,
+  camera: Camera,
 };
 
 export default LucideIcons;

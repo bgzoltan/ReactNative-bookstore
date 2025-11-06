@@ -4,12 +4,14 @@ import { AppFormPicker } from "../../components/Form/AppFormPicker.js";
 import * as Yup from "yup";
 import colors from "../../config/colors.js";
 import CategoryPickerItem from "../../components/CategoryPickerItem.js";
+import AppFormImageInput from "../../components/Form/AppFormImageInput.js";
 
 export const initialValues = {
   price: 0,
   title: "",
   category: null,
   description: "",
+  imageAssets: [],
 };
 export const validationSchema = Yup.object({
   title: Yup.string()
@@ -19,6 +21,10 @@ export const validationSchema = Yup.object({
   price: Yup.number().min(1).max(1000).label("Price"),
   category: Yup.object().required().nullable().label("Category"),
   description: Yup.string().label("Description"),
+  imageAssets: Yup.array()
+    .max(5, "Maximum 5 images allowed.")
+    .required()
+    .label("Images"),
 });
 
 export default function ListingEditScreenForm() {
@@ -107,6 +113,7 @@ export default function ListingEditScreenForm() {
   ];
   return (
     <>
+      <AppFormImageInput inputName="imageAssets" />
       <AppFormField
         inputName="title"
         placeholder="Title"
