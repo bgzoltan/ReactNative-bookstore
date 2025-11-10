@@ -6,6 +6,8 @@ import colors from "../../config/colors.js";
 import CategoryPickerItem from "../../components/CategoryPickerItem.js";
 import AppFormImageInput from "../../components/Form/AppFormImageInput.js";
 
+import useLocation from "../../hooks/useLocation.js";
+
 export const initialValues = {
   price: 0,
   title: "",
@@ -111,6 +113,9 @@ export default function ListingEditScreenForm() {
       },
     },
   ];
+
+  const location = useLocation();
+
   return (
     <>
       <AppFormImageInput inputName="imageAssets" />
@@ -152,7 +157,12 @@ export default function ListingEditScreenForm() {
         maxLength={255}
       />
 
-      <AppFormSubmitButton type={"primary"}>POST</AppFormSubmitButton>
+      <AppFormSubmitButton
+        type={"primary"}
+        handleSubmit={console.log("LOCATION", location)}
+      >
+        POST
+      </AppFormSubmitButton>
     </>
   );
 }

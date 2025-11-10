@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
-import { ImageInputLayout } from "./ImageInputLayout";
+import ImageInputLayout from "./ImageInputLayout";
 import * as ImagePicker from "expo-image-picker";
 import * as MediaLibrary from "expo-media-library";
 import AppImageInput from "./AppImageInput";
@@ -12,17 +12,19 @@ export default function AppImageInputList({ inputName }) {
 
   const addImage = async () => {
     const { canceled, assets } = await ImagePicker.launchImageLibraryAsync();
-    const { assetId, uri } = assets[0];
+    const asset = assets[0];
+    const uri = asset.uri;
+    const id = asset.id || uri;
 
     if (!canceled) {
-      const isSelected = values[inputName].find((asset) => asset.id == assetId);
+      const isSelected = values[inputName].find((asset) => asset.id == id);
       if (isSelected) {
         Alert.alert("Wrong selection", "This image already selected");
         return;
       }
       const newImageAssets = [...values[inputName]];
       newImageAssets.push({
-        id: assetId,
+        id: id,
         uri,
       });
       setFieldValue(inputName, newImageAssets);
