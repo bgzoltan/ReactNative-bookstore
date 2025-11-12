@@ -9,7 +9,7 @@ export function AccountScreen() {
   const user = {
     name: "Zoltan Bagdany",
     title: "Software Developer",
-    image: require("../assets/icon.png"),
+    image: require("../assets/icon.jpeg"),
   };
 
   const menuItems = [
@@ -17,21 +17,24 @@ export function AccountScreen() {
       name: "My Listings",
       icon: {
         name: "list",
-        color: colors.icon.secondary,
+        color: colors.icon.white,
+        backgroundColor: colors.icon.red,
       },
     },
     {
       name: "My Messages",
       icon: {
         name: "mail",
-        color: colors.icon.secondary,
+        color: colors.icon.white,
+        backgroundColor: colors.icon.greenBlue,
       },
     },
     {
       name: "Log ot",
       icon: {
         name: "logout",
-        color: colors.icon.secondary,
+        color: colors.icon.white,
+        backgroundColor: colors.icon.yellow,
       },
     },
   ];
@@ -70,7 +73,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.bg.white,
     width: "100%",
-    height: "100%",
   },
   userItem: {
     display: "flex",

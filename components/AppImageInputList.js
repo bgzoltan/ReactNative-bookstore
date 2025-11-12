@@ -6,7 +6,6 @@ import * as MediaLibrary from "expo-media-library";
 import AppImageInput from "./AppImageInput";
 import { useFormikContext } from "formik";
 import { StyleSheet, ScrollView, Alert } from "react-native";
-
 export default function AppImageInputList({ inputName }) {
   const { values, setFieldValue } = useFormikContext();
 
@@ -53,7 +52,11 @@ export default function AppImageInputList({ inputName }) {
   }, []);
 
   return (
-    <ScrollView horizontal contentContainerStyle={styles.container}>
+    <ScrollView
+      style={{ flexGrow: 0 }}
+      horizontal
+      contentContainerStyle={styles.container}
+    >
       <ImageInputLayout handlePress={addImage} />
       {values[inputName].map((imageAsset) => (
         <AppImageInput
@@ -70,6 +73,7 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     gap: 3,
+    height: 100,
   },
   imageContainer: {
     width: 100,

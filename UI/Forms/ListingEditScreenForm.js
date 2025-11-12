@@ -144,7 +144,7 @@ export default function ListingEditScreenForm() {
           size: 25,
           type: "Lucide",
           color: colors.icon.secondary,
-          backgroundColor: colors.icon.gray,
+          backgroundColor: colors.icon.white,
         }}
         width={"90%"}
         PickerItemComponent={CategoryPickerItem}

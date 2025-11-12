@@ -1,12 +1,7 @@
 import AppText from "./AppText/AppText";
-import { StyleSheet } from "react-native";
-import colors from "../config/colors";
+import { defaultStyles } from "../config/defaultStyles";
 
 export default function ErrorMessage({ error }) {
   if (!error) return null;
-  return <AppText style={styles.error}>{error}</AppText>;
+  return <AppText style={defaultStyles.error}>{error}</AppText>;
 }
-
-const styles = StyleSheet.create({
-  error: { color: colors.bg.danger, backgroundColor: colors.bg.white },
-});

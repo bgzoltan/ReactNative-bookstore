@@ -19,6 +19,8 @@ import {
   Headphones,
   AppWindowMac,
   Camera,
+  House,
+  CirclePlus,
 } from "lucide-react-native";
 
 const LucideIcons = {
@@ -42,6 +44,8 @@ const LucideIcons = {
   movies: Headphones,
   others: AppWindowMac,
   camera: Camera,
+  house: House,
+  circlePlus: CirclePlus,
 };
 
 export default LucideIcons;

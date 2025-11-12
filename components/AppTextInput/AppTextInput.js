@@ -25,6 +25,7 @@ export function AppTextInput({ icon, width = "100%", ...otherProps }) {
         <></>
       )}
       <TextInput
+        placeholderTextColor={colors.text.gray}
         style={[
           defaultStyles.inputText,
           {

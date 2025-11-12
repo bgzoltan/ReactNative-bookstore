@@ -1,7 +1,8 @@
 import { useFormikContext } from "formik";
 import ErrorMessage from "../ErrorMessage";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import AppPicker from "../AppPicker/AppPicker";
+import { defaultStyles } from "../../config/defaultStyles";
 
 export function AppFormPicker({
   inputName,
@@ -26,18 +27,9 @@ export function AppFormPicker({
         PickerItemComponent={PickerItemComponent}
         {...otherProps}
       />
-      <View style={styles.errorMessage}>
+      <View style={defaultStyles.errorContainer}>
         {touched[inputName] && <ErrorMessage error={errors[inputName]} />}
       </View>
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  errorMessage: {
-    height: 30,
-    left: 50,
-    marginLeft: 5,
-    paddingVertical: 1,
-  },
-});

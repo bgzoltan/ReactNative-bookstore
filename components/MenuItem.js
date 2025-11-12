@@ -13,7 +13,13 @@ export default function MenuItem({ name, icon }) {
           icon.backgroundColor ? icon.backgroundColor : colors.bg.gray
         }
       />
-      <Text>{name}</Text>
+      <Text style={styles.item}>{name}</Text>
+      <Icon
+        name="chevronRight"
+        size={icon.size ? icon.size : 24}
+        color={colors.icon.darkGrey}
+        backgroundColor={colors.bg.white}
+      />
     </TouchableOpacity>
   );
 }
@@ -28,5 +34,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     backgroundColor: colors.bg.white,
+  },
+  item: {
+    display: "flex",
+    flexGrow: 1,
   },
 });

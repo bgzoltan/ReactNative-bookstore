@@ -19,7 +19,7 @@ export default function ListingScreen() {
   ];
 
   return (
-    <Screen>
+    <View style={{ flex: 1, paddingTop: 50 }}>
       <View style={styles.container}>
         <FlatList
           data={cards}
@@ -32,18 +32,17 @@ export default function ListingScreen() {
             />
           )}
           ItemSeparatorComponent={
-            <ListItemSeparator color={colors.bg.gray} height={2} />
+            <ListItemSeparator color={colors.bg.gray} height={15} />
           }
         />
       </View>
-    </Screen>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    backgroundColor: colors.bg.secondary,
     height: "100%",
   },
 });

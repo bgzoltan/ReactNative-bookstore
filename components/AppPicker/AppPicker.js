@@ -5,7 +5,6 @@ import AppText from "../AppText/AppText.js";
 import { useState } from "react";
 import colors from "../../config/colors.js";
 import { useFormikContext } from "formik";
-import CategoryPickerItem from "../CategoryPickerItem.js";
 
 export function AppPicker({
   inputName,
@@ -20,7 +19,15 @@ export function AppPicker({
 
   return (
     <View style={styles.container}>
-      <View style={[defaultStyles.pickerBackground, { width: width }]}>
+      <View
+        style={[
+          defaultStyles.pickerBackground,
+          { borderBottomLeftRadius: modalVisible ? 0 : 25 },
+          { borderBottomRightRadius: modalVisible ? 0 : 25 },
+          { borderBottomWidth: modalVisible ? 0 : 1 },
+          { width: width },
+        ]}
+      >
         <AppText style={styles.selected}>
           {values[inputName] ? values[inputName].label : placeHolder}
         </AppText>
@@ -86,8 +93,11 @@ const styles = StyleSheet.create({
     top: 50,
     zIndex: 10,
     borderColor: colors.bg.border,
-    borderWidth: 1,
-    backgroundColor: colors.bg.gray,
+    borderTopWidth: 0,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderBottomWidth: 1,
+    backgroundColor: colors.bg.white,
     height: 250,
     opacity: 0.95,
   },

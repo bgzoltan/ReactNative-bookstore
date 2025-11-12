@@ -1,7 +1,8 @@
 import { useFormikContext } from "formik";
 import ErrorMessage from "../ErrorMessage";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import AppImageInputList from "../AppImageInputList";
+import { defaultStyles } from "../../config/defaultStyles";
 
 export default function AppFormImageInput({ inputName, ...otherProps }) {
   const { errors, setFieldTouched, touched } = useFormikContext();
@@ -12,17 +13,9 @@ export default function AppFormImageInput({ inputName, ...otherProps }) {
         onBlur={() => setFieldTouched(inputName)}
         {...otherProps}
       />
-      <View style={styles.field}>
+      <View style={defaultStyles.errorContainer}>
         {touched[inputName] && <ErrorMessage error={errors[inputName]} />}
       </View>
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  field: {
-    height: 30,
-    marginLeft: 15,
-    paddingVertical: 1,
-  },
-});
