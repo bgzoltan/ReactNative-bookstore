@@ -12,6 +12,8 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     width: "100%",
     height: 50,
+    marginBottom: 5,
+    opacity: 0.9,
   },
 
   secondary: {

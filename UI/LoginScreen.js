@@ -7,7 +7,7 @@ import LoginScreenForm, {
 
 import AppForm from "../components/Form/AppForm.js";
 
-export default function LoginScreen() {
+export default function LoginScreen({}) {
   const onSubmit = (values) => console.log("Submitted...", values);
 
   return (

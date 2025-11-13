@@ -4,18 +4,18 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { ImageBackground } from "react-native";
 import AppButton from "../components/AppButton/AppButton";
 
-export default function LogIn() {
+export default function WelcomeScreen({ navigation }) {
   const handleLogin = () => {
-    console.log("Login Pressed");
+    navigation.navigate("Login");
   };
   const handleRegister = () => {
-    console.log("Register Pressed");
+    navigation.navigate("Register");
   };
   return (
     <ImageBackground
-      source={require("../assets/booksBg.png")}
-      resizeMode="contain"
-      blurRadius={4}
+      source={require("../assets/booksBackground-cutout.png")}
+      resizeMode="fill"
+      blurRadius={0}
       style={styles.imageBackground}
     >
       <SafeAreaView style={styles.container}>
