@@ -2,6 +2,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import AuthNavigator from "./navigation/AuthNavigator";
+import { navigationTheme } from "./navigation/navigationTheme";
 
 // import { useDeviceOrientation } from "@react-native-community/hooks";
 // import LogIn from "./UI/Login";
@@ -31,7 +32,7 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <NavigationContainer>
+        <NavigationContainer theme={navigationTheme}>
           <AuthNavigator />
         </NavigationContainer>
       </GestureHandlerRootView>
