@@ -5,7 +5,7 @@ export const navigationTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: colors.text.primary,
+    primary: colors.icon.red,
     background: colors.bg.white,
   },
 };

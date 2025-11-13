@@ -42,4 +42,19 @@ export const defaultStyles = {
     color: colors.bg.danger,
     backgroundColor: colors.bg.gray,
   },
+  logo: {
+    width: 120,
+    height: 102,
+    alignSelf: "center",
+    marginTop: 50,
+    marginBottom: 20,
+  },
+  logoText: {
+    fontSize: 12,
+    color: "black",
+  },
+  logoText: {
+    fontSize: 12,
+    color: "black",
+  },
 };

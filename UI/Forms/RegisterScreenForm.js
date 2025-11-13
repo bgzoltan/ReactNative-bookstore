@@ -1,5 +1,6 @@
 import AppFormSubmitButton from "../../components/Form/AppFormSubmitButton.js";
 import { AppFormField } from "../../components/Form/AppFormField.js";
+import colors from "../../config/colors.js";
 import * as Yup from "yup";
 
 export const initialValues = { name: "", email: "", password: "" };
@@ -21,6 +22,7 @@ export default function RegisterScreenForm() {
         placeholder={"Type in your name"}
         icon={{
           name: "user",
+          backgroundColor: colors.bg.white,
         }}
         required
       />
@@ -33,6 +35,7 @@ export default function RegisterScreenForm() {
         placeholder={"Type in your email"}
         icon={{
           name: "mail",
+          backgroundColor: colors.bg.white,
         }}
         required
       />
@@ -45,6 +48,7 @@ export default function RegisterScreenForm() {
         inputName={"password"}
         icon={{
           name: "lock",
+          backgroundColor: colors.bg.white,
         }}
         required
       />

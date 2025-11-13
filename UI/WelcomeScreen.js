@@ -1,9 +1,10 @@
+import AppButton from "../components/AppButton/AppButton";
+import colors from "../config/colors";
+import { defaultStyles } from "../config/defaultStyles";
+import { ImageBackground } from "react-native";
 import { StyleSheet, Text, View, Image } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ImageBackground } from "react-native";
-import AppButton from "../components/AppButton/AppButton";
-import colors from "../config/colors";
 
 export default function WelcomeScreen({ navigation }) {
   const handleLogin = () => {
@@ -22,10 +23,10 @@ export default function WelcomeScreen({ navigation }) {
       <SafeAreaView style={styles.container}>
         <View style={styles.logoContainer}>
           <Image
+            style={defaultStyles.logo}
             source={require("../assets/booksStopLogo-cutout.png")}
-            style={{ width: 120, height: 102 }}
           />
-          <Text style={styles.logoText}>To buy and sell books</Text>
+          <Text style={defaultStyles.logoText}>To buy and sell books</Text>
         </View>
         <View style={styles.mainAreaContainer}></View>
         <AppButton type="primary" onPress={handleLogin}>
@@ -55,10 +56,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-  },
-  logoText: {
-    fontSize: 12,
-    color: "black",
   },
   controllerBoxes: {
     backgroundColor: "#9ec560ff",
