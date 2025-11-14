@@ -1,20 +1,31 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import colors from "../config/colors";
 
-export default function Card({ title, subTitle, imageSource }) {
+export default function Card({ item, onPress }) {
+  const { title, subTitle, imageSource } = item;
+  const Wrapper = onPress ? TouchableWithoutFeedback : View;
+
   return (
-    <View style={styles.imageContainer}>
-      <View style={styles.imageBackground}>
-        <Image
-          source={imageSource}
-          resizeMode="contain"
-          style={{ width: 100, height: 100 }}
-        />
+    <Wrapper onPress={onPress}>
+      <View style={styles.imageContainer}>
+        <View style={styles.imageBackground}>
+          <Image
+            source={imageSource}
+            resizeMode="contain"
+            style={{ width: 100, height: 100 }}
+          />
+        </View>
+        <Text style={styles.imageDescription}>
+          {title} {subTitle}
+        </Text>
       </View>
-      <Text style={styles.imageDescription}>
-        {title} {subTitle}
-      </Text>
-    </View>
+    </Wrapper>
   );
 }
 

@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import AuthNavigator from "./navigation/AuthNavigator";
 import { navigationTheme } from "./navigation/navigationTheme";
+import AppNavigator from "./navigation/AppNavigator";
 
 // import { useDeviceOrientation } from "@react-native-community/hooks";
 // import LogIn from "./UI/Login";
@@ -33,7 +34,8 @@ export default function App() {
     <SafeAreaProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <NavigationContainer theme={navigationTheme}>
-          <AuthNavigator />
+          {/* <AuthNavigator /> */}
+          <AppNavigator />
         </NavigationContainer>
       </GestureHandlerRootView>
     </SafeAreaProvider>

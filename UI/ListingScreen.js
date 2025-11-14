@@ -1,10 +1,10 @@
-import { StyleSheet, View, FlatList } from "react-native";
+import { FlatList } from "react-native";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 import Card from "./Card";
 import ListItemSeparator from "../components/ListItemSeparator";
 
-export default function ListingScreen() {
+export default function ListingScreen({ navigation }) {
   const cards = [
     {
       title: "Greeks",
@@ -19,30 +19,20 @@ export default function ListingScreen() {
   ];
 
   return (
-    <View style={{ flex: 1, paddingTop: 50 }}>
-      <View style={styles.container}>
-        <FlatList
-          data={cards}
-          keyExtractor={(item) => item.title}
-          renderItem={({ item }) => (
-            <Card
-              title={item.title}
-              subTitle={item.subTitle}
-              imageSource={item.imageSource}
-            />
-          )}
-          ItemSeparatorComponent={
-            <ListItemSeparator color={colors.bg.gray} height={15} />
-          }
-        />
-      </View>
-    </View>
+    <Screen>
+      <FlatList
+        data={cards}
+        keyExtractor={(item) => item.title}
+        renderItem={({ item }) => (
+          <Card
+            item={item}
+            onPress={() => navigation.navigate("ListingDetails", item)}
+          />
+        )}
+        ItemSeparatorComponent={
+          <ListItemSeparator color={colors.bg.gray} height={15} />
+        }
+      />
+    </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    height: "100%",
-  },
-});
