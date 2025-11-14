@@ -3,6 +3,7 @@ import Screen from "../components/Screen";
 import colors from "../config/colors";
 import Card from "./Card";
 import ListItemSeparator from "../components/ListItemSeparator";
+import { routes } from "../navigation/routes";
 
 export default function ListingScreen({ navigation }) {
   const cards = [
@@ -26,7 +27,7 @@ export default function ListingScreen({ navigation }) {
         renderItem={({ item }) => (
           <Card
             item={item}
-            onPress={() => navigation.navigate("ListingDetails", item)}
+            onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
           />
         )}
         ItemSeparatorComponent={

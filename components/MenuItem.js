@@ -2,9 +2,9 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { Icon } from "./Icon";
 import colors from "../config/colors";
 
-export default function MenuItem({ name, icon }) {
+export default function MenuItem({ name, icon, onPress }) {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <Icon
         name={icon.name}
         size={icon.size ? icon.size : 24}

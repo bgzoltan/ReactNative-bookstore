@@ -4,8 +4,9 @@ import { FlatList, StyleSheet, View } from "react-native";
 import colors from "../config/colors.js";
 import ListItemSeparator from "../components/ListItemSeparator.js";
 import MenuItem from "../components/MenuItem.js";
+import { routes } from "../navigation/routes.js";
 
-export function AccountScreen() {
+export function AccountScreen({ navigation }) {
   const user = {
     name: "Zoltan Bagdany",
     title: "Software Developer",
@@ -20,6 +21,7 @@ export function AccountScreen() {
         color: colors.icon.white,
         backgroundColor: colors.icon.red,
       },
+      targetScreen: routes.ACCOUNT_LISTING,
     },
     {
       name: "My Messages",
@@ -28,6 +30,7 @@ export function AccountScreen() {
         color: colors.icon.white,
         backgroundColor: colors.icon.greenBlue,
       },
+      targetScreen: routes.MESSAGES,
     },
     {
       name: "Log ot",
@@ -36,6 +39,7 @@ export function AccountScreen() {
         color: colors.icon.white,
         backgroundColor: colors.icon.yellow,
       },
+      targetScreen: "",
     },
   ];
 
@@ -58,7 +62,13 @@ export function AccountScreen() {
           data={menuItems}
           keyExtractor={(item) => item.name}
           renderItem={({ item }) => (
-            <MenuItem name={item.name} icon={item.icon} />
+            <MenuItem
+              name={item.name}
+              icon={item.icon}
+              onPress={() => {
+                navigation.navigate(item.targetScreen);
+              }}
+            />
           )}
           ItemSeparatorComponent={
             <ListItemSeparator color={colors.bg.gray} height={2} />

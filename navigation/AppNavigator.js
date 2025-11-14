@@ -1,7 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ListingEditScreen from "../UI/ListingEditScreen";
-import AccountScreen from "../UI/AccountScreen";
+import AccountNavigator from "./AccountNavigator";
 import { Icon } from "../components/Icon";
 import colors from "../config/colors";
 import FeedNavigator from "./FeedNavigator";
@@ -28,7 +28,7 @@ export default function AppNavigator() {
       />
       <Tab.Screen
         name="Account"
-        component={AccountScreen}
+        component={AccountNavigator}
         options={tabOption("user", 28, colors.icon.red, colors.bg.white)}
       />
     </Tab.Navigator>
