@@ -1,6 +1,7 @@
 {
-  "name": "bookstore",
+  "name": "bookstore_frontend",
   "license": "0BSD",
+  "author": "Zoltan Bagdany",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
