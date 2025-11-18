@@ -4,32 +4,42 @@ import colors from "../config/colors";
 import Card from "./Card";
 import ListItemSeparator from "../components/ListItemSeparator";
 import { routes } from "../navigation/routes";
+import axios from "axios";
+import { useState } from "react";
 
 export default function ListingScreen({ navigation }) {
-  const cards = [
-    {
-      title: "Greeks",
-      subTitle: "Mythology",
-      imageSource: require("../assets/greek_mythology.jpg"),
-    },
-    {
-      title: "Romans",
-      subTitle: "Mythology",
-      imageSource: require("../assets/greek_mythology.jpg"),
-    },
-  ];
+  const [data, setData] = useState([]);
+
+  const getListings = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/api/listings");
+      setData(response.data);
+      console.log("Response Data:", response.data);
+    } catch (error) {
+      console.log("Error:", error.response?.data || error.message);
+    }
+  };
+
+  getListings();
 
   return (
     <Screen>
       <FlatList
-        data={cards}
+        data={data}
         keyExtractor={(item) => item.title}
-        renderItem={({ item }) => (
-          <Card
-            item={item}
-            onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
-          />
-        )}
+        renderItem={({ item }) => {
+          return (
+            <Card
+              title={item.title}
+              author={item.author}
+              price={item.price}
+              imageSource={{
+                uri: `http://localhost:8000/assets/${item.images[0].fileName}.webp`,
+              }}
+              onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
+            />
+          );
+        }}
         ItemSeparatorComponent={
           <ListItemSeparator color={colors.bg.gray} height={15} />
         }

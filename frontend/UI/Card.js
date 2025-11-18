@@ -7,9 +7,9 @@ import {
 } from "react-native";
 import colors from "../config/colors";
 
-export default function Card({ item, onPress }) {
-  const { title, subTitle, imageSource } = item;
+export default function Card({ title, author, price, imageSource, onPress }) {
   const Wrapper = onPress ? TouchableWithoutFeedback : View;
+  console.log("Title:", title, "Author:", author, "Price:", price);
 
   return (
     <Wrapper onPress={onPress}>
@@ -22,7 +22,10 @@ export default function Card({ item, onPress }) {
           />
         </View>
         <Text style={styles.imageDescription}>
-          {title} {subTitle}
+          {title} {"-"}
+          {author}
+          {"-"}
+          {price}
         </Text>
       </View>
     </Wrapper>
