@@ -30,3 +30,13 @@ router.post("/listings", async (req, res) => {
     res.status(err.status ? err.status : 500).send(err.message);
   }
 });
+
+router.get("/listings", async (req, res) => {
+  try {
+    const listings = await Listings.find();
+    res.status(200).send(listings);
+  } catch (err) {
+    console.log("Error: ", err);
+    res.status(err.status).send(err.message);
+  }
+});
