@@ -4,21 +4,43 @@ import {
   Text,
   TouchableWithoutFeedback,
   View,
+  ScrollView,
 } from "react-native";
 import colors from "../config/colors";
+import { FlatList } from "react-native-gesture-handler";
+import { React, useState } from "react";
 
-export default function Card({ title, author, price, imageSource, onPress }) {
+export default function Card({ title, author, price, images, onPress }) {
   const Wrapper = onPress ? TouchableWithoutFeedback : View;
   return (
-    <Wrapper onPress={onPress}>
-      <View style={styles.imageContainer}>
-        <View style={styles.imageBackground}>
-          <Image
-            source={imageSource}
-            resizeMode="contain"
-            style={{ width: 100, height: 100 }}
+    <Wrapper
+      onPress={onPress}
+      style={[
+        styles.imageContainer,
+        {
+          height: 100,
+          width: 100,
+        },
+      ]}
+    >
+      <View>
+        <ScrollView contentContainerStyle={styles.imageBackground}>
+          <FlatList
+            data={images}
+            keyExtractor={(item) => item.fileName}
+            horizontal
+            pagingEnabled
+            renderItem={({ item }) => (
+              <Image
+                source={{
+                  uri: `http://localhost:8000/assets/${item.fileName}.webp`,
+                }}
+                resizeMode="contain"
+                style={{ width: 100, height: 100 }}
+              />
+            )}
           />
-        </View>
+        </ScrollView>
         <Text style={styles.imageDescription}>
           {title} {"-"}
           {author}
@@ -33,24 +55,28 @@ export default function Card({ title, author, price, imageSource, onPress }) {
 const styles = StyleSheet.create({
   imageContainer: {
     display: "flex",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
+    justifyContent: "center",
+    alignItems: "center",
     width: "100%",
-    height: 200,
+    borderRadius: 10,
+    overflow: "hidden",
+    backgroundColor: colors.bg.white,
+    marginBottom: 10,
   },
   imageBackground: {
-    flex: 4,
+    flex: 1,
     width: "100%",
     alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: colors.bg.secondary,
+    backgroundColor: colors.bg.white,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
+    overflow: "hidden",
+    padding: 10,
   },
   imageDescription: {
     flex: 1,
     width: "100%",
-    backgroundColor: colors.bg.white,
+    backgroundColor: colors.bg.primary,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     padding: 10,

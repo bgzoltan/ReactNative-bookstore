@@ -41,15 +41,13 @@ export default function ListingScreen({ navigation }) {
       <ActivityIndicator animating={loading} size="large" />
       <FlatList
         data={data}
-        keyExtractor={(item) => item.title}
+        keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <Card
             title={item.title}
             author={item.author}
             price={item.price}
-            imageSource={{
-              uri: `http://localhost:8000/assets/${item.images[0].fileName}.webp`,
-            }}
+            images={item.images}
             onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
           />
         )}
