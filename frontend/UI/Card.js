@@ -9,8 +9,6 @@ import colors from "../config/colors";
 
 export default function Card({ title, author, price, imageSource, onPress }) {
   const Wrapper = onPress ? TouchableWithoutFeedback : View;
-  console.log("Title:", title, "Author:", author, "Price:", price);
-
   return (
     <Wrapper onPress={onPress}>
       <View style={styles.imageContainer}>
