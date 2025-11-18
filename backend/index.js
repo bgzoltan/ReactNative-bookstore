@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import http from "http";
 import express from "express";
 
+import { router as listingRouter } from "./router/listings.js";
+
 const app = express();
 
 dotenv.config();
@@ -57,3 +59,6 @@ startServer();
 app.get("/", (req, res) => {
   res.status(200).send("BookStore API is here.");
 });
+
+app.use(express.json());
+app.use("/api", listingRouter);

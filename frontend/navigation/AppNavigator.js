@@ -12,7 +12,7 @@ export default function AppNavigator() {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="Listing"
+        name="Feed"
         component={FeedNavigator}
         options={tabOption("house", 24, colors.icon.red, colors.bg.white)}
       />
