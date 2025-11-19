@@ -42,8 +42,7 @@ export default function Card({ title, author, price, images, onPress }) {
           />
         </ScrollView>
         <Text style={styles.imageDescription}>
-          {title} {"-"}
-          {author}
+          {title}
           {"-"}
           {price}
         </Text>

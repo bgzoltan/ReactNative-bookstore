@@ -1,6 +1,12 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
-import Card from "./Card";
+import React, { useState } from "react";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  ScrollView,
+} from "react-native";
+import { Image } from "react-native";
 import ListItem from "./ListItem";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
@@ -11,17 +17,47 @@ export default function ListingDetailScreen({ route }) {
     title: "Software Developer",
     image: require("../assets/icon.jpeg"),
   };
+
+  const item = route.params;
+  const { title, author, price, images } = item;
+
+  const numberOfImages = images.length;
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   return (
     <Screen>
-      <Card item={route.params} />
-      <View style={styles.userItem}>
-        <ListItem
-          name={user.name}
-          title={user.title}
-          image={user.image}
-          renderRightActions={() => {}}
-        />
-      </View>
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        showsVerticalScrollIndicator
+      >
+        <TouchableOpacity
+          onPress={() => {
+            setCurrentIndex((currentIndex + 1) % numberOfImages);
+          }}
+          style={{ height: "70%" }}
+        >
+          <Image
+            source={{
+              uri: `http://localhost:8000/assets/${images[currentIndex].fileName}.webp`,
+            }}
+            resizeMode="contain"
+            style={styles.image}
+          />
+        </TouchableOpacity>
+        <View style={styles.detailsContainer}>
+          <Text style={styles.title}>Title: {title}</Text>
+          <Text style={styles.author}>Author: {author}</Text>
+          <Text style={styles.price}>Price: AUD$ {price}</Text>
+        </View>
+        <View style={styles.userItem}>
+          <ListItem
+            name={user.name}
+            title={user.title}
+            image={user.image}
+            renderRightActions={() => {}}
+          />
+        </View>
+      </ScrollView>
     </Screen>
   );
 }
@@ -31,7 +67,17 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     padding: 10,
-    marginTop: 20,
     backgroundColor: colors.bg.white,
+  },
+  image: {
+    height: "100%",
+    width: "auto",
+  },
+  detailsContainer: {
+    padding: 20,
+  },
+  price: {
+    fontSize: 18,
+    fontWeight: "500",
   },
 });
