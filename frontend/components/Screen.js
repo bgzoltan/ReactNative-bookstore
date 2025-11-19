@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     height: "100%",
     width: "100%",
+    alignItems: "center",
     // paddingTop: Constants.statusBarHeight,
     paddingHorizontal: 10,
     backgroundColor: colors.bg.gray,

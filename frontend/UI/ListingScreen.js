@@ -4,31 +4,17 @@ import colors from "../config/colors";
 import Card from "./Card";
 import ListItemSeparator from "../components/ListItemSeparator";
 import { routes } from "../navigation/routes";
-import axios from "axios";
-import { useEffect, useState } from "react";
+
 import ErrorMessage from "../components/ErrorMessage";
 import AppButton from "../components/AppButton/AppButton";
-import { ActivityIndicator } from "react-native";
+import { useApi } from "../hooks/useApi";
+import Loading from "../components/Loading";
 
 export default function ListingScreen({ navigation }) {
-  const [data, setData] = useState([]);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const getListings = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get("http://localhost:8000/api/listings");
-      setData(response.data);
-      setError(false);
-      setLoading(false);
-    } catch (error) {
-      setError(true);
-      console.log("Error:", error.response?.data || error.message);
-    }
-  };
-  useEffect(() => {
-    getListings();
-  }, []);
+  const { data, error, loading } = useApi(
+    "get",
+    "http://localhost:8000/api/listings"
+  );
 
   return (
     <Screen>
@@ -38,7 +24,8 @@ export default function ListingScreen({ navigation }) {
           <AppButton onPress={getListings}>Retry</AppButton>
         </>
       )}
-      <ActivityIndicator animating={loading} size="large" />
+
+      {loading && <Loading />}
       <FlatList
         data={data}
         keyExtractor={(item) => item._id}
