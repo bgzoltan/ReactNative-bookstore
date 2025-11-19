@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
   },
   selected: {
     padding: 10,
+    width: "100%",
   },
   itemContainer: {
     display: "flex",

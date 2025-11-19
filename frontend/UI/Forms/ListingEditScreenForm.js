@@ -9,21 +9,26 @@ import AppFormImageInput from "../../components/Form/AppFormImageInput.js";
 import useLocation from "../../hooks/useLocation.js";
 
 export const initialValues = {
-  price: 0,
   title: "",
+  author: "",
+  price: 0,
   category: null,
   description: "",
-  imageAssets: [],
+  images: [],
 };
 export const validationSchema = Yup.object({
   title: Yup.string()
     .required()
     .min(1, "Must be at least 1 character")
     .label("Title"),
+  author: Yup.string()
+    .required()
+    .min(1, "Must be at least 1 character")
+    .label("Author"),
   price: Yup.number().min(1).max(1000).label("Price"),
   category: Yup.object().required().nullable().label("Category"),
   description: Yup.string().label("Description"),
-  imageAssets: Yup.array()
+  images: Yup.array()
     .max(5, "Maximum 5 images allowed.")
     .required()
     .label("Images"),
@@ -118,10 +123,18 @@ export default function ListingEditScreenForm() {
 
   return (
     <>
-      <AppFormImageInput inputName="imageAssets" />
+      <AppFormImageInput inputName="images" />
       <AppFormField
         inputName="title"
         placeholder="Title"
+        autoCapitalize="sentences"
+        autoCorrect={false}
+        maxLength={20}
+        required
+      />
+      <AppFormField
+        inputName="author"
+        placeholder="Author"
         autoCapitalize="sentences"
         autoCorrect={false}
         maxLength={20}
