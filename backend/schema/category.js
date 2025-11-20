@@ -4,8 +4,7 @@ import Joi from "joi";
 const categorySchema = mongoose.Schema(
   {
     id: { type: mongoose.types.ObjectId, required: true },
-    label: { type: String, required: true },
-    value: { type: Number, required: true },
+    content: { type: String, required: true },
     icon: { type: String, required: true },
     backgroundColor: { type: String, required: true },
   },
@@ -13,8 +12,7 @@ const categorySchema = mongoose.Schema(
 );
 
 const joiCategorySchema = Joi.object({
-  label: Joi.string().required(),
-  value: Joi.number().required(),
+  content: Joi.string().required(),
   icon: Joi.string().required(),
   backgroundColor: Joi.string().required(),
 });
