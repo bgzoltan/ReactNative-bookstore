@@ -21,6 +21,7 @@ import {
   Camera,
   House,
   CirclePlus,
+  UserRoundSearch,
 } from "lucide-react-native";
 
 const LucideIcons = {
@@ -46,6 +47,7 @@ const LucideIcons = {
   camera: Camera,
   house: House,
   circlePlus: CirclePlus,
+  biography: UserRoundSearch,
 };
 
 export default LucideIcons;
