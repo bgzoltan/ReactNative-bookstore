@@ -11,10 +11,7 @@ import { useApi } from "../hooks/useApi";
 import Loading from "../components/Loading";
 
 export default function ListingScreen({ navigation }) {
-  const { data, error, loading } = useApi(
-    "get",
-    "http://localhost:8000/api/listings"
-  );
+  const { data, error, loading } = useApi("get", "listings");
 
   return (
     <Screen>
