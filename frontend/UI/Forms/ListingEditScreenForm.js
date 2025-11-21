@@ -36,83 +36,8 @@ export const validationSchema = Yup.object({
 });
 
 export default function ListingEditScreenForm() {
-  const categories = [
-    {
-      label: "Furniture",
-      content: "Biography",
-      icon: {
-        name: "biography",
-        color: colors.icon.primary,
-        backgroundColor: colors.icon.red,
-      },
-    },
-    {
-      content: "History",
-      icon: {
-        name: "history",
-        color: colors.icon.primary,
-        backgroundColor: colors.icon.orange,
-      },
-    },
-    {
-      content: "Science",
-      icon: {
-        name: "science",
-        color: colors.icon.primary,
-        backgroundColor: colors.icon.yellow,
-      },
-    },
-    {
-      content: "Psychology",
-      icon: {
-        name: "psychology",
-        color: colors.icon.primary,
-        backgroundColor: colors.icon.green,
-      },
-    },
-    {
-      content: "Economics",
-      icon: {
-        name: "economics",
-        color: colors.icon.primary,
-        backgroundColor: colors.icon.greenBlue,
-      },
-    },
-    {
-      content: "Adventure",
-      icon: {
-        name: "adventure",
-        color: colors.icon.primary,
-        backgroundColor: colors.icon.lightBlue,
-      },
-    },
-    {
-      content: "Sci-fi",
-      icon: {
-        name: "scifi",
-        color: colors.icon.primary,
-        backgroundColor: colors.icon.blue,
-      },
-    },
-    {
-      content: "Crime",
-      icon: {
-        name: "crime",
-        color: colors.icon.primary,
-        backgroundColor: colors.icon.purple,
-      },
-    },
-    {
-      content: "Other",
-      icon: {
-        name: "other",
-        color: colors.icon.primary,
-        backgroundColor: colors.icon.darkGrey,
-      },
-    },
-  ];
-
   const location = useLocation();
+  const { data, error } = useApi("get", "categories");
 
   // const { data, error, loading } = useApi("post", "categories", {
   //   content: "Other",
@@ -123,7 +48,7 @@ export default function ListingEditScreenForm() {
   //   },
   // });
 
-  // console.log("API DATA", data, error, loading);
+  error && console.log("CATEGORIES ERROR", error);
 
   return (
     <>
@@ -155,7 +80,7 @@ export default function ListingEditScreenForm() {
       <AppFormPicker
         inputName="category"
         placeHolder="Select CATEGORY from scrollabel list"
-        items={categories}
+        items={data || []}
         icon={{
           name: "list",
           size: 25,

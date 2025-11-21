@@ -15,7 +15,7 @@ export default function CategoryPickerItem({ item, onSelectItem }) {
         }
       />
 
-      <AppText style={[styles.text]}>{item.label}</AppText>
+      <AppText style={[styles.text]}>{item.content}</AppText>
     </TouchableOpacity>
   );
 }

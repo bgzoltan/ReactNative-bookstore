@@ -53,7 +53,7 @@ export function AppPicker({
           <FlatList
             style={styles.itemContainer}
             data={items}
-            keyExtractor={(item) => item.value.toString()}
+            keyExtractor={(item) => item._id}
             showsVerticalScrollIndicator
             numColumns={
               PickerItemComponent.name == "CategoryPickerItem" ? 3 : 0
