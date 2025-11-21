@@ -28,3 +28,13 @@ router.post("/categories", async (req, res) => {
     res.status(err.status ? err.status : 500).send(err.message);
   }
 });
+
+router.get("/categories", async (req, res) => {
+  try {
+    const categories = await Categories.find().sort({ name: 1 });
+    res.status(200).send(categories);
+  } catch (err) {
+    console.log("Error: ", err);
+    res.status(500).send("Internal Server Error");
+  }
+});
