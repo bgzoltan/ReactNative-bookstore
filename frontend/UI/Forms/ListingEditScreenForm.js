@@ -7,6 +7,7 @@ import CategoryPickerItem from "../../components/CategoryPickerItem.js";
 import AppFormImageInput from "../../components/Form/AppFormImageInput.js";
 
 import useLocation from "../../hooks/useLocation.js";
+import { useApi } from "../../hooks/useApi.js";
 
 export const initialValues = {
   title: "",
@@ -38,81 +39,73 @@ export default function ListingEditScreenForm() {
   const categories = [
     {
       label: "Furniture",
-      value: 1,
+      content: "Biography",
       icon: {
-        name: "furniture",
+        name: "biography",
         color: colors.icon.primary,
         backgroundColor: colors.icon.red,
       },
     },
     {
-      label: "Cars",
-      value: 2,
+      content: "History",
       icon: {
-        name: "cars",
+        name: "history",
         color: colors.icon.primary,
         backgroundColor: colors.icon.orange,
       },
     },
     {
-      label: "Electronics",
-      value: 3,
+      content: "Science",
       icon: {
-        name: "electronics",
+        name: "science",
         color: colors.icon.primary,
         backgroundColor: colors.icon.yellow,
       },
     },
     {
-      label: "Games",
-      value: 4,
+      content: "Psychology",
       icon: {
-        name: "games",
+        name: "psychology",
         color: colors.icon.primary,
         backgroundColor: colors.icon.green,
       },
     },
     {
-      label: "Clothing",
-      value: 5,
+      content: "Economics",
       icon: {
-        name: "clothing",
+        name: "economics",
         color: colors.icon.primary,
         backgroundColor: colors.icon.greenBlue,
       },
     },
     {
-      label: "Sports",
-      value: 6,
+      content: "Adventure",
       icon: {
-        name: "sports",
+        name: "adventure",
         color: colors.icon.primary,
         backgroundColor: colors.icon.lightBlue,
       },
     },
     {
-      label: "Movies and music",
-      value: 7,
+      content: "Sci-fi",
       icon: {
-        name: "movies",
+        name: "scifi",
         color: colors.icon.primary,
         backgroundColor: colors.icon.blue,
       },
     },
     {
-      label: "Books",
-      value: 8,
+      content: "Crime",
       icon: {
-        name: "books",
+        name: "crime",
         color: colors.icon.primary,
         backgroundColor: colors.icon.purple,
       },
     },
     {
-      label: "Others",
-      value: 9,
+      content: "Other",
       icon: {
-        name: "others",
+        name: "other",
         color: colors.icon.primary,
         backgroundColor: colors.icon.darkGrey,
       },
@@ -120,6 +113,17 @@ export default function ListingEditScreenForm() {
   ];
 
   const location = useLocation();
+
+  // const { data, error, loading } = useApi("post", "categories", {
+  //   content: "Other",
+  //   icon: {
+  //     name: "other",
+  //     color: colors.icon.primary,
+  //     backgroundColor: colors.icon.darkGrey,
+  //   },
+  // });
+
+  // console.log("API DATA", data, error, loading);
 
   return (
     <>

@@ -22,6 +22,13 @@ import {
   House,
   CirclePlus,
   UserRoundSearch,
+  Landmark,
+  Atom,
+  Brain,
+  CircleDollarSign,
+  Kayak,
+  Rocket,
+  Axe,
 } from "lucide-react-native";
 
 const LucideIcons = {
@@ -48,6 +55,13 @@ const LucideIcons = {
   house: House,
   circlePlus: CirclePlus,
   biography: UserRoundSearch,
+  history: Landmark,
+  science: Atom,
+  psychology: Brain,
+  economics: CircleDollarSign,
+  adventure: Kayak,
+  scifi: Rocket,
+  crime: Axe,
 };
 
 export default LucideIcons;
