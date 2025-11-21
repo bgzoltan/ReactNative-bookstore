@@ -9,9 +9,19 @@ import ErrorMessage from "../components/ErrorMessage";
 import AppButton from "../components/AppButton/AppButton";
 import { useApi } from "../hooks/useApi";
 import Loading from "../components/Loading";
+import { useEffect } from "react";
 
 export default function ListingScreen({ navigation }) {
-  const { data, error, loading } = useApi("get", "listings");
+  const {
+    data,
+    error,
+    loading,
+    request: getListings,
+  } = useApi("get", "listings");
+
+  useEffect(() => {
+    getListings();
+  }, []);
 
   return (
     <Screen>

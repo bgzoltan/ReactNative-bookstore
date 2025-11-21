@@ -5,9 +5,30 @@ import ListingEditScreenForm, {
 } from "./Forms/ListingEditScreenForm.js";
 
 import AppForm from "../components/Form/AppForm.js";
+import { useApi } from "../hooks/useApi.js";
+import useLocation from "../hooks/useLocation.js";
 
-export default function ListingEditScreen() {
-  const onSubmit = (values) => console.log("Submitted...", values);
+export default function ListingEditScreen({ navigation }) {
+  const { error, request: submitListing } = useApi("post", "listings");
+  const location = useLocation();
+
+  const onSubmit = async (values) => {
+    const payload = {
+      ...values,
+      location: {
+        latitude: location.latitude,
+        longitude: location.longitude,
+      },
+      userId: "001",
+    };
+    await submitListing(payload);
+    if (error) {
+      console.log("LISTING SUBMIT ERROR", error);
+      return;
+    }
+    console.log("LISTING SUBMIT SUCCESS", data);
+    navigation.navigate("Listings");
+  };
 
   return (
     <Screen>

@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export const useApi = (method, route, payload = null) => {
+export const useApi = (method, route) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const request = async (route, payload) => {
+  const request = async (payload) => {
     try {
       setLoading(true);
-      const response = await axios[method](route, payload);
+      const response = await axios[method](
+        `http://localhost:8000/api/${route}`,
+        payload ? payload : null
+      );
       setData(response.data);
       setError(false);
       setLoading(false);
@@ -19,9 +22,5 @@ export const useApi = (method, route, payload = null) => {
     }
   };
 
-  useEffect(() => {
-    request(`http://localhost:8000/api/${route}`, payload);
-  }, []);
-
-  return { data, error, loading };
+  return { data, error, loading, request };
 };

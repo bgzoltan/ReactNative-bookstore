@@ -5,9 +5,10 @@ export const router = express.Router();
 router.post("/listings", async (req, res) => {
   const listing = req.body;
 
+  console.log("LISTING RECEIVED---------------", listing);
+
   try {
     const { error } = validateListing(listing);
-    console.log("ERROR ---------------", error);
     if (error) {
       if (error) {
         const err = new Error(error.message);
@@ -17,7 +18,6 @@ router.post("/listings", async (req, res) => {
     }
     const newListing = new Listings(listing);
     const response = await newListing.save();
-    console.log("Listing---------------", response);
     if (!response) {
       const err = new Error("Error during create listing.");
       err.status = 400;

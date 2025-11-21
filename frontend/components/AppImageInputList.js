@@ -12,19 +12,20 @@ export default function AppImageInputList({ inputName }) {
   const addImage = async () => {
     const { canceled, assets } = await ImagePicker.launchImageLibraryAsync();
     const asset = assets[0];
-    const uri = asset.uri;
-    const id = asset.id || uri;
 
     if (!canceled) {
-      const isSelected = values[inputName].find((asset) => asset.id == id);
+      const isSelected = values[inputName].find(
+        (asset) => asset.id == asset.assetId
+      );
       if (isSelected) {
         Alert.alert("Wrong selection", "This image already selected");
         return;
       }
       const newImageAssets = [...values[inputName]];
       newImageAssets.push({
-        id: id,
-        uri,
+        id: asset.assetId,
+        uri: asset.uri,
+        fileName: asset.fileName,
       });
       setFieldValue(inputName, newImageAssets);
     }

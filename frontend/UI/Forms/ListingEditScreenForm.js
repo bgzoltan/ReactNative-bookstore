@@ -5,9 +5,10 @@ import * as Yup from "yup";
 import colors from "../../config/colors.js";
 import CategoryPickerItem from "../../components/CategoryPickerItem.js";
 import AppFormImageInput from "../../components/Form/AppFormImageInput.js";
+import { useFormikContext } from "formik";
 
-import useLocation from "../../hooks/useLocation.js";
 import { useApi } from "../../hooks/useApi.js";
+import { useEffect } from "react";
 
 export const initialValues = {
   title: "",
@@ -16,6 +17,7 @@ export const initialValues = {
   category: null,
   description: "",
   images: [],
+  location: null,
 };
 export const validationSchema = Yup.object({
   title: Yup.string()
@@ -36,17 +38,13 @@ export const validationSchema = Yup.object({
 });
 
 export default function ListingEditScreenForm() {
-  const location = useLocation();
-  const { data, error } = useApi("get", "categories");
+  const { data, error, request: getCategories } = useApi("get", "categories");
 
-  // const { data, error, loading } = useApi("post", "categories", {
-  //   content: "Other",
-  //   icon: {
-  //     name: "other",
-  //     color: colors.icon.primary,
-  //     backgroundColor: colors.icon.darkGrey,
-  //   },
-  // });
+  useEffect(() => {
+    getCategories();
+  }, []);
+
+  const { handleSubmit } = useFormikContext();
 
   error && console.log("CATEGORIES ERROR", error);
 
@@ -99,10 +97,7 @@ export default function ListingEditScreenForm() {
         maxLength={255}
       />
 
-      <AppFormSubmitButton
-        type={"primary"}
-        handleSubmit={console.log("LOCATION", location)}
-      >
+      <AppFormSubmitButton type={"primary"} handleSubmit={handleSubmit}>
         POST
       </AppFormSubmitButton>
     </>
