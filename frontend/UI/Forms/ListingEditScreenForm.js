@@ -14,7 +14,7 @@ export const initialValues = {
   title: "",
   author: "",
   price: 0,
-  category: null,
+  category: "",
   description: "",
   images: [],
   location: null,
@@ -29,7 +29,7 @@ export const validationSchema = Yup.object({
     .min(1, "Must be at least 1 character")
     .label("Author"),
   price: Yup.number().min(1).max(1000).label("Price"),
-  category: Yup.object().required().nullable().label("Category"),
+  category: Yup.string().label("Category"),
   description: Yup.string().label("Description"),
   images: Yup.array()
     .max(5, "Maximum 5 images allowed.")

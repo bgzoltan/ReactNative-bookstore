@@ -5,11 +5,14 @@ export const listingSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
     author: { type: String, required: false },
-    images: { type: [{ fileName: String }], default: [] },
+    images: {
+      type: [{ id: String, uri: String, fileName: String }],
+      default: [],
+    },
+    description: { type: String },
     price: { type: Number, required: true },
-    categoryId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Category",
+    category: {
+      type: String,
       required: true,
     },
     userId: {
@@ -33,12 +36,15 @@ const joiListingSchema = Joi.object({
     .max(5)
     .items(
       Joi.object({
+        id: Joi.string().required(),
+        uri: Joi.string().uri().required(),
         fileName: Joi.string().required(),
       })
     )
     .required(),
+  description: Joi.string().allow("").optional(),
   price: Joi.number().min(1).required(),
-  categoryId: Joi.string().required(),
+  category: Joi.string().required(),
   userId: Joi.string().required(),
   location: Joi.object({
     latitude: Joi.number().required(),

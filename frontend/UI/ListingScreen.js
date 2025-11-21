@@ -9,7 +9,8 @@ import ErrorMessage from "../components/ErrorMessage";
 import AppButton from "../components/AppButton/AppButton";
 import { useApi } from "../hooks/useApi";
 import Loading from "../components/Loading";
-import { useEffect } from "react";
+import { useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function ListingScreen({ navigation }) {
   const {
@@ -19,9 +20,15 @@ export default function ListingScreen({ navigation }) {
     request: getListings,
   } = useApi("get", "listings");
 
-  useEffect(() => {
-    getListings();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getListings();
+    }, [])
+  );
+
+  // useEffect(() => {
+  //   getListings();
+  // }, []);
 
   return (
     <Screen>

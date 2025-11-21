@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 export const useApi = (method, route) => {
@@ -16,9 +16,11 @@ export const useApi = (method, route) => {
       setData(response.data);
       setError(false);
       setLoading(false);
+      return { data: response.data, error: null };
     } catch (error) {
       setError(true);
       console.log("Error:", error.response?.data || error.message);
+      return { data: null, error: error };
     }
   };
 

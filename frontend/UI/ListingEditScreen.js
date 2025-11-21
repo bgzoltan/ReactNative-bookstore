@@ -9,7 +9,7 @@ import { useApi } from "../hooks/useApi.js";
 import useLocation from "../hooks/useLocation.js";
 
 export default function ListingEditScreen({ navigation }) {
-  const { error, request: submitListing } = useApi("post", "listings");
+  const { request: submitListing } = useApi("post", "listings");
   const location = useLocation();
 
   const onSubmit = async (values) => {
@@ -19,15 +19,15 @@ export default function ListingEditScreen({ navigation }) {
         latitude: location.latitude,
         longitude: location.longitude,
       },
-      userId: "001",
+      userId: "6875f9e3f8133e590cf4aa69",
     };
-    await submitListing(payload);
+    const { data, error } = await submitListing(payload);
     if (error) {
       console.log("LISTING SUBMIT ERROR", error);
       return;
     }
     console.log("LISTING SUBMIT SUCCESS", data);
-    navigation.navigate("Listings");
+    navigation.navigate("Feed");
   };
 
   return (

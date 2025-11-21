@@ -16,7 +16,6 @@ export function AppPicker({
 }) {
   const [modalVisible, setModalVisible] = useState(false);
   const { values, setFieldValue } = useFormikContext();
-
   return (
     <View style={styles.container}>
       <View
@@ -29,7 +28,7 @@ export function AppPicker({
         ]}
       >
         <AppText style={styles.selected}>
-          {values[inputName] ? values[inputName].content : placeHolder}
+          {values[inputName] ? values[inputName] : placeHolder}
         </AppText>
         <View
           style={{
@@ -61,9 +60,9 @@ export function AppPicker({
             renderItem={({ item }) => (
               <PickerItemComponent
                 item={item}
-                onSelectItem={() => {
+                onSelectItem={(value) => {
                   setModalVisible(false);
-                  setFieldValue(inputName, item);
+                  setFieldValue(inputName, value);
                 }}
               />
             )}

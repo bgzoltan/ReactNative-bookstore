@@ -13,7 +13,8 @@ export function AppFormPicker({
   PickerItemComponent,
   ...otherProps
 }) {
-  const { errors, handleChange, setFieldTouched, touched } = useFormikContext();
+  const { errors, setFieldValue, setFieldTouched, touched } =
+    useFormikContext();
   return (
     <>
       <AppPicker
@@ -21,7 +22,9 @@ export function AppFormPicker({
         icon={icon}
         items={items}
         placeHolder={placeHolder}
-        onChangeText={handleChange(inputName)}
+        onSelectItem={(value) => {
+          setFieldValue(inputName, value);
+        }}
         onBlur={() => setFieldTouched(inputName)}
         width={width}
         PickerItemComponent={PickerItemComponent}

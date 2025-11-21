@@ -4,10 +4,14 @@ import colors from "../config/colors";
 import { Icon } from "./Icon";
 
 export default function CategoryPickerItem({ item, onSelectItem }) {
+  console.log("CategoryPickerItem item:", item);
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => onSelectItem(item.content)}
+    >
       <Icon
-        handlePress={onSelectItem}
+        handlePress={() => onSelectItem(item.content)}
         name={item.icon ? item.icon.name : ""}
         color={item.icon ? item.icon.color : colors.icon.primary}
         backgroundColor={
