@@ -29,7 +29,7 @@ export function AppPicker({
         ]}
       >
         <AppText style={styles.selected}>
-          {values[inputName] ? values[inputName].label : placeHolder}
+          {values[inputName] ? values[inputName].content : placeHolder}
         </AppText>
         <View
           style={{
