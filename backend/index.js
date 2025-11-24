@@ -58,6 +58,7 @@ const startServer = async () => {
 startServer();
 
 app.use("/assets", express.static("public/assets"));
+app.use("/public/uploads", express.static("public/uploads"));
 
 app.get("/", (req, res) => {
   res.status(200).send("BookStore API is here.");

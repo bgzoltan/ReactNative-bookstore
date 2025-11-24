@@ -26,10 +26,6 @@ export default function ListingScreen({ navigation }) {
     }, [])
   );
 
-  // useEffect(() => {
-  //   getListings();
-  // }, []);
-
   return (
     <Screen>
       {error && (

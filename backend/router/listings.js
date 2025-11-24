@@ -1,11 +1,22 @@
 import express from "express";
 import { Listings, validateListing } from "../schema/listings.js";
 export const router = express.Router();
+import { multerUpload } from "../middleware/multerUpload.js";
+import dotenv from "dotenv";
+dotenv.config();
 
-router.post("/listings", async (req, res) => {
-  const listing = req.body;
+router.post("/listings", multerUpload.array("images", 5), async (req, res) => {
+  const newImages = req.files.map((file) => ({
+    id: file.filename,
+    uri: `${process.env.API_URL}/${file.path}`,
+    fileName: file.originalname,
+  }));
 
-  console.log("LISTING RECEIVED---------------", listing);
+  const listing = {
+    ...req.body,
+    images: newImages,
+    location: JSON.parse(req.body.location),
+  };
 
   try {
     const { error } = validateListing(listing);

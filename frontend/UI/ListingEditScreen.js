@@ -13,15 +13,34 @@ export default function ListingEditScreen({ navigation }) {
   const location = useLocation();
 
   const onSubmit = async (values) => {
-    const payload = {
-      ...values,
-      location: {
+    const { title, author, images, description, price, category } = values;
+
+    const formData = new FormData();
+    // Append text fields
+    formData.append("title", title);
+    formData.append("author", author);
+    formData.append("description", description);
+    formData.append("price", price.toString());
+    formData.append("category", category);
+    formData.append("userId", "6875f9e3f8133e590cf4aa69");
+    formData.append(
+      "location",
+      JSON.stringify({
         latitude: location.latitude,
         longitude: location.longitude,
-      },
-      userId: "6875f9e3f8133e590cf4aa69",
-    };
-    const { data, error } = await submitListing(payload);
+      })
+    );
+
+    // Append multiple images
+    images.forEach((image, index) => {
+      formData.append("images", {
+        uri: image.uri,
+        name: image.fileName,
+        type: "image/jpeg",
+      });
+    });
+
+    const { data, error } = await submitListing(formData);
     if (error) {
       console.log("LISTING SUBMIT ERROR", error);
       return;

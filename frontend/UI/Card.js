@@ -33,7 +33,7 @@ export default function Card({ title, author, price, images, onPress }) {
             renderItem={({ item }) => (
               <Image
                 source={{
-                  uri: `http://localhost:8000/assets/${item.fileName}.webp`,
+                  uri: `${item.uri}`,
                 }}
                 resizeMode="contain"
                 style={{ width: 100, height: 100 }}

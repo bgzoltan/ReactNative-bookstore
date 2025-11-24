@@ -36,11 +36,12 @@ export default function ListingDetailScreen({ route }) {
           }}
           style={{ height: "70%" }}
         >
+          <Text>Tap the image to see next image</Text>
           <Image
             source={{
-              uri: `http://localhost:8000/assets/${images[currentIndex].fileName}.webp`,
+              uri: `${images[currentIndex].uri}`,
             }}
-            resizeMode="contain"
+            resizeMode=""
             style={styles.image}
           />
         </TouchableOpacity>
