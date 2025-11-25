@@ -8,7 +8,7 @@ import { routes } from "../navigation/routes";
 import ErrorMessage from "../components/ErrorMessage";
 import AppButton from "../components/AppButton/AppButton";
 import { useApi } from "../hooks/useApi";
-import Loading from "../components/Loading";
+import LottieModal from "../components/LottieModal";
 import { useCallback } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -34,8 +34,10 @@ export default function ListingScreen({ navigation }) {
           <AppButton onPress={getListings}>Retry</AppButton>
         </>
       )}
-
-      {loading && <Loading />}
+      <LottieModal
+        isVisible={loading}
+        source={require("../assets/loading.json")}
+      />
       <FlatList
         data={data}
         keyExtractor={(item) => item._id}
