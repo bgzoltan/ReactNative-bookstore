@@ -4,7 +4,6 @@ import colors from "../config/colors";
 import { Icon } from "./Icon";
 
 export default function CategoryPickerItem({ item, onSelectItem }) {
-  console.log("CategoryPickerItem item:", item);
   return (
     <TouchableOpacity
       style={styles.container}

@@ -9,7 +9,9 @@ import { useApi } from "../hooks/useApi.js";
 import useLocation from "../hooks/useLocation.js";
 
 export default function ListingEditScreen({ navigation }) {
-  const { request: submitListing } = useApi("post", "listings");
+  const { request: submitListing } = useApi("post", "listings", {
+    "Content-Type": "multipart/format-data",
+  });
   const location = useLocation();
 
   const onSubmit = async (values) => {

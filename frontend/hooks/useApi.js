@@ -1,26 +1,42 @@
 import { useState } from "react";
 import axios from "axios";
 
-export const useApi = (method, route) => {
+export const useApi = (
+  method,
+  route,
+  headers = { "Content-Type": "application/json" }
+) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const request = async (payload) => {
+  const request = async (payload = null) => {
     try {
       setLoading(true);
-      const response = await axios[method](
-        `http://localhost:8000/api/${route}`,
-        payload ? payload : null
-      );
+
+      const url = `http://localhost:8000/api/${route}`;
+
+      let response;
+
+      if (method.toLowerCase() === "get") {
+        response = await axios.get(url, {
+          headers,
+        });
+      } else {
+        response = await axios[method](url, payload, {
+          headers,
+        });
+      }
+
       setData(response.data);
       setError(false);
       setLoading(false);
+
       return { data: response.data, error: null };
-    } catch (error) {
+    } catch (err) {
       setError(true);
-      console.log("Error:", error.response?.data || error.message);
-      return { data: null, error: error };
+      console.log("Error:", err.response?.data || err.message);
+      return { data: null, error: err };
     }
   };
 

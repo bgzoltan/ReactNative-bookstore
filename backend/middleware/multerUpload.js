@@ -10,11 +10,6 @@ const storage = multer.diskStorage({
     const uploadPath = path.join("public/uploads/", userId);
 
     // Create folder if it doesn’t exist
-    console.log(
-      "Upload Path //////////////////",
-      uploadPath,
-      fs.existsSync(uploadPath)
-    );
     if (!fs.existsSync(uploadPath)) {
       fs.mkdirSync(uploadPath, { recursive: true });
     }
