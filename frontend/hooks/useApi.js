@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { API_URL } from "@env";
 
 export const useApi = (
   method,
@@ -14,8 +15,7 @@ export const useApi = (
     try {
       setLoading(true);
 
-      const url = `http://localhost:8000/api/${route}`;
-
+      const url = `${API_URL}/api/${route}`;
       let response;
 
       if (method.toLowerCase() === "get") {
@@ -30,13 +30,14 @@ export const useApi = (
 
       setData(response.data);
       setError(false);
-      setLoading(false);
 
       return { data: response.data, error: null };
     } catch (err) {
       setError(true);
       console.log("Error:", err.response?.data || err.message);
       return { data: null, error: err };
+    } finally {
+      setLoading(false);
     }
   };
 

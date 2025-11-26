@@ -37,7 +37,7 @@ export default function AppImageInputList({ inputName }) {
           ]
         );
       } else {
-        launchPicker();
+        launchImagePicker();
       }
     }
     checkMediaLibraryPermission();
