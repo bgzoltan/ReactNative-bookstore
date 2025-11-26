@@ -10,25 +10,61 @@ export default function AppImageInputList({ inputName }) {
   const { values, setFieldValue } = useFormikContext();
 
   const addImage = async () => {
-    const { canceled, assets } = await ImagePicker.launchImageLibraryAsync();
-    const asset = assets[0];
+    // Give an option to the user to change permission if it is currently 'limited'
+    async function checkMediaLibraryPermission() {
+      const perm = await MediaLibrary.getPermissionsAsync();
 
-    if (!canceled) {
-      const isSelected = values[inputName].find(
-        (asset) => asset.id == asset.assetId
-      );
-      if (isSelected) {
-        Alert.alert("Wrong selection", "This image already selected");
-        return;
+      if (perm.accessPrivileges === "limited") {
+        Alert.alert(
+          "Limited photo access",
+          "You gave access to only a few photos. Do you want to allow access to all photos?",
+          [
+            {
+              text: "Keep limited",
+              style: "cancel",
+              onPress: launchImagePicker,
+            },
+
+            {
+              text: "Access more photos",
+              onPress: () => MediaLibrary.presentLimitedLibraryPickerAsync(),
+            },
+
+            {
+              text: "Full access in phone Settings",
+              onPress: () => Linking.openSettings(),
+            },
+          ]
+        );
+      } else {
+        launchPicker();
       }
-      const newImageAssets = [...values[inputName]];
-      newImageAssets.push({
-        id: asset.assetId,
-        uri: asset.uri,
-        fileName: asset.fileName,
-      });
-      setFieldValue(inputName, newImageAssets);
     }
+    checkMediaLibraryPermission();
+
+    const launchImagePicker = async () => {
+      // Loading system image picker
+      const { canceled, assets } = await ImagePicker.launchImageLibraryAsync();
+      const asset = assets[0];
+
+      if (!canceled) {
+        const isSelected = values[inputName].find(
+          (asset) => asset.id == asset.assetId
+        );
+        if (isSelected) {
+          Alert.alert("Wrong selection", "This image already selected");
+          return;
+        }
+        const newImageAssets = [...values[inputName]];
+        newImageAssets.push({
+          id: asset.assetId,
+          uri: asset.uri,
+          fileName: asset.fileName,
+        });
+        // Store the new selected image
+        setFieldValue(inputName, newImageAssets);
+      }
+    };
   };
 
   const deleteImage = async (assetId) => {
