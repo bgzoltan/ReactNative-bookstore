@@ -7,16 +7,16 @@ import ListingEditScreenForm, {
 import AppForm from "../components/Form/AppForm.js";
 import { useApi } from "../hooks/useApi.js";
 import useLocation from "../hooks/useLocation.js";
-import { useState } from "react";
 import LottieModal from "../components/LottieModal.js";
+import { useProgress } from "../context/ProgressContext.js";
+import ProgressBar from "../components/ProgressBar.js";
 
 export default function ListingEditScreen({ navigation }) {
   const { request: submitListing } = useApi("post", "listings", {
     "Content-Type": "multipart/format-data",
   });
   const location = useLocation();
-  const [isUploaded, setIsUploaded] = useState(false);
-
+  const { isUploaded, setIsUploaded } = useProgress();
   const onSubmit = async (values) => {
     const { title, author, images, description, price, category } = values;
 
@@ -46,11 +46,10 @@ export default function ListingEditScreen({ navigation }) {
     });
 
     const { data, error } = await submitListing(formData);
+
     if (error) {
       console.log("LISTING SUBMIT ERROR", error);
       return;
-    } else {
-      setIsUploaded(true);
     }
   };
   return (
@@ -60,10 +59,14 @@ export default function ListingEditScreen({ navigation }) {
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
+        <ProgressBar />
         <LottieModal
           isVisible={isUploaded}
-          text="Saved. Tap to continue!"
-          handlePress={() => navigation.navigate("Feed")}
+          info={"Saved. Tap to continue!"}
+          handlePress={() => {
+            navigation.navigate("Feed");
+            setIsUploaded(false);
+          }}
           source={require("../assets/done.json")}
         />
         <ListingEditScreenForm />

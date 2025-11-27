@@ -11,14 +11,11 @@ import { useApi } from "../hooks/useApi";
 import LottieModal from "../components/LottieModal";
 import { useCallback } from "react";
 import { useFocusEffect } from "@react-navigation/native";
+import { useProgress } from "../context/ProgressContext";
 
 export default function ListingScreen({ navigation }) {
-  const {
-    data,
-    error,
-    loading,
-    request: getListings,
-  } = useApi("get", "listings");
+  const { data, error, request: getListings } = useApi("get", "listings");
+  const { isLoading } = useProgress();
 
   useFocusEffect(
     useCallback(() => {
@@ -34,8 +31,9 @@ export default function ListingScreen({ navigation }) {
           <AppButton onPress={getListings}>Retry</AppButton>
         </>
       )}
+
       <LottieModal
-        isVisible={loading}
+        isVisible={isLoading}
         source={require("../assets/loading.json")}
       />
       <FlatList
