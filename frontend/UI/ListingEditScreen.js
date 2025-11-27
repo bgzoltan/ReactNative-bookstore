@@ -59,17 +59,22 @@ export default function ListingEditScreen({ navigation }) {
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
-        <ProgressBar />
-        <LottieModal
-          isVisible={isUploaded}
-          info={"Saved. Tap to continue!"}
-          handlePress={() => {
-            navigation.navigate("Feed");
-            setIsUploaded(false);
-          }}
-          source={require("../assets/done.json")}
-        />
-        <ListingEditScreenForm />
+        {({ resetForm }) => (
+          <>
+            <ProgressBar />
+            <LottieModal
+              isVisible={isUploaded}
+              info={"Saved. Tap to continue!"}
+              handlePress={() => {
+                navigation.navigate("Feed");
+                setIsUploaded(false);
+                resetForm();
+              }}
+              source={require("../assets/done.json")}
+            />
+            <ListingEditScreenForm />
+          </>
+        )}
       </AppForm>
     </Screen>
   );

@@ -13,7 +13,9 @@ export default function AppForm({
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
-        {() => <>{children}</>}
+        {(formikProps) =>
+          typeof children === "function" ? children(formikProps) : children
+        }
       </Formik>
     </>
   );

@@ -5,11 +5,13 @@ import { View } from "react-native";
 import { defaultStyles } from "../../config/defaultStyles";
 
 export function AppFormField({ inputName, width, ...otherProps }) {
-  const { errors, handleChange, setFieldTouched, touched } = useFormikContext();
+  const { errors, setFieldValue, setFieldTouched, touched, values } =
+    useFormikContext();
   return (
     <>
       <AppTextInput
-        onChangeText={handleChange(inputName)}
+        onChangeText={(text) => setFieldValue(inputName, text)}
+        value={values[inputName]}
         onBlur={() => setFieldTouched(inputName)}
         width={width}
         {...otherProps}
