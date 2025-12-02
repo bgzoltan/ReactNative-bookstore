@@ -5,6 +5,7 @@ import AuthNavigator from "./navigation/AuthNavigator";
 import { navigationTheme } from "./navigation/navigationTheme";
 import AppNavigator from "./navigation/AppNavigator";
 import { ProgressProvider } from "./context/ProgressContext";
+import AsyncCache from "./components/AsyncCache";
 
 // import { useDeviceOrientation } from "@react-native-community/hooks";
 // import LogIn from "./UI/Login";
@@ -31,6 +32,14 @@ import { ProgressProvider } from "./context/ProgressContext";
 // import AppButton from "./components/AppButton/AppButton";
 
 export default function App() {
+  // async function Cache() {
+  //   await AsyncCache.store("person", { id: 1 });
+  //   const value = await AsyncCache.get("person");
+  //   console.log("VALUE", value);
+  // }
+
+  // Cache();
+
   return (
     <SafeAreaProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
@@ -38,6 +47,7 @@ export default function App() {
           <ProgressProvider>
             {/* <AuthNavigator /> */}
             <AppNavigator />
+            {/* <AsyncCache /> */}
           </ProgressProvider>
         </NavigationContainer>
       </GestureHandlerRootView>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { API_URL } from "@env";
 import { useProgress } from "../context/ProgressContext";
+import AsyncCache from "../components/AsyncCache";
 
 export const useApi = (
   method,
@@ -13,35 +14,61 @@ export const useApi = (
   const { startUpload, finishUpload, startLoading, endLoading } = useProgress();
 
   const request = async (payload = null) => {
-    try {
-      const url = `${API_URL}/api/${route}`;
-      let response;
+    const url = `${API_URL}/api/${route}`;
+    let response;
 
+    // Start loading indicator
+    startLoading();
+
+    try {
       if (method.toLowerCase() === "get") {
-        startLoading();
-        response = await axios.get(url, {
-          headers,
-        });
+        //  Cache FIRST
+        const cached = await AsyncCache.get(url);
+
+        if (cached) {
+          // Serving from cache if exists
+          setData(cached);
+          setError(false);
+          // Return the cached data immediately
+          return { data: cached, error: null };
+        }
+
+        // Fetching from network
+        response = await axios.get(url, { headers });
+
+        // Update cache and state with fresh network data
+        await AsyncCache.store(url, response.data);
+        setData(response.data);
+        setError(false);
+        return { data: response.data, error: null };
       } else {
-        if (method.toLowerCase() === "post") {
+        // Handling POST, PUT, DELETE requests (which shouldn't use cache)
+        if (method.toLowerCase().includes("post", "put", "delete")) {
           startUpload();
         }
-        response = await axios[method](url, payload, {
-          headers,
-        });
+        response = await axios[method](url, payload, { headers });
         finishUpload();
+
+        setData(response.data);
+        setError(false);
+        return { data: response.data, error: null };
       }
-      setData(response.data);
-      setError(false);
-      return { data: response.data, error: null };
     } catch (err) {
-      setError(true);
-      console.log("Error:", err.response?.data || err.message);
+      //  Runs if the Network call failed.
+      console.log("Network failed or non-GET error:", err.message);
+
+      // If the GET method fails AND the cache was empty
+      if (method.toLowerCase() === "get") {
+        setError(true);
+      } else {
+        // For non-GET methods, the failure is a real error.
+        setError(true);
+      }
+
       return { data: null, error: err };
     } finally {
       endLoading();
     }
   };
-
   return { data, error, request };
 };
