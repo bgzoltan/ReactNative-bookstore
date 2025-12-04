@@ -9,7 +9,9 @@ export const validationSchema = Yup.object({
   password: Yup.string().required().min(4).label("Password"),
 });
 
-export default function LoginScreenForm() {
+export default function LoginScreenForm({ handleSubmit }) {
+  //  formik handleSubmit runs validation and after that runs onSubmit
+
   return (
     <>
       <AppFormField
@@ -38,7 +40,9 @@ export default function LoginScreenForm() {
         }}
         required
       />
-      <AppFormSubmitButton type={"primary"}>LOGIN</AppFormSubmitButton>
+      <AppFormSubmitButton type={"primary"} handleSubmit={handleSubmit}>
+        LOGIN
+      </AppFormSubmitButton>
     </>
   );
 }

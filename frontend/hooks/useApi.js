@@ -47,6 +47,7 @@ export const useApi = (
           startUpload();
         }
         response = await axios[method](url, payload, { headers });
+
         finishUpload();
 
         setData(response.data);
@@ -55,7 +56,9 @@ export const useApi = (
       }
     } catch (err) {
       //  Runs if the Network call failed.
-      console.log("Network failed or non-GET error:", err.message);
+      console.log("Network or validation error");
+      console.log("Status:", err.response?.status);
+      console.log("Backend error:", err.response?.data?.errors);
 
       // If the GET method fails AND the cache was empty
       if (method.toLowerCase() === "get") {
@@ -65,7 +68,7 @@ export const useApi = (
         setError(true);
       }
 
-      return { data: null, error: err };
+      return { data: null, error: err.response?.data?.errors };
     } finally {
       endLoading();
     }

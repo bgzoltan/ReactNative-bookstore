@@ -4,6 +4,20 @@ import bcrypt from "bcrypt";
 import { Users } from "../schema/users.js";
 export const router = express.Router();
 
+export function mapJoiErrorsToFormik(joiError) {
+  if (!joiError || !joiError.details) return {};
+  // Reduce Joi details array into an object keyed by field name
+  const formikErrors = joiError.details.reduce((acc, error) => {
+    const fieldName = error.path[0];
+    if (!acc[fieldName]) {
+      acc[fieldName] = error.message;
+    }
+    return acc;
+  }, {});
+
+  return formikErrors;
+}
+
 router.post("/login", async (req, res) => {
   const credentials = req.body;
 
@@ -11,24 +25,23 @@ router.post("/login", async (req, res) => {
     const { error } = validateAuth(credentials);
 
     if (error) {
-      const err = new Error(
-        error.message ? error.message : "Invalid login data."
-      );
-      err.status = 400;
-      throw err;
+      //  *. Return the error as Formik expect on frontend, in structured format (fieldName:error)
+      return res.status(400).json({
+        errors: formikErrors(error),
+      });
     } else {
       const { email, password } = auth;
       const user = await Users.findOne({ email: email });
 
       if (!user) {
-        let error = new Error("Invalid user data.");
+        let error = new Error("Invalid user or password.");
         error.status = 401;
         throw error;
       }
 
       const isValid = await bcrypt.compare(password, user.password);
       if (!isValid) {
-        let error = new Error("Invalid user data.");
+        let error = new Error("Invalid user or password.");
         error.status = 401;
         throw error;
       }
@@ -41,6 +54,8 @@ router.post("/login", async (req, res) => {
     }
   } catch (err) {
     console.log("Error: ", err);
-    res.status(err.status ? err.status : 500).send(err.message);
+    return res.status(err.status || 500).json({
+      error: err.message || "Internal Server Error",
+    });
   }
 });

@@ -6,9 +6,22 @@ import LoginScreenForm, {
   validationSchema,
 } from "./Forms/LoginScreenForm.js";
 import Screen from "../components/Screen";
+import { useApi } from "../hooks/useApi.js";
 
-export default function LoginScreen({}) {
-  const onSubmit = (values) => console.log("Submitted...", values);
+export default function LoginScreen() {
+  const { request: login } = useApi("post", "login");
+
+  const onSubmit = async (values, { setErrors }) => {
+    const { email, password } = values;
+    const { data, error } = await login({ email, password });
+
+    if (error) {
+      // Backend validation errors (structured per field)
+      setErrors(error);
+    }
+    console.log("SUBMIT ==============", data);
+  };
+
   return (
     <Screen>
       <Image
@@ -20,7 +33,7 @@ export default function LoginScreen({}) {
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
-        <LoginScreenForm />
+        {(formikProps) => <LoginScreenForm {...formikProps} />}
       </AppForm>
     </Screen>
   );
