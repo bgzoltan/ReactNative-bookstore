@@ -6,7 +6,7 @@ import express from "express";
 import { router as listingRouter } from "./router/listings.js";
 import { router as categoriesRouter } from "./router/categories.js";
 import { router as authRouter } from "./router/auth.js ";
-import { router as userRouter } from "./router/user.js";
+import { router as userRouter } from "./router/users.js";
 
 const app = express();
 

@@ -13,7 +13,6 @@ router.post("/login", async (req, res) => {
       err.status = 400;
       throw err;
     } else {
-      console.log("Error", error);
       res.status(200).send("Login is correct");
     }
   } catch (err) {

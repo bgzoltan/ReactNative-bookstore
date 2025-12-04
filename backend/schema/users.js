@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
 userSchema.methods.generateToken = function () {
   // * Generate the json webtoken
   const secret = process.env.SECRET;
-  const token = jwt.sign({ _id: this._id }, secret);
+  const token = jwt.sign({ _id: this._id, name: this.firstName }, secret);
   return token;
 };
 
@@ -33,4 +33,4 @@ export const validateUser = (user) => {
   return joiUserSchema.validate(user);
 };
 
-export const User = mongoose.model("User", userSchema);
+export const Users = mongoose.model("Users", userSchema);

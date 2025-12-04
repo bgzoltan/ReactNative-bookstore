@@ -16,8 +16,7 @@ export const EmailType = {
 export const PasswordType = {
   type: String,
   required: true,
-  minlength: 8,
-  maxlength: 20,
+  maxlength: 250,
 };
 
 export const authSchema = mongoose.Schema({
@@ -27,7 +26,7 @@ export const authSchema = mongoose.Schema({
 
 export const emailField = Joi.string()
   .min(3)
-  .max(25)
+  .max(20)
   .required()
   .lowercase()
   .pattern(emailRegex)
