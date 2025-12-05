@@ -55,10 +55,25 @@ export const useApi = (
         return { data: response.data, error: null };
       }
     } catch (err) {
+      //  * Axios error structure
+      // message: string,
+      // name: "AxiosError",
+      // stack: string,
+      // code: string,          // e.g. "ERR_BAD_REQUEST"
+      // config: { ... },       // axios request config
+      // request: { ... },      // the raw request object (if sent)
+      // response: {            // ONLY exists if server responded
+      //   data: any,           // ← your backend errors & body
+      //   status: number,      // 400, 401, 500, ...
+      //   statusText: string,
+      //   headers: object,
+      //   config: object,
+      //   request: object
+      // },
+      // cause: Error | undefined
       //  Runs if the Network call failed.
-      console.log("Network or validation error");
-      console.log("Status:", err.response?.status);
-      console.log("Backend error:", err.response?.data?.errors);
+      // const { status = 500 } = err.response;
+      const { errors = null, message = "" } = err.response.data;
 
       // If the GET method fails AND the cache was empty
       if (method.toLowerCase() === "get") {
@@ -68,7 +83,14 @@ export const useApi = (
         setError(true);
       }
 
-      return { data: null, error: err.response?.data?.errors };
+      //  *If the errors o bject is not empty then it is a formi error
+      const isEmptyObject = (obj) =>
+        obj && obj.constructor === Object && Object.keys(obj).length === 0;
+
+      return {
+        data: null,
+        error: !isEmptyObject(errors) ? errors : message,
+      };
     } finally {
       endLoading();
     }

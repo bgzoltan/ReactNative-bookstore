@@ -4,6 +4,7 @@ import LoginScreen from "../UI/LoginScreen";
 import RegisterScreen from "../UI/RegisterScreen";
 import WelcomeScreen from "../UI/WelcomeScreen";
 import Screen from "../components/Screen";
+import LoginNavigator from "./LoginNavigator";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,7 +17,7 @@ export default function AuthNavigator() {
           component={WelcomeScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Login" component={LoginNavigator} />
         <Stack.Screen name="Register" component={RegisterScreen} />
       </Stack.Navigator>
     </Screen>

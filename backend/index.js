@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import http from "http";
 import express from "express";
+import errorHandler from "./middleware/errorHandler.js";
 
 import { router as listingRouter } from "./router/listings.js";
 import { router as categoriesRouter } from "./router/categories.js";
@@ -71,3 +72,4 @@ app.use("/api", authRouter);
 app.use("/api", userRouter);
 app.use("/api", listingRouter);
 app.use("/api", categoriesRouter);
+app.use(errorHandler);

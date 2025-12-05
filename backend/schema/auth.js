@@ -52,7 +52,8 @@ export const joiAuthSchema = Joi.object({
 });
 
 export const validateAuth = (auth) => {
-  return joiAuthSchema.validate(auth);
+  // To handle more errors in the same time -> abortEarly
+  return joiAuthSchema.validate(auth, { abortEarly: false });
 };
 
 export const Auth = mongoose.model("Auth", authSchema);
