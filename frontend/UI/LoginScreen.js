@@ -8,6 +8,7 @@ import LoginScreenForm, {
 import Screen from "../components/Screen";
 import { useApi } from "../hooks/useApi.js";
 import { useState } from "react";
+import { saveToken } from "../components/SecureStorage.js";
 
 export default function LoginScreen({ navigation }) {
   const { request: login } = useApi("post", "login");
@@ -35,6 +36,19 @@ export default function LoginScreen({ navigation }) {
       }
       return;
     }
+
+    //  Save the token in sexpo secure storage
+    const { token } = data;
+    if (!token) {
+      setErrorModal({
+        ...errorModal,
+        message: "Token error.",
+        isVisible: true,
+      });
+      console.log("Error when receiving token.");
+      return;
+    }
+    await saveToken(token);
     navigation.navigate("App Navigator");
   };
 
