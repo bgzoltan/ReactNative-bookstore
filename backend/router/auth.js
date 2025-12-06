@@ -14,17 +14,15 @@ router.post("/login", async (req, res, next) => {
   } else {
     const { email, password } = credentials;
     const user = await Users.findOne({ email: email });
+    let error = new Error("Invalid login data.");
+    error.status = 401;
 
     if (!user) {
-      let error = new Error("Invalid user.");
-      error.status = 401;
       return next(error);
     }
 
     const isValid = await bcrypt.compare(password, user.password);
     if (!isValid) {
-      let error = new Error("Invalid password."); // * Later on change to the same message not to inform hackers
-      error.status = 401;
       return next(error);
     }
 

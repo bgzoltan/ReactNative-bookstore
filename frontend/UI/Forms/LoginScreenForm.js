@@ -2,6 +2,7 @@ import AppFormSubmitButton from "../../components/Form/AppFormSubmitButton.js";
 import { AppFormField } from "../../components/Form/AppFormField.js";
 import colors from "../../config/colors.js";
 import * as Yup from "yup";
+import ErrorModal from "../../components/ErrorModal.js";
 
 export const initialValues = { email: "", password: "" };
 export const validationSchema = Yup.object({
@@ -9,7 +10,12 @@ export const validationSchema = Yup.object({
   password: Yup.string().required().label("Password"),
 });
 
-export default function LoginScreenForm({ handleSubmit }) {
+export default function LoginScreenForm({
+  errorModal,
+  closeErrorModal,
+  ...formikProps
+}) {
+  const { handleSubmit } = formikProps;
   //  formik handleSubmit runs validation and after that runs onSubmit
 
   return (
@@ -40,6 +46,7 @@ export default function LoginScreenForm({ handleSubmit }) {
         }}
         required
       />
+      <ErrorModal errorModal={errorModal} closeErrorModal={closeErrorModal} />
       <AppFormSubmitButton type={"primary"} handleSubmit={handleSubmit}>
         LOGIN
       </AppFormSubmitButton>

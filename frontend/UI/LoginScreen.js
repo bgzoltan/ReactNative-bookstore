@@ -7,9 +7,18 @@ import LoginScreenForm, {
 } from "./Forms/LoginScreenForm.js";
 import Screen from "../components/Screen";
 import { useApi } from "../hooks/useApi.js";
+import { useState } from "react";
 
 export default function LoginScreen({ navigation }) {
   const { request: login } = useApi("post", "login");
+  const [errorModal, setErrorModal] = useState({
+    message: "",
+    isVisible: false,
+  });
+
+  const closeErrorModal = () => {
+    setErrorModal({ ...errorModal, isVisible: false });
+  };
 
   const onSubmit = async (values, { setErrors }) => {
     const { email, password } = values;
@@ -21,6 +30,8 @@ export default function LoginScreen({ navigation }) {
         setErrors(error);
       } else {
         console.log(error);
+        // Show error to the user
+        setErrorModal({ ...errorModal, message: error, isVisible: true });
       }
       return;
     }
@@ -42,7 +53,13 @@ export default function LoginScreen({ navigation }) {
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
-        {(formikProps) => <LoginScreenForm {...formikProps} />}
+        {(formikProps) => (
+          <LoginScreenForm
+            errorModal={errorModal}
+            closeErrorModal={closeErrorModal}
+            {...formikProps}
+          />
+        )}
       </AppForm>
       {/* </Screen> */}
     </KeyboardAvoidingView>
