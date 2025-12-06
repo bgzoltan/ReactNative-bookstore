@@ -27,11 +27,19 @@ router.post("/login", async (req, res, next) => {
     }
 
     //  * Authentication is successful
+
     // * Generate token for the new user and send it back to the frontend with the user data without the password
     const token = user.generateToken();
     const userObject = user.toObject();
     // * Do not send password back to the frontend
     delete userObject.password;
-    return res.header("x-auth-token", token).status(200).send(userObject);
+
+    // Send token in the body
+    res.status(200).json({
+      token,
+      user: {
+        userObject,
+      },
+    });
   }
 });
