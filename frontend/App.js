@@ -7,6 +7,7 @@ import AppNavigator from "./navigation/AppNavigator";
 import { ProgressProvider } from "./context/ProgressContext";
 import AsyncCache from "./components/AsyncCache";
 import NetworkInfo from "./components/NetworkInfo";
+import { AuthProvider } from "./context/AuthContext";
 
 // import { useDeviceOrientation } from "@react-native-community/hooks";
 // import LogIn from "./UI/Login";
@@ -47,11 +48,13 @@ export default function App() {
       <SafeAreaProvider>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <NavigationContainer theme={navigationTheme}>
-            <ProgressProvider>
-              <AuthNavigator />
-              {/* <AppNavigator /> */}
-              {/* <AsyncCache /> */}
-            </ProgressProvider>
+            <AuthProvider>
+              <ProgressProvider>
+                <AuthNavigator />
+                {/* <AppNavigator /> */}
+                {/* <AsyncCache /> */}
+              </ProgressProvider>
+            </AuthProvider>
           </NavigationContainer>
         </GestureHandlerRootView>
       </SafeAreaProvider>

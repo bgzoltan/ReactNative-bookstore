@@ -8,7 +8,8 @@ import LoginScreenForm, {
 import Screen from "../components/Screen";
 import { useApi } from "../hooks/useApi.js";
 import { useState } from "react";
-import { saveToken } from "../components/SecureStorage.js";
+
+import { useAuth } from "../context/AuthContext.js";
 
 export default function LoginScreen({ navigation }) {
   const { request: login } = useApi("post", "login");
@@ -16,6 +17,8 @@ export default function LoginScreen({ navigation }) {
     message: "",
     isVisible: false,
   });
+
+  const { auth } = useAuth();
 
   const closeErrorModal = () => {
     setErrorModal({ ...errorModal, isVisible: false });
@@ -37,8 +40,7 @@ export default function LoginScreen({ navigation }) {
       return;
     }
 
-    //  Save the token in sexpo secure storage
-    const { token } = data;
+    const { token, user } = data;
     if (!token) {
       setErrorModal({
         ...errorModal,
@@ -48,7 +50,7 @@ export default function LoginScreen({ navigation }) {
       console.log("Error when receiving token.");
       return;
     }
-    await saveToken(token);
+    auth.login(token, user);
     navigation.navigate("App Navigator");
   };
 
