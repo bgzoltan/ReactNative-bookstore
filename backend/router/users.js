@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 
 export const router = express.Router();
 
-router.post("/users", async (req, res) => {
+router.post("/users", async (req, res, next) => {
   try {
     if (!req.body) {
       let error = new Error("Missing data!");
@@ -41,8 +41,21 @@ router.post("/users", async (req, res) => {
       email: newUser.email,
     });
   } catch (err) {
-    res
-      .status(err.status ? err.status : 500)
-      .send(err.message ? err.message : "Error during user registration.");
+    next(err);
+  }
+});
+
+router.get("/users", async (req, res, next) => {
+  const { id } = req.query;
+  try {
+    const user = await Users.findById(id);
+    if (!user) {
+      const error = new Error("User not found.");
+      error.status = 404;
+      throw error;
+    }
+    return res.status(200).send(user);
+  } catch (err) {
+    next(err);
   }
 });
