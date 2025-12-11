@@ -32,9 +32,8 @@ export const useApi = (
           // Return the cached data immediately
           return { data: cached, error: null };
         }
-
         // Fetching from network
-        response = await axios.get(url, { headers });
+        response = await axios.get(url, { headers, params: payload || {} });
 
         // Update cache and state with fresh network data
         await AsyncCache.store(url, response.data);

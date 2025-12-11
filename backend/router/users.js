@@ -47,6 +47,7 @@ router.post("/users", async (req, res, next) => {
 
 router.get("/users", async (req, res, next) => {
   const { id } = req.query;
+  console.log("CALLED ...", id);
   try {
     const user = await Users.findById(id);
     if (!user) {
@@ -54,7 +55,11 @@ router.get("/users", async (req, res, next) => {
       error.status = 404;
       throw error;
     }
-    return res.status(200).send(user);
+    return res.status(200).send({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+    });
   } catch (err) {
     next(err);
   }

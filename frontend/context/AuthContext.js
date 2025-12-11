@@ -13,29 +13,33 @@ export const AuthProvider = ({ children }) => {
     email: "",
   });
 
-  const auth = {};
+  const auth = useMemo(
+    () => ({
+      login: async (token, user) => {
+        setToken(token);
+        setUser(user);
+        await saveToken(token);
+      },
+      logout: async () => {
+        setToken("");
+        setUser(null);
+        await saveToken("");
+      },
+      reload: async (user) => {
+        setUser(user);
+      },
+    }),
+    []
+  );
 
-  auth.login = async (token, user) => {
-    //  Save the token and the user in context
-    setToken(token);
-    setUser(user);
-    //  Save the token in expo secure storage
-    await saveToken(token);
-  };
-
-  auth.logout = async () => {
-    // Delete the token and the user in context
-    setToken("");
-    setUser(null);
-    // Delete token in expo secure storage
-    await saveToken("");
-  };
-
-  const value = useMemo(() => ({
-    token,
-    user,
-    auth,
-  }));
+  const value = useMemo(
+    () => ({
+      token,
+      user,
+      auth,
+    }),
+    [token, user]
+  );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
