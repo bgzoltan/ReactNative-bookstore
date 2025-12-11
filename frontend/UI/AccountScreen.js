@@ -5,13 +5,12 @@ import colors from "../config/colors.js";
 import ListItemSeparator from "../components/ListItemSeparator.js";
 import MenuItem from "../components/MenuItem.js";
 import { routes } from "../navigation/routes.js";
+import { useAuth } from "../context/AuthContext.js";
 
 export function AccountScreen({ navigation }) {
-  const user = {
-    name: "Zoltan Bagdany",
-    title: "Software Developer",
-    image: require("../assets/icon.jpeg"),
-  };
+  const { user } = useAuth();
+  // * Later on change it to the uploaded photo
+  user.image = require("../assets/icon.jpeg");
 
   const menuItems = [
     {
@@ -48,8 +47,8 @@ export function AccountScreen({ navigation }) {
       <View style={styles.container}>
         <View style={styles.userItem}>
           <ListItem
-            name={user.name}
-            title={user.title}
+            name={`${user.firstName} ${user.lastName}`}
+            title={user.email}
             image={user.image}
             renderRightActions={() => {}}
           />

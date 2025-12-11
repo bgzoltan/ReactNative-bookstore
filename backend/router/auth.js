@@ -37,9 +37,7 @@ router.post("/login", async (req, res, next) => {
     // Send token in the body
     res.status(200).json({
       token,
-      user: {
-        userObject,
-      },
+      user: userObject,
     });
   }
 });
