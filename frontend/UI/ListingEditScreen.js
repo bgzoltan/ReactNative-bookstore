@@ -12,9 +12,8 @@ import { useProgress } from "../context/ProgressContext.js";
 import ProgressBar from "../components/ProgressBar.js";
 
 export default function ListingEditScreen({ navigation }) {
-  const { request: submitListing } = useApi("post", "listings", {
-    "Content-Type": "multipart/format-data",
-  });
+  // axios will automatically add multipart/form-data content type header
+  const { request: submitListing } = useApi("post", "listings");
   const location = useLocation();
   const { isUploaded, setIsUploaded } = useProgress();
   const onSubmit = async (values) => {

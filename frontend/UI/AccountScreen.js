@@ -8,9 +8,16 @@ import { routes } from "../navigation/routes.js";
 import { useAuth } from "../context/AuthContext.js";
 
 export function AccountScreen({ navigation }) {
-  const { user } = useAuth();
+  const { user, auth } = useAuth();
   // * Later on change it to the uploaded photo
-  user.image = require("../assets/icon.jpeg");
+
+  const handleLogout = async () => {
+    await auth.logout();
+  };
+
+  if (user) {
+    user.image = require("../assets/icon.jpeg");
+  }
 
   const menuItems = [
     {
@@ -20,7 +27,9 @@ export function AccountScreen({ navigation }) {
         color: colors.icon.white,
         backgroundColor: colors.icon.red,
       },
-      targetScreen: routes.ACCOUNT_LISTING,
+      onPress: () => {
+        navigation.navigate(routes.ACCOUNT_LISTING);
+      },
     },
     {
       name: "My Messages",
@@ -29,16 +38,20 @@ export function AccountScreen({ navigation }) {
         color: colors.icon.white,
         backgroundColor: colors.icon.greenBlue,
       },
-      targetScreen: routes.MESSAGES,
+      onPress: () => {
+        navigation.navigate(routes.MESSAGES);
+      },
     },
     {
-      name: "Log ot",
+      name: "Log out",
       icon: {
         name: "logout",
         color: colors.icon.white,
         backgroundColor: colors.icon.yellow,
       },
-      targetScreen: "",
+      onPress: () => {
+        handleLogout();
+      },
     },
   ];
 
@@ -47,9 +60,9 @@ export function AccountScreen({ navigation }) {
       <View style={styles.container}>
         <View style={styles.userItem}>
           <ListItem
-            name={`${user.firstName} ${user.lastName}`}
-            title={user.email}
-            image={user.image}
+            name={user ? `${user.firstName} ${user.lastName}` : ""}
+            title={user ? user.email : ""}
+            // image={user.image}
             renderRightActions={() => {}}
           />
         </View>
@@ -64,9 +77,7 @@ export function AccountScreen({ navigation }) {
             <MenuItem
               name={item.name}
               icon={item.icon}
-              onPress={() => {
-                navigation.navigate(item.targetScreen);
-              }}
+              onPress={item.onPress}
             />
           )}
           ItemSeparatorComponent={

@@ -1,21 +1,16 @@
 import { useState } from "react";
-import axios from "axios";
 import { API_URL } from "@env";
 import { useProgress } from "../context/ProgressContext";
 import AsyncCache from "../components/AsyncCache";
+import { apiClient } from "../api/apiClient";
 
-export const useApi = (
-  method,
-  route,
-  headers = { "Content-Type": "application/json" }
-) => {
+export const useApi = (method, route) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(false);
   const { startUpload, finishUpload, startLoading, endLoading } = useProgress();
 
   const request = async (payload = null) => {
     const url = `${API_URL}/api/${route}`;
-    let response;
 
     // Start loading indicator
     startLoading();
@@ -33,7 +28,10 @@ export const useApi = (
           return { data: cached, error: null };
         }
         // Fetching from network
-        response = await axios.get(url, { headers, params: payload || {} });
+        const response = await apiClient.get(url, {
+          params: payload || {},
+        });
+        // response = await axios.get(url, { headers, params: payload || {} });
 
         // Update cache and state with fresh network data
         await AsyncCache.store(url, response.data);
@@ -45,7 +43,8 @@ export const useApi = (
         if (method.toLowerCase().includes("post", "put", "delete")) {
           startUpload();
         }
-        response = await axios[method](url, payload, { headers });
+        // response = await axios[method](url, payload, { headers });
+        const response = await apiClient[method](url, payload);
 
         finishUpload();
 

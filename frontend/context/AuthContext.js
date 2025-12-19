@@ -1,6 +1,7 @@
-import { createContext } from "react";
-import { saveToken } from "../components/SecureStorage.js";
-import { useState, useContext, useMemo } from "react";
+import { createContext, useState, useMemo, useContext } from "react";
+import { saveToken, getToken } from "../components/SecureStorage.js";
+import { jwtDecode } from "jwt-decode";
+import { apiClient } from "../api/apiClient.js";
 
 const AuthContext = createContext();
 
@@ -25,8 +26,34 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
         await saveToken("");
       },
-      reload: async (user) => {
-        setUser(user);
+      reload: async () => {
+        const savedToken = await getToken();
+
+        // Is there a saved token in the SecureSTorage?
+        if (savedToken) {
+          const decodedJwt = jwtDecode(savedToken);
+          const { _id, exp } = decodedJwt;
+
+          // Check the token expiry  - exp is in seconds
+          if (Date.now() > exp * 1000) {
+            auth.logout();
+            let error = new Error("Your token is expired.");
+            error.status = 401;
+            throw error;
+          } else {
+            // Is there a user with the id from the token?
+            try {
+              const response = await apiClient.get("/users", {
+                params: { id: _id },
+              });
+
+              setUser(response.data);
+              setToken(savedToken);
+            } catch (err) {
+              await auth.logout();
+            }
+          }
+        }
       },
     }),
     []
