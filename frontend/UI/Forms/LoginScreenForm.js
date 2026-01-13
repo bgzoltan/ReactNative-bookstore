@@ -1,14 +1,8 @@
 import AppFormSubmitButton from "../../components/Form/AppFormSubmitButton.js";
 import { AppFormField } from "../../components/Form/AppFormField.js";
 import colors from "../../config/colors.js";
-import * as Yup from "yup";
-import ErrorModal from "../../components/ErrorModal.js";
 
-export const initialValues = { email: "", password: "" };
-export const validationSchema = Yup.object({
-  email: Yup.string().required().label("Email"),
-  password: Yup.string().required().label("Password"),
-});
+import ErrorModal from "../../components/ErrorModal.js";
 
 export default function LoginScreenForm({
   errorModal,

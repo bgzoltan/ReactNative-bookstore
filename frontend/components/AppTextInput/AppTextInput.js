@@ -17,6 +17,7 @@ export function AppTextInput({ icon, width = "100%", ...otherProps }) {
           }
         />
       )}
+      {/*  If required displaying '*'  */}
       {required ? (
         <Text style={{ color: colors.bg.danger, paddingLeft: icon ? 0 : 5 }}>
           *
@@ -35,7 +36,6 @@ export function AppTextInput({ icon, width = "100%", ...otherProps }) {
           { textAlign: otherProps.textAlign },
         ]}
         alwaysBounceVertical
-        multiline
         scrollEnabled={false}
         {...otherProps}
       />

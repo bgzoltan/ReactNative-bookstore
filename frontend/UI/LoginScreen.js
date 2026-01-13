@@ -1,17 +1,19 @@
 import AppForm from "../components/Form/AppForm.js";
 import { defaultStyles } from "../config/defaultStyles";
 import { Image, KeyboardAvoidingView, Platform } from "react-native";
-import LoginScreenForm, {
-  initialValues,
-  validationSchema,
-} from "./Forms/LoginScreenForm.js";
-import Screen from "../components/Screen";
+import LoginScreenForm from "./Forms/LoginScreenForm.js";
+import * as Yup from "yup";
 import { useApi } from "../hooks/useApi.js";
 import { useState } from "react";
 
 import { useAuth } from "../context/AuthContext.js";
 
 export default function LoginScreen({ navigation }) {
+  const initialValues = { email: "", password: "" };
+  const validationSchema = Yup.object({
+    email: Yup.string().required().label("Email"),
+    password: Yup.string().required().label("Password"),
+  });
   const { request: login } = useApi("post", "login");
   const [errorModal, setErrorModal] = useState({
     message: "",

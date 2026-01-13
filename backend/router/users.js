@@ -12,6 +12,7 @@ router.post("/users", async (req, res, next) => {
       throw error;
     }
     const user = req.body;
+    // Validate the user data
     const { error } = validateUser(user);
 
     if (error) {
@@ -20,11 +21,20 @@ router.post("/users", async (req, res, next) => {
       throw err;
     }
 
-    // * Hashing the password of the new user
+    const { email } = user;
+    // Check if user with given email already exists
+    const isAlreadyExist = await Users.find({ email: email });
+    if (isAlreadyExist.length > 0) {
+      let error = new Error("User with given email already exists!");
+      error.status = 400;
+      throw error;
+    }
+
+    // Hashing the password of the new user
     const hashedPassword = await bcrypt.hash(user.password, 10);
     const userWithHashedPassword = { ...user, password: hashedPassword };
 
-    // * Saving of the new user in the database
+    // Saving of the new user in the database
     const newUser = new Users(userWithHashedPassword);
     const response = await newUser.save();
     if (!response) {
@@ -33,12 +43,15 @@ router.post("/users", async (req, res, next) => {
       throw error;
     }
 
-    // * Generate token for the new user and send it back to the frontend with the user data without the password
+    // Generate token for the new user and send it back to the frontend with the user data without the password
     const token = newUser.generateToken();
-    return res.header("x-auth-token", token).status(201).send({
-      firstName: newUser.firstName,
-      lastName: newUser.lastName,
-      email: newUser.email,
+    res.status(201).json({
+      token,
+      user: {
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        email: newUser.email,
+      },
     });
   } catch (err) {
     next(err);
@@ -47,7 +60,6 @@ router.post("/users", async (req, res, next) => {
 
 router.get("/users", async (req, res, next) => {
   const { id } = req.query;
-  console.log("CALLED ...", id);
   try {
     const user = await Users.findById(id);
     if (!user) {

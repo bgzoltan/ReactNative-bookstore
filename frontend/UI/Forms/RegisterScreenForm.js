@@ -1,16 +1,17 @@
 import AppFormSubmitButton from "../../components/Form/AppFormSubmitButton.js";
 import { AppFormField } from "../../components/Form/AppFormField.js";
 import colors from "../../config/colors.js";
-import * as Yup from "yup";
 
-export const initialValues = { name: "", email: "", password: "" };
-export const validationSchema = Yup.object({
-  name: Yup.string().required().min(5).max(20).label("User"),
-  email: Yup.string().required().email().label("Email"),
-  password: Yup.string().required().min(4).label("Password"),
-});
+import ErrorModal from "../../components/ErrorModal.js";
 
-export default function RegisterScreenForm() {
+export default function RegisterScreenForm({
+  errorModal,
+  closeErrorModal,
+  ...formikProps
+}) {
+  const { handleSubmit } = formikProps;
+  //  formik handleSubmit runs validation and after that runs onSubmit
+
   return (
     <>
       <AppFormField
@@ -18,8 +19,23 @@ export default function RegisterScreenForm() {
         autoCorrect={false}
         keyboardType={"default"}
         textContentType={"name"}
-        inputName={"name"}
-        placeholder={"Type in your name"}
+        secureTextEntry={false}
+        inputName={"firstName"}
+        placeholder={"Type in your firstname"}
+        icon={{
+          name: "user",
+          backgroundColor: colors.bg.white,
+        }}
+        required
+      />
+      <AppFormField
+        autoCapitalize="none"
+        autoCorrect={false}
+        keyboardType={"default"}
+        textContentType={"name"}
+        secureTextEntry={false}
+        inputName={"lastName"}
+        placeholder={"Type in your lastname"}
         icon={{
           name: "user",
           backgroundColor: colors.bg.white,
@@ -31,6 +47,7 @@ export default function RegisterScreenForm() {
         autoCorrect={false}
         keyboardType={"email-address"}
         textContentType={"emailAddress"}
+        secureTextEntry={false}
         inputName={"email"}
         placeholder={"Type in your email"}
         icon={{
@@ -52,7 +69,10 @@ export default function RegisterScreenForm() {
         }}
         required
       />
-      <AppFormSubmitButton type={"primary"}>REGISTER</AppFormSubmitButton>
+      <ErrorModal errorModal={errorModal} closeErrorModal={closeErrorModal} />
+      <AppFormSubmitButton type={"primary"} handleSubmit={handleSubmit}>
+        REGISTER
+      </AppFormSubmitButton>
     </>
   );
 }
