@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
         // Is there a saved token in the SecureSTorage?
         if (savedToken) {
           const decodedJwt = jwtDecode(savedToken);
-          // * Get the user id and expiry from the token
+          // Get the user id and expiry from the token
           const { _id, exp } = decodedJwt;
 
           // Check the token expiry  - exp is in seconds
@@ -45,13 +45,13 @@ export const AuthProvider = ({ children }) => {
           } else {
             // Is there a user with the id from the token?
             try {
-              const response = await apiClient.get("/users", {
+              const response = await apiClient.get("/api/users", {
                 params: { id: _id },
               });
               setUser(response.data);
               setToken(savedToken);
             } catch (err) {
-              console.log("Error when reloading user:", err);
+              console.log("Context error when reloading user:", err);
               await auth.logout();
             }
           }
