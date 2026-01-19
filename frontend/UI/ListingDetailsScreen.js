@@ -10,6 +10,7 @@ import { Image } from "react-native";
 import ListItem from "./ListItem";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
+import LottieModal from "../components/LottieModal";
 
 export default function ListingDetailScreen({ route }) {
   const user = {
@@ -17,6 +18,8 @@ export default function ListingDetailScreen({ route }) {
     title: "Software Developer",
     image: require("../assets/icon.jpeg"),
   };
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const item = route.params;
   const { title, author, price, images } = item;
@@ -37,10 +40,16 @@ export default function ListingDetailScreen({ route }) {
           style={{ height: "70%" }}
         >
           <Text>Tap the image to see next image</Text>
+          <LottieModal
+            isVisible={isLoading}
+            source={require("../assets/loading.json")}
+          />
           <Image
             source={{
               uri: `${images[currentIndex].uri}`,
             }}
+            onLoadStart={() => setIsLoading(true)}
+            onLoadEnd={() => setIsLoading(false)}
             resizeMode=""
             style={styles.image}
           />
