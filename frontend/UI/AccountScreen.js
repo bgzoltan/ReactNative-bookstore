@@ -9,13 +9,9 @@ import { useAuth } from "../context/AuthContext.js";
 
 export function AccountScreen({ navigation }) {
   const { user, auth } = useAuth();
-  // * Later on change it to the uploaded photo
-
-  const handleLogout = async () => {
-    await auth.logout();
-  };
 
   if (user) {
+    //  TODO Later on change it to the uploaded photo
     user.image = require("../assets/icon.jpeg");
   }
 
@@ -49,8 +45,8 @@ export function AccountScreen({ navigation }) {
         color: colors.icon.white,
         backgroundColor: colors.icon.yellow,
       },
-      onPress: () => {
-        handleLogout();
+      onPress: async () => {
+        await auth.logout();
       },
     },
   ];

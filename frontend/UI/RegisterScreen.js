@@ -2,11 +2,13 @@ import { Image, KeyboardAvoidingView, Platform } from "react-native";
 import { useState } from "react";
 import * as Yup from "yup";
 import RegisterScreenForm from "./Forms/RegisterScreenForm.js";
+import LottieModal from "../components/LottieModal";
 import { useApi } from "../hooks/useApi.js";
 
 import AppForm from "../components/Form/AppForm.js";
 import { defaultStyles } from "../config/defaultStyles";
 import { useAuth } from "../context/AuthContext.js";
+import { useProgress } from "../context/ProgressContext.js";
 
 export default function RegisterScreen({ navigation }) {
   const initialValues = { name: "", email: "", password: "" };
@@ -18,6 +20,7 @@ export default function RegisterScreen({ navigation }) {
     password: Yup.string().required().min(4).label("Password"),
   });
   const { auth } = useAuth();
+  const { isLoading } = useProgress();
   const { request: createUser } = useApi("post", "users");
   const [errorModal, setErrorModal] = useState({
     message: "",
@@ -67,28 +70,36 @@ export default function RegisterScreen({ navigation }) {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
-      <Image
-        style={defaultStyles.logo}
-        source={require("../assets/booksStopLogo-cutout.png")}
+    <>
+      <LottieModal
+        isVisible={isLoading}
+        source={require("../assets/loading.json")}
       />
-      <AppForm
-        initialValues={initialValues}
-        onSubmit={onSubmit}
-        validationSchema={validationSchema}
-      >
-        {/* Render props pattern to pass formikProps to RegisterScreenForm */}
-        {(formikProps) => (
-          <RegisterScreenForm
-            errorModal={errorModal}
-            closeErrorModal={closeErrorModal}
-            {...formikProps}
+      {!isLoading && (
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
+          <Image
+            style={defaultStyles.logo}
+            source={require("../assets/booksStopLogo-cutout.png")}
           />
-        )}
-      </AppForm>
-    </KeyboardAvoidingView>
+          <AppForm
+            initialValues={initialValues}
+            onSubmit={onSubmit}
+            validationSchema={validationSchema}
+          >
+            {/* Render props pattern to pass formikProps to RegisterScreenForm */}
+            {(formikProps) => (
+              <RegisterScreenForm
+                errorModal={errorModal}
+                closeErrorModal={closeErrorModal}
+                {...formikProps}
+              />
+            )}
+          </AppForm>
+        </KeyboardAvoidingView>
+      )}
+    </>
   );
 }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import * as Location from "expo-location";
+import { Alert } from "react-native";
 
 const useLocation = () => {
   const [location, setLocation] = useState();
@@ -9,7 +10,7 @@ const useLocation = () => {
       if (!granted) {
         Alert.alert(
           "Permission issue",
-          "Please enable access to geolocation in settings."
+          "Please enable access to geolocation in settings.",
         );
         return null;
       }
