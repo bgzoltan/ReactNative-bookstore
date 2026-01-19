@@ -22,8 +22,16 @@ export default function ListingDetailScreen({ route }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const item = route.params;
-  const { title, author, price, images } = item;
+  const { title, author, description, price, images } = item;
 
+  // Handle case where there are no images
+  if (!images || images.length === 0) {
+    return (
+      <Screen>
+        <Text>No images available for this listing.</Text>
+      </Screen>
+    );
+  }
   const numberOfImages = images.length;
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -35,6 +43,7 @@ export default function ListingDetailScreen({ route }) {
       >
         <TouchableOpacity
           onPress={() => {
+            // Cycle through images on each tap
             setCurrentIndex((currentIndex + 1) % numberOfImages);
           }}
           style={{ height: "70%" }}
@@ -55,8 +64,9 @@ export default function ListingDetailScreen({ route }) {
           />
         </TouchableOpacity>
         <View style={styles.detailsContainer}>
-          <Text style={styles.title}>Title: {title}</Text>
-          <Text style={styles.author}>Author: {author}</Text>
+          <Text>Title: {title}</Text>
+          <Text>Author: {author}</Text>
+          <Text>Description: {description}</Text>
           <Text style={styles.price}>Price: AUD$ {price}</Text>
         </View>
         <View style={styles.userItem}>
