@@ -13,7 +13,8 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.DoneWithIt"
     },
     "android": {
       "adaptiveIcon": {
@@ -24,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f856ac57-eed2-443c-9862-a2ba85f82f54"
+      }
+    },
+    "owner": "bgzoltan"
   }
 }
