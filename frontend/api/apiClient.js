@@ -8,26 +8,34 @@ export const apiClient = axios.create({
 });
 
 // Request interceptor
+
 apiClient.interceptors.request.use(
   async (config) => {
     const token = await getToken();
-    // Adding token to headers if exists
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+
+    if (token && token !== "null") {
+      // Use spread to ensure the headers object is updated correctly
+      config.headers = {
+        ...config.headers,
+        Authorization: `Bearer ${token}`,
+      };
     }
-    // * Axios will automatically set the Content-Type header for FormData
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error),
 );
 
 // Response intercepor
 apiClient.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    return response;
+  },
   (error) => {
-    // Handle errors globally
+    console.log("❌ Response interceptor error:", {
+      message: error.message,
+      status: error.response?.status,
+      data: error.response?.data,
+    });
     return Promise.reject(error);
-  }
+  },
 );
