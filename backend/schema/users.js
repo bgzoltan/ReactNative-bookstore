@@ -12,6 +12,11 @@ const userSchema = new mongoose.Schema({
   lastName: { type: String, required: true, maxlength: 15, minlength: 3 },
   email: EmailType,
   password: PasswordType,
+  expoPushToken: {
+    type: String,
+    default: null,
+    index: true, // useful for push queries
+  },
 });
 
 // * Adding the generateToken function as a method to the User schema
@@ -29,8 +34,17 @@ const joiUserSchema = Joi.object({
   password: passwordField,
 });
 
+// Inorder to validate the push token, we can create a separate Joi schema for it. The push token should follow the format "ExponentPushToken[xxxxxxxxxxxxxxxxxxxxxx]", where "xxxxxxxxxxxxxxxxxxxxxx" is a string of alphanumeric characters. We can use a regular expression to validate this format.
+const pushTokenSchema = Joi.object({
+  expoPushToken: Joi.string(),
+});
+
 export const validateUser = (user) => {
   return joiUserSchema.validate(user);
+};
+
+export const validatePushToken = (pushToken) => {
+  return pushTokenSchema.validate(pushToken);
 };
 
 export const Users = mongoose.model("Users", userSchema);

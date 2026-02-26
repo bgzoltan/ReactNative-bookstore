@@ -8,6 +8,7 @@ import { router as listingRouter } from "./router/listings.js";
 import { router as categoriesRouter } from "./router/categories.js";
 import { router as authRouter } from "./router/auth.js ";
 import { router as userRouter } from "./router/users.js";
+import { router as pushTokenRouter } from "./router/pushToken.js";
 
 const app = express();
 
@@ -36,14 +37,14 @@ const startServer = async () => {
   try {
     if (await isPortFree(PORT)) {
       app.listen(PORT, () =>
-        console.log(`🟢 ✔️  BookStore server is running on port ${PORT}`)
+        console.log(`🟢 ✔️  BookStore server is running on port ${PORT}`),
       );
 
       await mongoose.connect(MONGO_URI);
       console.log("🟢 🔛 BookStore server is connected to Mongo database.");
     } else {
       const error = new Error(
-        `🔴 Port ${PORT} is already in use. Failed to start server.`
+        `🔴 Port ${PORT} is already in use. Failed to start server.`,
       );
       error.status = 500;
       throw error;
@@ -52,7 +53,7 @@ const startServer = async () => {
     console.error(
       err.message
         ? err.message
-        : `🔴 Something went wrong. Failed to start server: ${err.message}`
+        : `🔴 Something went wrong. Failed to start server: ${err.message}`,
     );
     process.exit(1);
   }
@@ -69,6 +70,7 @@ app.get("/", (req, res) => {
 
 app.use(express.json());
 app.use("/api", authRouter);
+app.use("/api", pushTokenRouter);
 app.use("/api", userRouter);
 app.use("/api", listingRouter);
 app.use("/api", categoriesRouter);
