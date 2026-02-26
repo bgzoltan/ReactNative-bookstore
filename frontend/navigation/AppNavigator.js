@@ -40,6 +40,7 @@ export default function AppNavigator() {
       // I had to install 'npx expo install expo-constants'  then  run 'eas project:init' to get a projectId for the token, which is required for push notifications to work in Expo Go. The projectId is a unique identifier for your Expo project, and it’s used to route push notifications to the correct app instance on the device.
       // I had to install 'npm install -g eas-cli' to use the eas command line tool, which is required for building and managing Expo projects, especially when using features like push notifications that require a projectId.
       const token = (await Notifications.getExpoPushTokenAsync()).data;
+      // This token can then be sent to your backend server, which can use it to send push notifications to this device through Expo’s push notification service.
       console.log("Your Expo Push Token:", token);
     } catch (error) {
       console.error("Error requesting notifications permission:", error);
