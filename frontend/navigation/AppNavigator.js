@@ -6,10 +6,16 @@ import { Icon } from "../components/Icon";
 import colors from "../config/colors";
 import FeedNavigator from "./FeedNavigator";
 import * as Notifications from "expo-notifications";
+import { useAuth } from "../context/AuthContext";
+import { useApi } from "../hooks/useApi";
 
 const Tab = createBottomTabNavigator();
 
 export default function AppNavigator() {
+  const { user } = useAuth();
+  const { _id: userId } = user;
+  const { request: savePushToken } = useApi("post", "push-token");
+
   // Request notification permission on app startup using expo-notifications
 
   // I had to install  in order to build and run the Expo app as a real native iOS app. It’s the bridge between JavaScript/Expo and Xcode/iOS
@@ -21,8 +27,6 @@ export default function AppNavigator() {
     try {
       const { status } = await Notifications.getPermissionsAsync();
       let finalStatus = status;
-
-      console.log("STATUS.......", status);
 
       if (status !== "granted") {
         const { status: askStatus } =
@@ -41,7 +45,19 @@ export default function AppNavigator() {
       // I had to install 'npm install -g eas-cli' to use the eas command line tool, which is required for building and managing Expo projects, especially when using features like push notifications that require a projectId.
       const token = (await Notifications.getExpoPushTokenAsync()).data;
       // This token can then be sent to your backend server, which can use it to send push notifications to this device through Expo’s push notification service.
-      console.log("Your Expo Push Token:", token);
+      if (user) {
+        const response = await savePushToken({
+          userId,
+          pushToken: token,
+        });
+        if (!response) {
+          const error = new Error("Failed to save push token.");
+          error.status = 500;
+          throw error;
+        } else {
+          console.log("Push token saved successfully.", response);
+        }
+      }
     } catch (error) {
       console.error("Error requesting notifications permission:", error);
     }
