@@ -1,5 +1,6 @@
 import express from "express";
 import { validatePushToken, Users } from "../schema/users.js";
+import sendPushNotification from "../utility/expoPushNotification.ts";
 
 export const router = express.Router();
 
@@ -28,6 +29,16 @@ router.post("/push-token", async (req, res, next) => {
       { expoPushToken: pushToken },
       { new: true }, // returns the updated user
     );
+
+    sendPushNotification({
+      targetDevices: [pushToken],
+      message: {
+        title: "Push Token Registered",
+        body: "Your device has been registered for push notifications.",
+        sound: "default",
+        data: { userId },
+      },
+    });
 
     if (!updatedUser) {
       let error = new Error("Error during pushToken save!");
