@@ -8,6 +8,7 @@ import FeedNavigator from "./FeedNavigator";
 import * as Notifications from "expo-notifications";
 import { useAuth } from "../context/AuthContext";
 import { useApi } from "../hooks/useApi";
+import Constants from "expo-constants";
 
 const Tab = createBottomTabNavigator();
 
@@ -43,7 +44,23 @@ export default function AppNavigator() {
       // The token is used to send push notifications to this specific device. You can use it with services like Firebase Cloud Messaging (FCM) or your own backend to send notifications.
       // I had to install 'npx expo install expo-constants'  then  run 'eas project:init' to get a projectId for the token, which is required for push notifications to work in Expo Go. The projectId is a unique identifier for your Expo project, and it’s used to route push notifications to the correct app instance on the device.
       // I had to install 'npm install -g eas-cli' to use the eas command line tool, which is required for building and managing Expo projects, especially when using features like push notifications that require a projectId.
-      const token = (await Notifications.getExpoPushTokenAsync()).data;
+
+      //  It’s important to note that the token you get from Expo is specific to the Expo Go app and won’t work if you build a standalone app. For standalone apps, you need to configure push notifications separately for iOS and Android, and the token management will be different.
+      Notifications.setNotificationHandler({
+        handleNotification: async () => ({
+          shouldShowBanner: true,
+          shouldPlaySound: true,
+          shouldSetBadge: true,
+        }),
+      });
+      const projectId =
+        Constants?.expoConfig?.extra?.eas?.projectId ??
+        Constants?.easConfig?.projectId;
+      const token = (
+        await Notifications.getExpoPushTokenAsync({
+          projectId,
+        })
+      ).data;
       // This token can then be sent to your backend server, which can use it to send push notifications to this device through Expo’s push notification service.
       if (user) {
         const response = await savePushToken({
