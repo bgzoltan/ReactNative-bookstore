@@ -1,91 +1,21 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ListingEditScreen from "../UI/ListingEditScreen";
 import AccountNavigator from "./AccountNavigator";
 import { Icon } from "../components/Icon";
 import colors from "../config/colors";
 import FeedNavigator from "./FeedNavigator";
-import * as Notifications from "expo-notifications";
-import { useAuth } from "../context/AuthContext";
-import { useApi } from "../hooks/useApi";
-import Constants from "expo-constants";
+import usePushNotification from "../hooks/useNotification";
 
+//    Tab navigation is a common pattern to switch between different screens or sections of the app. Each tab corresponds to a different screen or section of the app, such as the feed, listing edit screen, and account settings.
 const Tab = createBottomTabNavigator();
 
 export default function AppNavigator() {
-  const { user } = useAuth();
-  const { _id: userId } = user;
-  const { request: savePushToken } = useApi("post", "push-token");
-
-  // Request notification permission on app startup using expo-notifications
-
-  // I had to install  in order to build and run the Expo app as a real native iOS app. It’s the bridge between JavaScript/Expo and Xcode/iOS
-  // But to run this I had to install cocoapods first, which is an IOS library manager as npm
-  //  I had to do several steps in Xcode to build my app and install it on my physical device. The main issue was to get the right signing team and provisioning profile.
-  // After that, I could build and run the app on my iPhone, but for push notifications to work, I also had to configure my app in the Apple Developer portal, create an App ID with push notification capability, and generate a push notification certificate. In order to do that, I needed an Apple Developer account, which costs $99 per year.
-
-  async function requestNotificationsPermission() {
-    try {
-      const { status } = await Notifications.getPermissionsAsync();
-      let finalStatus = status;
-
-      if (status !== "granted") {
-        const { status: askStatus } =
-          await Notifications.requestPermissionsAsync();
-        finalStatus = askStatus;
-      }
-
-      if (finalStatus !== "granted") {
-        alert("Failed to get push token for push notification!");
-        return;
-      }
-
-      // Get the token
-      // The token is used to send push notifications to this specific device. You can use it with services like Firebase Cloud Messaging (FCM) or your own backend to send notifications.
-      // I had to install 'npx expo install expo-constants'  then  run 'eas project:init' to get a projectId for the token, which is required for push notifications to work in Expo Go. The projectId is a unique identifier for your Expo project, and it’s used to route push notifications to the correct app instance on the device.
-      // I had to install 'npm install -g eas-cli' to use the eas command line tool, which is required for building and managing Expo projects, especially when using features like push notifications that require a projectId.
-
-      //  It’s important to note that the token you get from Expo is specific to the Expo Go app and won’t work if you build a standalone app. For standalone apps, you need to configure push notifications separately for iOS and Android, and the token management will be different.
-      Notifications.setNotificationHandler({
-        handleNotification: async () => ({
-          shouldShowBanner: true,
-          shouldPlaySound: true,
-          shouldSetBadge: true,
-        }),
-      });
-      const projectId =
-        Constants?.expoConfig?.extra?.eas?.projectId ??
-        Constants?.easConfig?.projectId;
-      const token = (
-        await Notifications.getExpoPushTokenAsync({
-          projectId,
-        })
-      ).data;
-      // This token can then be sent to your backend server, which can use it to send push notifications to this device through Expo’s push notification service.
-      if (user) {
-        const response = await savePushToken({
-          userId,
-          pushToken: token,
-        });
-        if (!response) {
-          const error = new Error("Failed to save push token.");
-          error.status = 500;
-          throw error;
-        } else {
-          console.log("Push token saved successfully.", response);
-        }
-      }
-    } catch (error) {
-      console.error("Error requesting notifications permission:", error);
-    }
-  }
-
-  useEffect(() => {
-    requestNotificationsPermission();
-    Notifications.addNotificationReceivedListener((notification) => {
-      console.log("Notification received:", notification);
-    });
-  }, []);
+  // This custom hook is responsible for requesting notification permissions and handling incoming notifications.
+  const notificationListener = (notification) => {
+    console.log("Notification received:", notification);
+  };
+  usePushNotification(notificationListener);
 
   return (
     <Tab.Navigator>
