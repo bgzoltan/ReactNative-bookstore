@@ -82,6 +82,9 @@ export default function AppNavigator() {
 
   useEffect(() => {
     requestNotificationsPermission();
+    Notifications.addNotificationReceivedListener((notification) => {
+      console.log("Notification received:", notification);
+    });
   }, []);
 
   return (
