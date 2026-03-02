@@ -55,11 +55,12 @@ export default function LoginScreen({ navigation }) {
     auth.login(token, user);
     navigation.navigate("App Navigator");
   };
-
   return (
+    //  KeyboardAvoidingView is used to prevent the keyboard from covering the form fields when they are focused.
     <KeyboardAvoidingView
       style={{ flex: 1 }}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      behavior="position"
+      keyboardVerticalOffset={Platform.OS === "ios" ? -150 : 100}
     >
       {/* <Screen> */}
       <Image
@@ -79,7 +80,6 @@ export default function LoginScreen({ navigation }) {
           />
         )}
       </AppForm>
-      {/* </Screen> */}
     </KeyboardAvoidingView>
   );
 }

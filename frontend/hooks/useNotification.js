@@ -69,6 +69,7 @@ export default function usePushNotification(notificationListener) {
   }
   useEffect(() => {
     requestNotificationsPermission();
-    Notifications.addNotificationReceivedListener(notificationListener);
+    if (notificationListener)
+      Notifications.addNotificationReceivedListener(notificationListener);
   }, []);
 }
