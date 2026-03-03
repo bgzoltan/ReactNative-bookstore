@@ -9,6 +9,7 @@ import { router as categoriesRouter } from "./router/categories.js";
 import { router as authRouter } from "./router/auth.js ";
 import { router as userRouter } from "./router/users.js";
 import { router as pushTokenRouter } from "./router/pushToken.js";
+import { router as messagesRouter } from "./router/messages.js";
 
 const app = express();
 
@@ -71,6 +72,7 @@ app.get("/", (req, res) => {
 app.use(express.json());
 app.use("/api", authRouter);
 app.use("/api", pushTokenRouter);
+app.use("/api", messagesRouter);
 app.use("/api", userRouter);
 app.use("/api", listingRouter);
 app.use("/api", categoriesRouter);
