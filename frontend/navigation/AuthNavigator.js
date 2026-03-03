@@ -18,7 +18,7 @@ export default function AuthNavigator() {
           options={{ headerShown: false }}
         />
         {/*  Other subscreens from here */}
-        <Stack.Screen name="Login" component={LoginNavigator} />
+        <Stack.Screen name="Login Navigator" component={LoginNavigator} />
         <Stack.Screen name="Register" component={RegisterNavigator} />
       </Stack.Navigator>
     </Screen>

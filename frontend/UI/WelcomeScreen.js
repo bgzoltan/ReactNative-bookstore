@@ -3,12 +3,11 @@ import colors from "../config/colors";
 import { defaultStyles } from "../config/defaultStyles";
 import { ImageBackground } from "react-native";
 import { StyleSheet, Text, View, Image } from "react-native";
-import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function WelcomeScreen({ navigation }) {
   const handleLogin = () => {
-    navigation.navigate("Login");
+    navigation.navigate("Login Navigator");
   };
   const handleRegister = () => {
     navigation.navigate("Register");

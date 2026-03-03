@@ -46,6 +46,10 @@ export const useApi = (method, route) => {
           startUpload();
         }
         // response = await axios[method](url, payload, { headers });
+        let headers = {};
+        // if (route !== "/login") {
+        //   headers = { Authorization: `Bearer ${token}` };
+        // }
         const response = await apiClient[method](url, payload);
 
         finishUpload();
