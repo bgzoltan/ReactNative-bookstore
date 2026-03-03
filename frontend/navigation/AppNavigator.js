@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ListingEditScreen from "../UI/ListingEditScreen";
 import AccountNavigator from "./AccountNavigator";
@@ -6,6 +6,7 @@ import { Icon } from "../components/Icon";
 import colors from "../config/colors";
 import FeedNavigator from "./FeedNavigator";
 import usePushNotification from "../hooks/useNotification";
+import { useApi } from "../hooks/useApi";
 
 //    Tab navigation is a common pattern to switch between different screens or sections of the app. Each tab corresponds to a different screen or section of the app, such as the feed, listing edit screen, and account settings.
 const Tab = createBottomTabNavigator();
@@ -16,6 +17,21 @@ export default function AppNavigator() {
     console.log("Notification received:", notification);
   };
   usePushNotification(notificationListener);
+
+  const { request: getMessages } = useApi("get", "messages");
+
+  useEffect(() => {
+    async function fetchMessages() {
+      try {
+        const response = await getMessages();
+        console.log("Messages response", response);
+      } catch (error) {
+        console.error("Error fetching messages:", error);
+      }
+    }
+
+    fetchMessages();
+  }, []);
 
   return (
     <Tab.Navigator>

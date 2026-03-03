@@ -3,11 +3,13 @@ import { API_URL } from "@env";
 import { useProgress } from "../context/ProgressContext";
 import AsyncCache from "../components/AsyncCache";
 import { apiClient } from "../api/apiClient";
+import { useAuth } from "../context/AuthContext";
 
 export const useApi = (method, route) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(false);
   const { startUpload, finishUpload, startLoading, endLoading } = useProgress();
+  const { token } = useAuth();
 
   const request = async (payload = null) => {
     const url = `${API_URL}/api/${route}`;
@@ -29,9 +31,9 @@ export const useApi = (method, route) => {
         }
         // Fetching from network
         const response = await apiClient.get(url, {
+          headers: { Authorization: `Bearer ${token}` },
           params: payload || {},
         });
-        // response = await axios.get(url, { headers, params: payload || {} });
 
         // Update cache and state with fresh network data
         await AsyncCache.store(url, response.data);
