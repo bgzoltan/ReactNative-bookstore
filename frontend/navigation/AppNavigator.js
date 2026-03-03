@@ -18,12 +18,15 @@ export default function AppNavigator() {
   };
   usePushNotification(notificationListener);
 
-  const { request: getMessages } = useApi("get", "messages");
+  const { request: sendMessage } = useApi("post", "messages");
 
   useEffect(() => {
     async function fetchMessages() {
       try {
-        const response = await getMessages();
+        const response = await sendMessage({
+          recipientId: "6930ce1acd4dba8dd6342626",
+          content: "Hello from the app! My first message",
+        });
         console.log("Messages response", response);
       } catch (error) {
         console.error("Error fetching messages:", error);
