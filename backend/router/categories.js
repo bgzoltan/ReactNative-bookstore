@@ -35,6 +35,6 @@ router.get("/categories", async (req, res) => {
     res.status(200).send(categories);
   } catch (err) {
     console.log("Error: ", err);
-    res.status(500).send("Internal Server Error");
+    res.status(500).send("Internal Server Error when getting categories.");
   }
 });

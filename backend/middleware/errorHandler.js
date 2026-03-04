@@ -13,7 +13,7 @@ export default (err, req, res, next) => {
     return formikErrors;
   }
 
-  //  * error object structure to handle errors consistently
+  //   error object structure to handle errors consistently
   //   {
   //   "message": "",
   //   "errors": {
@@ -40,7 +40,7 @@ export default (err, req, res, next) => {
 
   // Unexpected error
   res.status(500).json({
-    message: "Internal server error",
+    message: `Internal server error when authenticating ${err.message || ""}`,
     errors: {},
   });
 };
