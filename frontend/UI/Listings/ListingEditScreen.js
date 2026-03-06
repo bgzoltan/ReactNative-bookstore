@@ -10,12 +10,15 @@ import useLocation from "../../hooks/useLocation.js";
 import LottieModal from "../../components/LottieModal.js";
 import { useProgress } from "../../context/ProgressContext.js";
 import ProgressBar from "../../components/ProgressBar.js";
+import { useAuth } from "../../context/AuthContext.js";
 
 export default function ListingEditScreen({ navigation }) {
   // axios will automatically add multipart/form-data content type header
   const { request: submitListing } = useApi("post", "listings");
   const location = useLocation();
   const { isUploaded, setIsUploaded } = useProgress();
+  const { user } = useAuth();
+
   const onSubmit = async (values) => {
     const { title, author, images, description, price, category } = values;
 
@@ -26,7 +29,7 @@ export default function ListingEditScreen({ navigation }) {
     formData.append("description", description);
     formData.append("price", price.toString());
     formData.append("category", category);
-    formData.append("userId", "6875f9e3f8133e590cf4aa69");
+    formData.append("userId", user._id);
     formData.append(
       "location",
       JSON.stringify({

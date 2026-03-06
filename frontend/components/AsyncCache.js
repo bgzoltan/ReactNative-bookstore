@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 // Cache the api data for some time to reduce network requests
 const prefix = "cache";
 // Stale time
-const expiry = 2; // minutes
+const expiry = 0.1; // minutes
 
 function isExpired(item) {
   // Date format: 2020-01-19T04:52:23.408Z
