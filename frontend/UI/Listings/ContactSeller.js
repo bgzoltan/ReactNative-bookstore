@@ -10,12 +10,12 @@ export default function ContactSeller({ sellerId }) {
     message: Yup.string().max(255).label("Message"),
   });
 
-  const [errorModal, setErrorModal] = useState({
+  const [infoModal, setInfoModal] = useState({
     isVisible: false,
     message: "",
   });
-  const closeErrorModal = () => {
-    setErrorModal({ ...errorModal, isVisible: false, message: "" });
+  const closeInfoModal = () => {
+    setInfoModal({ ...infoModal, isVisible: false, message: "" });
   };
 
   const { request: sendMessage } = useApi("post", "messages");
@@ -44,8 +44,8 @@ export default function ContactSeller({ sellerId }) {
       return;
     } else {
       // Show success message to the user
-      setErrorModal({
-        ...errorModal,
+      setInfoModal({
+        ...infoModal,
         message: "Message sent successfully!",
         isVisible: true,
       });
@@ -60,8 +60,8 @@ export default function ContactSeller({ sellerId }) {
     >
       {(formikProps) => (
         <MessageForm
-          errorModal={errorModal}
-          closeErrorModal={closeErrorModal}
+          infoModal={infoModal}
+          closeInfoModal={closeInfoModal}
           {...formikProps}
         />
       )}

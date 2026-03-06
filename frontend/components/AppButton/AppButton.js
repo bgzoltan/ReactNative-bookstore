@@ -5,6 +5,7 @@ export default function AppButton({
   children,
   handlePress,
   type = "primary",
+  style,
   ...props
 }) {
   return (
@@ -12,6 +13,7 @@ export default function AppButton({
       style={[
         styles.primary,
         type === "primary" ? styles.primary : styles.secondary,
+        style,
       ]}
       onPress={handlePress}
       {...props}

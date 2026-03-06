@@ -1,11 +1,11 @@
 import AppFormSubmitButton from "../../components/Form/AppFormSubmitButton.js";
 import { AppFormField } from "../../components/Form/AppFormField.js";
 import colors from "../../config/colors.js";
-import ErrorModal from "../../components/ErrorModal.js";
+import InfoModal from "../../components/InfoModal.js";
 
 export default function MessageForm({
-  errorModal,
-  closeErrorModal,
+  infoModal,
+  closeInfoModal,
   ...formikProps
 }) {
   const { handleSubmit } = formikProps;
@@ -25,7 +25,7 @@ export default function MessageForm({
           backgroundColor: colors.bg.white,
         }}
       />
-      <ErrorModal errorModal={errorModal} closeErrorModal={closeErrorModal} />
+      <InfoModal infoModal={infoModal} closeInfoModal={closeInfoModal} />
       <AppFormSubmitButton type={"primary"} handleSubmit={handleSubmit}>
         SEND MESSAGE
       </AppFormSubmitButton>
