@@ -5,7 +5,8 @@ export const defaultStyles = {
   inputText: {
     color: colors.text.gray,
     borderRadius: 5,
-    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+    fontFamily:
+      Platform.OS === "android" ? "MontserratRegular" : "MontserratRegular",
     fontSize: 16,
     width: "100%",
   },

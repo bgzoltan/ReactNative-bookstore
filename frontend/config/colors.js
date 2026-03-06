@@ -18,8 +18,9 @@ const colors = {
   icon: {
     primary: "#FFFFFF",
     secondary: "#615e5eff",
+    black: "#000000",
     gray: "#F2F2F2",
-    red: "#F78174",
+    red: "#EA686B",
     orange: "#F8A95D",
     yellow: "#FDD657",
     green: "#6FD294",

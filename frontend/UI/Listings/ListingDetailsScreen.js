@@ -47,7 +47,7 @@ export default function ListingDetailScreen({ route }) {
         </TouchableOpacity>
         <BookDetails book={book} />
         <UserDetails user={seller ? seller : null} />
-        <ContactSeller sellerId={seller?._id} />
+        <ContactSeller sellerId={seller?._id} book={book} />
       </ScrollView>
     </Screen>
   );

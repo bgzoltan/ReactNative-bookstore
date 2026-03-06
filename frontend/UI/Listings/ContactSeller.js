@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { useApi } from "../../hooks/useApi.js";
 import { useState } from "react";
 
-export default function ContactSeller({ sellerId }) {
+export default function ContactSeller({ sellerId, book }) {
   const initialValues = { message: "" };
   const validationSchema = Yup.object({
     message: Yup.string().max(255).label("Message"),
@@ -22,13 +22,11 @@ export default function ContactSeller({ sellerId }) {
 
   const onSubmit = async (values, { setErrors }) => {
     const { message } = values;
-    console.log("Submitting message:", {
-      recipientId: sellerId,
-      content: message,
-    });
 
-    const { data, error } = await sendMessage({
+    const { error } = await sendMessage({
       recipientId: sellerId,
+      subject: book.title,
+      relatedBookId: book._id,
       content: message,
     });
 

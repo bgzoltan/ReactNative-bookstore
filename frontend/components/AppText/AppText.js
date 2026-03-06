@@ -1,9 +1,11 @@
-import { View, Text, StyleSheet } from "react-native";
+import { Text, StyleSheet } from "react-native";
 import colors from "../../config/colors";
 
-export function AppText({ children, ...otherProps }) {
+export function AppText({ children, weight = "regular", style, ...props }) {
+  const fontFamily = weight === "bold" ? "MontserratBold" : "MontserratRegular";
+
   return (
-    <Text style={[styles.text, otherProps.style]} {...otherProps}>
+    <Text style={[{ fontFamily }, styles.text, style]} {...props}>
       {children}
     </Text>
   );
@@ -12,7 +14,6 @@ export function AppText({ children, ...otherProps }) {
 const styles = StyleSheet.create({
   text: {
     color: colors.text.secondary,
-    backgroundColor: colors.bg.gray,
   },
 });
 

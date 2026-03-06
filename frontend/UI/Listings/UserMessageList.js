@@ -45,6 +45,7 @@ export default function UserMessageList({ filter }) {
             style={{
               display: "flex",
               flexDirection: "column",
+              width: "100%",
             }}
             data={messages}
             keyExtractor={(message) => message._id}

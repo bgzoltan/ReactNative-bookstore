@@ -31,6 +31,9 @@
         "projectId": "f856ac57-eed2-443c-9862-a2ba85f82f54"
       }
     },
-    "owner": "bgzoltan"
+    "owner": "bgzoltan",
+    "plugins": [
+      "expo-font"
+    ]
   }
 }
