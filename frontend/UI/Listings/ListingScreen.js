@@ -1,17 +1,17 @@
 import { FlatList } from "react-native";
-import Screen from "../components/Screen";
-import colors from "../config/colors";
-import Card from "./Card";
-import ListItemSeparator from "../components/ListItemSeparator";
-import { routes } from "../navigation/routes";
+import Screen from "../../components/Screen";
+import colors from "../../config/colors";
+import Card from "../Card";
+import ListItemSeparator from "../../components/ListItemSeparator";
+import { routes } from "../../navigation/routes";
 
-import ErrorMessage from "../components/ErrorMessage";
-import AppButton from "../components/AppButton/AppButton";
-import { useApi } from "../hooks/useApi";
-import LottieModal from "../components/LottieModal";
+import ErrorMessage from "../../components/ErrorMessage";
+import AppButton from "../../components/AppButton/AppButton";
+import { useApi } from "../../hooks/useApi";
+import LottieModal from "../../components/LottieModal";
 import { useCallback } from "react";
 import { useFocusEffect } from "@react-navigation/native";
-import { useProgress } from "../context/ProgressContext";
+import { useProgress } from "../../context/ProgressContext";
 
 export default function ListingScreen({ navigation }) {
   const { data, error, request: getListings } = useApi("get", "listings");
@@ -20,7 +20,7 @@ export default function ListingScreen({ navigation }) {
   useFocusEffect(
     useCallback(() => {
       getListings();
-    }, [])
+    }, []),
   );
 
   return (
@@ -34,7 +34,7 @@ export default function ListingScreen({ navigation }) {
 
       <LottieModal
         isVisible={isLoading}
-        source={require("../assets/loading.json")}
+        source={require("../../assets/loading.json")}
       />
       <FlatList
         data={data}

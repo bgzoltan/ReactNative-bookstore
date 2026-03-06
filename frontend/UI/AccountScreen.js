@@ -1,4 +1,4 @@
-import ListItem from "./ListItem.js";
+import ListItem from "./Listings/UserDetails.js";
 import Screen from "../components/Screen.js";
 import { FlatList, StyleSheet, View } from "react-native";
 import colors from "../config/colors.js";

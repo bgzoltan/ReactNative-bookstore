@@ -1,15 +1,15 @@
-import Screen from "../components/Screen.js";
+import Screen from "../../components/Screen.js";
 import ListingEditScreenForm, {
   initialValues,
   validationSchema,
-} from "./Forms/ListingEditScreenForm.js";
+} from "../Forms/ListingEditScreenForm.js";
 
-import AppForm from "../components/Form/AppForm.js";
-import { useApi } from "../hooks/useApi.js";
-import useLocation from "../hooks/useLocation.js";
-import LottieModal from "../components/LottieModal.js";
-import { useProgress } from "../context/ProgressContext.js";
-import ProgressBar from "../components/ProgressBar.js";
+import AppForm from "../../components/Form/AppForm.js";
+import { useApi } from "../../hooks/useApi.js";
+import useLocation from "../../hooks/useLocation.js";
+import LottieModal from "../../components/LottieModal.js";
+import { useProgress } from "../../context/ProgressContext.js";
+import ProgressBar from "../../components/ProgressBar.js";
 
 export default function ListingEditScreen({ navigation }) {
   // axios will automatically add multipart/form-data content type header
@@ -32,7 +32,7 @@ export default function ListingEditScreen({ navigation }) {
       JSON.stringify({
         latitude: location.latitude,
         longitude: location.longitude,
-      })
+      }),
     );
 
     // Append multiple images
@@ -69,7 +69,7 @@ export default function ListingEditScreen({ navigation }) {
                 setIsUploaded(false);
                 resetForm();
               }}
-              source={require("../assets/done.json")}
+              source={require("../../assets/done.json")}
             />
             <ListingEditScreenForm />
           </>

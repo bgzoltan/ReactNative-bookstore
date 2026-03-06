@@ -1,5 +1,6 @@
 import LottieView from "lottie-react-native";
 import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
+import colors from "../config/colors";
 
 export default function LottieModal({
   isVisible,
@@ -10,19 +11,13 @@ export default function LottieModal({
   return (
     <>
       {isVisible && (
-        <View style={styles.container}>
-          <TouchableOpacity onPress={handlePress}>
-            <LottieView
-              source={source}
-              autoPlay
-              loop
-              style={{ width: 120, height: 120 }}
-            />
-            <Text>{info}</Text>
+        <View>
+          <TouchableOpacity onPress={handlePress} style={styles.container}>
+            <LottieView source={source} autoPlay loop style={styles.lottie} />
+            <Text style={styles.infoText}>{info}</Text>
           </TouchableOpacity>
         </View>
       )}
-
       {!isVisible && null}
     </>
   );
@@ -31,14 +26,17 @@ export default function LottieModal({
 const styles = StyleSheet.create({
   container: {
     display: "flex",
-    position: "absolute",
-    top: 10,
-    left: 10,
     height: "100%",
     width: "100%",
-    backgroundColor: "rgba(255, 255, 255, 0.7)",
     zIndex: 100,
     justifyContent: "center",
     alignItems: "center",
+  },
+  lottie: {
+    height: 120,
+    width: 120,
+  },
+  infoText: {
+    color: colors.text.secondary,
   },
 });

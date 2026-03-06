@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import ListingEditScreen from "../UI/ListingEditScreen";
+import ListingEditScreen from "../UI/Listings/ListingEditScreen";
 import AccountNavigator from "./AccountNavigator";
 import { Icon } from "../components/Icon";
 import colors from "../config/colors";
@@ -17,24 +17,6 @@ export default function AppNavigator() {
     console.log("Notification received:", notification);
   };
   usePushNotification(notificationListener);
-
-  const { request: sendMessage } = useApi("post", "messages");
-
-  useEffect(() => {
-    async function fetchMessages() {
-      try {
-        const response = await sendMessage({
-          recipientId: "6930ce1acd4dba8dd6342626",
-          content: "Hello from the app! My first message",
-        });
-        console.log("Messages response", response);
-      } catch (error) {
-        console.error("Error fetching messages:", error);
-      }
-    }
-
-    fetchMessages();
-  }, []);
 
   return (
     <Tab.Navigator>

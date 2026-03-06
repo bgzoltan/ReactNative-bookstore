@@ -31,11 +31,14 @@ apiClient.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.log("❌ Response interceptor error:", {
-      message: error.message,
-      status: error.response?.status,
-      data: error.response?.data,
-    });
+    console.log(
+      `${error.message.includes("timeout") ? "❌ Network error or cannot acccess the server URL" : "⚠️Response interceptor error"}: `,
+      {
+        message: error.message,
+        status: error.response?.status,
+        data: error.response?.data,
+      },
+    );
     return Promise.reject(error);
   },
 );
