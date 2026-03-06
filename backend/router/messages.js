@@ -48,7 +48,7 @@ router.get("/sent-messages", authMiddleware, async (req, res, next) => {
   try {
     const messages = await Message.find({ sender: req.user._id })
       .populate("recipient", "firstName lastName")
-      .select("sender content");
+      .select("sender content timestamp");
     res.status(200).json(messages);
   } catch (err) {
     next(err);
@@ -57,9 +57,9 @@ router.get("/sent-messages", authMiddleware, async (req, res, next) => {
 
 router.get("/received-messages", authMiddleware, async (req, res, next) => {
   try {
-    const messages = await Message.find({ recipient: req.user._id })
-      .populate("sender", "firstName lastName")
-      .select("recipient content");
+    const messages = await Message.find({ recipient: req.user._id }).select(
+      "recipient content timestamp",
+    );
     res.status(200).json(messages);
   } catch (err) {
     next(err);
