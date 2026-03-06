@@ -5,11 +5,6 @@ import { validateMessage } from "../schema/messages.js";
 
 export const router = Router();
 
-router.get("/messages", authMiddleware, async (req, res, next) => {
-  const { user } = req;
-  res.json({ message: "Hello from the messages route!", user });
-});
-
 router.post("/messages", authMiddleware, async (req, res, next) => {
   const { user } = req;
   const { _id: userId } = user;
@@ -47,4 +42,26 @@ router.post("/messages", authMiddleware, async (req, res, next) => {
       content,
     },
   });
+});
+
+router.get("/sent-messages", authMiddleware, async (req, res, next) => {
+  try {
+    const messages = await Message.find({ sender: req.user._id })
+      .populate("recipient", "firstName lastName")
+      .select("sender content");
+    res.status(200).json(messages);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/received-messages", authMiddleware, async (req, res, next) => {
+  try {
+    const messages = await Message.find({ recipient: req.user._id })
+      .populate("sender", "firstName lastName")
+      .select("recipient content");
+    res.status(200).json(messages);
+  } catch (err) {
+    next(err);
+  }
 });
