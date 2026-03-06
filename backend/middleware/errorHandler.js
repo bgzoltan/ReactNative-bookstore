@@ -39,6 +39,7 @@ export default (err, req, res, next) => {
   }
 
   // Unexpected error
+  console.log("Unexpected error in error handler:", err);
   res.status(500).json({
     message: `Internal server error when authenticating ${err.message || ""}`,
     errors: {},

@@ -67,11 +67,26 @@ router.get("/users", async (req, res, next) => {
       error.status = 404;
       throw error;
     }
-    return res.status(200).send({
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-    });
+    delete user.password;
+    return res.status(200).json(user);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/users/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const user = await Users.findById(id).select("firstName lastName email");
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    return res.status(200).json(user);
   } catch (err) {
     next(err);
   }
