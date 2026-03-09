@@ -1,20 +1,33 @@
 import AppButton from "../../components/AppButton/AppButton";
 import { StyleSheet, View } from "react-native";
+import colors from "../../config/colors";
 
-export default function MessageFilter({ handleFilter }) {
+export default function MessageFilter({ filter, handleFilter }) {
   return (
     <View style={styles.container}>
       <AppButton
-        style={{ width: "40%" }}
-        handlePress={() => handleFilter("sent-messages")}
-      >
-        SENT
-      </AppButton>
-      <AppButton
-        style={{ width: "40%" }}
-        handlePress={() => handleFilter("received-messages")}
+        style={
+          filter === "received-messages"
+            ? { backgroundColor: colors.bg.yellow, width: "40%" }
+            : { backgroundColor: colors.bg.primary, width: "40%" }
+        }
+        handlePress={() => {
+          handleFilter("received-messages");
+        }}
       >
         RECEIVED
+      </AppButton>
+      <AppButton
+        style={
+          filter === "sent-messages"
+            ? { backgroundColor: colors.bg.yellow, width: "40%" }
+            : { backgroundColor: colors.bg.primary, width: "40%" }
+        }
+        handlePress={() => {
+          handleFilter("sent-messages");
+        }}
+      >
+        SENT
       </AppButton>
     </View>
   );
