@@ -4,6 +4,7 @@ import colors from "../../config/colors.js";
 import InfoModal from "../../components/InfoModal.js";
 
 export default function MessageForm({
+  buttonText = "SEND",
   infoModal,
   closeInfoModal,
   ...formikProps
@@ -19,7 +20,7 @@ export default function MessageForm({
         keyboardType={"email-address"}
         textContentType={"emailAddress"}
         inputName={"message"}
-        placeholder={"Send your message to the seller"}
+        placeholder={"Type here your message..."}
         icon={{
           name: "message",
           backgroundColor: colors.bg.white,
@@ -27,7 +28,7 @@ export default function MessageForm({
       />
       <InfoModal infoModal={infoModal} closeInfoModal={closeInfoModal} />
       <AppFormSubmitButton type={"primary"} handleSubmit={handleSubmit}>
-        SEND MESSAGE
+        {buttonText}
       </AppFormSubmitButton>
     </>
   );

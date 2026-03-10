@@ -5,12 +5,13 @@ import { useApi } from "../../hooks/useApi.js";
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext.js";
 
-export default function ContactSeller({ sellerId, book }) {
+export default function AnswerMessage({ item }) {
   const initialValues = { message: "" };
   const validationSchema = Yup.object({
     message: Yup.string().max(255).label("Message"),
   });
   const { user } = useAuth();
+  const { sender, subject, relatedBookId } = item;
 
   const [infoModal, setInfoModal] = useState({
     isVisible: false,
@@ -27,9 +28,9 @@ export default function ContactSeller({ sellerId, book }) {
 
     const { error } = await sendMessage({
       sender: user._id,
-      recipient: sellerId,
-      subject: book.title,
-      relatedBookId: book._id,
+      recipient: sender,
+      subject,
+      relatedBookId,
       content: message,
     });
 
@@ -61,6 +62,7 @@ export default function ContactSeller({ sellerId, book }) {
     >
       {(formikProps) => (
         <MessageForm
+          buttonText="ANSWER THE MESSAGE"
           infoModal={infoModal}
           closeInfoModal={closeInfoModal}
           {...formikProps}

@@ -5,6 +5,7 @@ import { FlatList, View, StyleSheet } from "react-native";
 import ListItemSeparator from "../../components/ListItemSeparator";
 import { useProgress } from "../../context/ProgressContext";
 import LottieModal from "../../components/LottieModal";
+import { ScrollView } from "react-native";
 
 export default function UserMessageList({ filter }) {
   const { request: getMessages } = useApi("get", filter);
@@ -34,37 +35,44 @@ export default function UserMessageList({ filter }) {
 
   return (
     <>
-      <View style={styles.container}>
-        <LottieModal
-          source={require("../../assets/loading.json")}
-          isVisible={isLoading}
-          info="Loading messages..."
-        />
-        {!isLoading && (
-          <FlatList
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "100%",
-            }}
-            data={messages}
-            keyExtractor={(message) => message._id}
-            renderItem={({ item }) => (
-              <UserMessageItem
-                item={item}
-                renderRightActions={() => (
-                  <ItemDeleteAction handleDelete={() => handleDelete(item)} />
-                )}
-              />
-            )}
-            ItemSeparatorComponent={<ListItemSeparator />}
-            refreshing={refreshing}
-            onRefresh={() => {
-              setRefreshing(true);
-            }}
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1, padding: 10 }}
+        showsVerticalScrollIndicator
+      >
+        <View style={styles.container}>
+          <LottieModal
+            source={require("../../assets/loading.json")}
+            isVisible={isLoading}
+            info="Loading messages..."
           />
-        )}
-      </View>
+
+          {!isLoading && (
+            <FlatList
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "100%",
+              }}
+              scrollEnabled={false}
+              data={messages}
+              keyExtractor={(message) => message._id}
+              renderItem={({ item }) => (
+                <UserMessageItem
+                  item={item}
+                  renderRightActions={() => (
+                    <ItemDeleteAction handleDelete={() => handleDelete(item)} />
+                  )}
+                />
+              )}
+              ItemSeparatorComponent={<ListItemSeparator />}
+              refreshing={refreshing}
+              onRefresh={() => {
+                setRefreshing(true);
+              }}
+            />
+          )}
+        </View>
+      </ScrollView>
     </>
   );
 }

@@ -20,15 +20,21 @@ export const useApi = (method, route) => {
     try {
       if (method.toLowerCase() === "get") {
         //  Cache FIRST
-        const cached = await AsyncCache.get(url);
 
-        if (cached) {
-          // Serving from cache if exists
-          setData(cached);
-          setError(false);
-          // Return the cached data immediately
-          return { data: cached, error: null };
+        //  Don't use cache when loading messages
+        if (
+          !url.includes("received-message") &&
+          !url.includes("sent-messages")
+        ) {
+          if (cached) {
+            // Serving from cache if exists
+            setData(cached);
+            setError(false);
+            // Return the cached data immediately
+            return { data: cached, error: null };
+          }
         }
+        const cached = await AsyncCache.get(url);
         // Fetching from network
         const response = await apiClient.get(url, {
           headers: { Authorization: `Bearer ${token}` },

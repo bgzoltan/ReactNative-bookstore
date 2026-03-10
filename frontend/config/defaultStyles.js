@@ -1,27 +1,6 @@
 import colors from "./colors";
-import { Platform } from "react-native";
 
 export const defaultStyles = {
-  inputText: {
-    color: colors.text.gray,
-    borderRadius: 5,
-    fontFamily:
-      Platform.OS === "android" ? "MontserratRegular" : "MontserratRegular",
-    fontSize: 16,
-    width: "100%",
-  },
-  inputBackground: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 2,
-    gap: 10,
-    backgroundColor: colors.bg.white,
-    borderRadius: 25,
-    borderColor: "gray",
-    borderWidth: 1,
-    height: 50,
-  },
   pickerBackground: {
     display: "flex",
     flexDirection: "row",

@@ -1,41 +1,77 @@
-import { StyleSheet, Image, View } from "react-native";
+import { StyleSheet, Image, View, TouchableOpacity } from "react-native";
 import colors from "../../config/colors";
 import AppText from "../../components/AppText/AppText";
 import { Icon } from "../../components/Icon";
 import getTheTime from "../../utils/getTheTime";
+import AnswerMessage from "./AnswerMessage";
+import { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
 
 export default function UserMessageItem({ item }) {
   const messageTime = getTheTime(item.timestamp);
+  const [isAnswerModal, setIsAnswerModal] = useState(false);
+  const { user } = useAuth();
+
+  // Select the right name depending on received or sent messages
+  let name;
+  if (user._id == item.recipient._id) {
+    name = item?.sender?.firstName;
+  } else {
+    name = item?.recipient?.firstName;
+  }
+
+  const handlePress = () => {
+    setIsAnswerModal(!isAnswerModal);
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.messageContainer}>
-        {item?.image ? (
-          <Image style={styles.image} source={item.image} />
-        ) : null}
-        <View style={styles.subjectContainer}>
-          <AppText weight="bold" style={styles.subject}>
-            {">>"} {item?.recipient?.firstName}
-          </AppText>
-          <AppText style={styles.otherItem}>{messageTime}</AppText>
-        </View>
+      <View style={styles.messageRowContainer}>
+        <View style={styles.messageContainer}>
+          {item?.image ? (
+            <Image style={styles.image} source={item.image} />
+          ) : null}
+          <View style={styles.subjectContainer}>
+            <AppText weight="bold" style={styles.subject}>
+              {">>"} {name}
+            </AppText>
+            <AppText style={styles.otherItem}>{messageTime}</AppText>
+          </View>
 
-        <AppText style={styles.name}>
-          {item?.subject ? item?.subjet : "No subject..."}
-        </AppText>
-        <AppText style={styles.content}>{item?.content}</AppText>
+          <AppText style={styles.name}>
+            {item?.subject ? item?.subjet : "No subject..."}
+          </AppText>
+          <AppText style={styles.content}>{item?.content}</AppText>
+        </View>
+        <View style={styles.icons}>
+          <Icon
+            name="bin"
+            color={colors.icon.black}
+            backgroundColor={colors.icon.red}
+          />
+          <TouchableOpacity
+            style={styles.container}
+            onPress={() => handlePress()}
+          >
+            <Icon
+              name="mailAnswer"
+              color={colors.icon.black}
+              backgroundColor={colors.icon.red}
+              onPress={() => handlePress()}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
-      <Icon
-        name="bin"
-        color={colors.icon.black}
-        backgroundColor={colors.icon.red}
-        style={styles.icon}
-      />
+      {isAnswerModal && <AnswerMessage item={item} />}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    display: "flex",
+  },
+  messageRowContainer: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -46,11 +82,12 @@ const styles = StyleSheet.create({
   },
   messageContainer: {
     display: "flex",
-    flexGrow: 1,
     color: colors.text.white,
+    flexGrow: 1,
     padding: 5,
     borderRightWidth: 1,
     borderColor: colors.text.primary,
+    width: "80%",
   },
   subjectContainer: {
     display: "flex",
@@ -67,6 +104,7 @@ const styles = StyleSheet.create({
     paddingBottom: 2,
   },
   content: {
+    display: "flex",
     paddingTop: 2,
     borderTopWidth: 1,
     borderColor: colors.text.primary,
@@ -76,5 +114,9 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
+  },
+  icons: {
+    display: "flex",
+    flexDirection: "column",
   },
 });

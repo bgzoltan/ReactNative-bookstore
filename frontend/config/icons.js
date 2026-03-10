@@ -30,6 +30,7 @@ import {
   Rocket,
   Axe,
   MessageCircleIcon,
+  CornerDownLeft,
 } from "lucide-react-native";
 
 const LucideIcons = {
@@ -64,6 +65,7 @@ const LucideIcons = {
   scifi: Rocket,
   crime: Axe,
   message: MessageCircleIcon,
+  mailAnswer: CornerDownLeft,
 };
 
 export default LucideIcons;

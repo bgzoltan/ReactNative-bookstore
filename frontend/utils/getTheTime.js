@@ -10,7 +10,6 @@ export default function getTheTime(timestamp) {
   const date = new Date(timestamp);
   const time = date.getHours() + ":" + date.getMinutes();
   const day = date.getDay() + 1 + "." + date.getMonth();
-  console.log(time, day, timestamp);
 
   if (hasOneDayPassed(timestamp)) {
     return day;

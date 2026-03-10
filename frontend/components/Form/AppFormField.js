@@ -4,12 +4,13 @@ import ErrorMessage from "../ErrorMessage";
 import { View } from "react-native";
 import { defaultStyles } from "../../config/defaultStyles";
 
-export function AppFormField({ inputName, width, ...otherProps }) {
+export function AppFormField({ inputName, width, ...props }) {
   {
     /*  Loading formik values and functions*/
   }
   const { errors, setFieldValue, setFieldTouched, touched, values } =
     useFormikContext();
+
   return (
     <>
       {/*  Input field  */}
@@ -18,8 +19,9 @@ export function AppFormField({ inputName, width, ...otherProps }) {
         value={values[inputName]}
         onBlur={() => setFieldTouched(inputName)}
         width={width}
-        {...otherProps}
+        {...props}
       />
+
       {/*  Displaying error messages*/}
       <View style={defaultStyles.errorContainer}>
         {touched[inputName] && <ErrorMessage error={errors[inputName]} />}
