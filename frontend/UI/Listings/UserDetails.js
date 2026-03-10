@@ -6,7 +6,9 @@ export default function UserDetails({ user }) {
   return (
     <View style={styles.container}>
       {user?.image ? <Image style={styles.image} source={user.image} /> : null}
-      <AppText style={styles.name}>Seller: {user?.firstName}</AppText>
+      <AppText style={styles.name}>
+        {`${user?.firstName} ${user?.lastName}`}
+      </AppText>
     </View>
   );
 }
