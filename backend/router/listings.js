@@ -3,6 +3,7 @@ import { Listings, validateListing } from "../schema/listings.js";
 export const router = express.Router();
 import { multerUpload } from "../middleware/multerUpload.js";
 import dotenv from "dotenv";
+import authMiddleware from "../middleware/authMiddleware.js";
 dotenv.config();
 
 router.post("/listings", multerUpload.array("images", 5), async (req, res) => {
@@ -50,4 +51,9 @@ router.get("/listings", async (req, res) => {
     console.log("Error: ", err);
     res.status(err.status).send(err.message);
   }
+});
+
+router.get("/me/listings", authMiddleware, async (req, res) => {
+  const listings = await Listings.find({ userId: req.user._id });
+  res.json(listings);
 });
