@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import UserDetails from "./Listings/UserDetails.js";
 
 export function AccountScreen({ navigation }) {
-  const { user } = useAuth();
+  const { user, auth } = useAuth();
   const [userDetails, setUserDetails] = useState(null);
 
   const { request: getUser } = useApi("get", `users/${user._id}`);

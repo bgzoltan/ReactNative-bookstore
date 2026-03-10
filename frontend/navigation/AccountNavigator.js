@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AccountScreen from "../UI/AccountScreen";
 import AccountListingScreen from "../UI/AccountListingScreen";
 import MessageScreen from "../UI/MessageScreen";
+import ListingDetailsScreen from "../UI/Listings/ListingDetailsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +23,11 @@ export default function AccountNavigator() {
       <Stack.Screen
         name="Messages"
         component={MessageScreen}
+        options={{ headerShown: true }}
+      />
+      <Stack.Screen
+        name="ListingDetails"
+        component={ListingDetailsScreen}
         options={{ headerShown: true }}
       />
     </Stack.Navigator>

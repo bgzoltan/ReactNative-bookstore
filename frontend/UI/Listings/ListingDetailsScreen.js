@@ -6,9 +6,11 @@ import BookDetails from "./BookDetails";
 import UserDetails from "./UserDetails";
 import ContactSeller from "./ContactSeller";
 import BookImage from "./BookImage";
+import { useAuth } from "../../context/AuthContext";
 
 export default function ListingDetailScreen({ route }) {
   const [seller, setSeller] = useState(null);
+  const { user } = useAuth();
 
   // Get the details of the listing which is passed as a parameter when navigating to this screen.
   const book = route.params;
@@ -46,8 +48,13 @@ export default function ListingDetailScreen({ route }) {
           <BookImage bookImages={bookImages} currentIndex={currentIndex} />
         </TouchableOpacity>
         <BookDetails book={book} />
-        <UserDetails user={seller ? seller : null} />
-        <ContactSeller sellerId={seller?._id} book={book} />
+        {/* Just to show on the FEED details */}
+        {user._id !== seller?._id && (
+          <>
+            <UserDetails user={seller ? seller : null} />
+            <ContactSeller sellerId={seller?._id} book={book} />
+          </>
+        )}
       </ScrollView>
     </Screen>
   );

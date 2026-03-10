@@ -6,7 +6,7 @@ import { apiClient } from "../api/apiClient";
 import { useAuth } from "../context/AuthContext";
 
 export const useApi = (method, route) => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
   const [error, setError] = useState(false);
   const { startUpload, finishUpload, startLoading, endLoading } = useProgress();
   const { token } = useAuth();
@@ -16,11 +16,12 @@ export const useApi = (method, route) => {
 
     // Start loading indicator
     startLoading();
+    const methodLower = method.toLowerCase();
 
     try {
-      if (method.toLowerCase() === "get") {
+      if (methodLower === "get") {
         //  Cache FIRST
-
+        const cached = await AsyncCache.get(url);
         //  Don't use cache when loading messages
         if (
           !url.includes("received-message") &&
@@ -34,7 +35,7 @@ export const useApi = (method, route) => {
             return { data: cached, error: null };
           }
         }
-        const cached = await AsyncCache.get(url);
+
         // Fetching from network
         const response = await apiClient.get(url, {
           headers: { Authorization: `Bearer ${token}` },
@@ -48,7 +49,7 @@ export const useApi = (method, route) => {
         return { data: response.data, error: null };
       } else {
         // Handling POST, PUT, DELETE requests (which shouldn't use cache)
-        if (method.toLowerCase().includes("post", "put", "delete")) {
+        if (["post", "put", "delete"].includes(method.toLowerCase())) {
           startUpload();
         }
         // response = await axios[method](url, payload, { headers });
@@ -83,7 +84,8 @@ export const useApi = (method, route) => {
       // cause: Error | undefined
       //  Runs if the Network call failed.
       // const { status = 500 } = err.response;
-      const { errors = null, message = "" } = err.response.data;
+      const errors = err.response?.data?.errors || null;
+      const message = err.response?.data?.message || err.message;
 
       // If the GET method fails AND the cache was empty
       if (method.toLowerCase() === "get") {
