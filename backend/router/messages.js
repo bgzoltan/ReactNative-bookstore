@@ -6,13 +6,13 @@ import { validateMessage } from "../schema/messages.js";
 export const router = Router();
 
 router.post("/messages", authMiddleware, async (req, res, next) => {
-  const { user } = req;
-  const { _id: userId } = user;
-  const { recipientId, content } = req.body;
+  const { sender, recipient, subject, relatedBookId, content } = req.body;
 
   const { error } = validateMessage({
-    sender: userId,
-    recipient: recipientId,
+    sender,
+    recipient,
+    subject,
+    relatedBookId,
     content,
   });
 
@@ -23,8 +23,10 @@ router.post("/messages", authMiddleware, async (req, res, next) => {
 
   // Create a new message document and save it to the database
   const newMessage = new Message({
-    sender: userId,
-    recipient: recipientId,
+    sender,
+    recipient,
+    subject,
+    relatedBookId,
     content,
     timestamp: new Date(),
   });
@@ -37,8 +39,10 @@ router.post("/messages", authMiddleware, async (req, res, next) => {
   }
   res.status(201).json({
     message: {
-      sender: userId,
-      recipient: recipientId,
+      sender,
+      recipient,
+      subject,
+      relatedBookId,
       content,
     },
   });
@@ -47,8 +51,8 @@ router.post("/messages", authMiddleware, async (req, res, next) => {
 router.get("/sent-messages", authMiddleware, async (req, res, next) => {
   try {
     const messages = await Message.find({ sender: req.user._id })
-      .populate("recipient", "firstName lastName")
-      .select("sender content timestamp");
+      .populate(["sender", "recipient"])
+      .select("sender recipient subject relatedBookId content timestamp");
     res.status(200).json(messages);
   } catch (err) {
     next(err);
@@ -57,9 +61,9 @@ router.get("/sent-messages", authMiddleware, async (req, res, next) => {
 
 router.get("/received-messages", authMiddleware, async (req, res, next) => {
   try {
-    const messages = await Message.find({ recipient: req.user._id }).select(
-      "recipient content timestamp",
-    );
+    const messages = await Message.find({ recipient: req.user._id })
+      .populate(["recipient", "sender"])
+      .select("sender recipient subject relatedBookId content timestamp");
     res.status(200).json(messages);
   } catch (err) {
     next(err);

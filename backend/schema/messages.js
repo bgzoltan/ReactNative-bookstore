@@ -25,10 +25,10 @@ const messageSchema = new mongoose.Schema({
 export const Message = mongoose.model("Message", messageSchema);
 
 const joiMessageSchema = Joi.object({
-  sender: Joi.string().required(),
-  recipient: Joi.string().required(),
-  subject: Joi.string().required,
-  relatedBookId: Joi.string().required,
+  sender: Joi.string().hex().length(24).required(),
+  recipient: Joi.string().hex().length(24).required(),
+  subject: Joi.string().required(),
+  relatedBookId: Joi.string().hex().length(24).required(),
   content: Joi.string().required(),
 });
 
