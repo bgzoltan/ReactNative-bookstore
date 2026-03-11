@@ -11,12 +11,21 @@ import LottieModal from "../../components/LottieModal.js";
 import { useProgress } from "../../context/ProgressContext.js";
 import ProgressBar from "../../components/ProgressBar.js";
 import { useAuth } from "../../context/AuthContext.js";
+import { useFocusEffect } from "@react-navigation/native";
+import { useCallback } from "react";
 
 export default function ListingEditScreen({ navigation }) {
   // axios will automatically add multipart/form-data content type header
   const { request: submitListing } = useApi("post", "listings");
   const location = useLocation();
   const { isUploaded, setIsUploaded } = useProgress();
+
+  // To reset isUploaded when the screen is focused in order no to show the LottieModal
+  useFocusEffect(
+    useCallback(() => {
+      setIsUploaded(false);
+    }, []),
+  );
   const { user } = useAuth();
 
   const onSubmit = async (values) => {
