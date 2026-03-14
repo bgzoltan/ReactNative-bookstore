@@ -55,6 +55,7 @@ router.get("/sent-messages", authMiddleware, async (req, res, next) => {
       .select("sender recipient subject relatedBookId content timestamp");
     res.status(200).json(messages);
   } catch (err) {
+    console.log("Error get sent messages.", err);
     next(err);
   }
 });
@@ -66,6 +67,7 @@ router.get("/received-messages", authMiddleware, async (req, res, next) => {
       .select("sender recipient subject relatedBookId content timestamp");
     res.status(200).json(messages);
   } catch (err) {
+    console.log("Error get received messages.", err);
     next(err);
   }
 });
