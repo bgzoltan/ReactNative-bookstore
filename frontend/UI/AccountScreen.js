@@ -1,5 +1,5 @@
 import Screen from "../components/Screen.js";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View, Text } from "react-native";
 import colors from "../config/colors.js";
 import ListItemSeparator from "../components/ListItemSeparator.js";
 import MenuItem from "../components/MenuItem.js";
@@ -18,8 +18,8 @@ export function AccountScreen({ navigation }) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const { data } = await getUser();
-        setUserDetails(data);
+        const { data: user } = await getUser();
+        setUserDetails(user);
       } catch (err) {
         console.log("Error", err);
       }
@@ -32,19 +32,19 @@ export function AccountScreen({ navigation }) {
       name: "My Listings",
       icon: {
         name: "list",
-        color: colors.icon.white,
-        backgroundColor: colors.icon.red,
+        color: colors.pastelGrey,
+        backgroundColor: colors.pastelYellow,
       },
       onPress: () => {
-        navigation.navigate(routes.ACCOUNT_LISTING);
+        navigation.navigate(routes.ACCOUNT_LISTING_SCREEN);
       },
     },
     {
       name: "My Messages",
       icon: {
         name: "mail",
-        color: colors.icon.white,
-        backgroundColor: colors.icon.greenBlue,
+        color: colors.pastelGrey,
+        backgroundColor: colors.pastelYellow,
       },
       onPress: () => {
         navigation.navigate(routes.MESSAGES);
@@ -54,8 +54,8 @@ export function AccountScreen({ navigation }) {
       name: "Log out",
       icon: {
         name: "logout",
-        color: colors.icon.white,
-        backgroundColor: colors.icon.yellow,
+        color: colors.pastelGrey,
+        backgroundColor: colors.pastelYellow,
       },
       onPress: async () => {
         await auth.logout();
@@ -66,9 +66,16 @@ export function AccountScreen({ navigation }) {
   return (
     <Screen>
       <View style={styles.container}>
-        <UserDetails user={userDetails} />
+        <View style={styles.userDetails}>
+          <Text style={styles.userDetailsTitle}>User</Text>
+          <UserDetails
+            style={{ backgroundColor: colors.pastelPeach }}
+            user={userDetails}
+          />
+        </View>
+
         <View>
-          <ListItemSeparator color={colors.bg.gray} height={20} />
+          <ListItemSeparator color={colors.pastelWhite} height={20} />
         </View>
 
         <FlatList
@@ -82,7 +89,7 @@ export function AccountScreen({ navigation }) {
             />
           )}
           ItemSeparatorComponent={
-            <ListItemSeparator color={colors.bg.gray} height={2} />
+            <ListItemSeparator color={colors.pastelWhite} height={6} />
           }
         />
       </View>
@@ -101,6 +108,15 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     height: 80,
     backgroundColor: colors.bg.white,
+  },
+  userDetails: {
+    backgroundColor: colors.pastelPeach,
+  },
+  userDetailsTitle: {
+    fontFamily: "Montserrat",
+    fontSize: 16,
+    fontWeight: "600",
+    padding: 5,
   },
 });
 

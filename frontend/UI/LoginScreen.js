@@ -31,7 +31,7 @@ export default function LoginScreen({ navigation }) {
     const { data, error } = await login({ email, password });
 
     if (error) {
-      //  *Check wheter error is formik error or not
+      //  Check wheter error is formik error or not
       if (error && typeof error === "object" && !Array.isArray(error)) {
         setErrors(error);
       } else {

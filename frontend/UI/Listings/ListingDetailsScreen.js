@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { TouchableOpacity, ScrollView } from "react-native";
+import { TouchableOpacity, ScrollView, Text } from "react-native";
 import Screen from "../../components/Screen";
 import { useApi } from "../../hooks/useApi";
 import BookDetails from "./BookDetails";
@@ -7,6 +7,7 @@ import UserDetails from "./UserDetails";
 import ContactSeller from "./ContactSeller";
 import BookImage from "./BookImage";
 import { useAuth } from "../../context/AuthContext";
+import { StyleSheet } from "react-native";
 
 export default function ListingDetailScreen({ route }) {
   const [seller, setSeller] = useState(null);
@@ -37,7 +38,8 @@ export default function ListingDetailScreen({ route }) {
     <Screen>
       <ScrollView
         contentContainerStyle={{ flexGrow: 1, padding: 10 }}
-        showsVerticalScrollIndicator
+        showsVerticalScrollIndicator={true}
+        indicatorStyle="black"
       >
         <TouchableOpacity
           onPress={() => {
@@ -51,7 +53,9 @@ export default function ListingDetailScreen({ route }) {
         {/* Just to show on the FEED details */}
         {user._id !== seller?._id && (
           <>
+            <Text style={styles.text}>Owner</Text>
             <UserDetails user={seller ? seller : null} />
+
             <ContactSeller sellerId={seller?._id} book={book} />
           </>
         )}
@@ -59,3 +63,13 @@ export default function ListingDetailScreen({ route }) {
     </Screen>
   );
 }
+
+const styles = StyleSheet.create({
+  text: {
+    fontFamily: "Montserrat",
+    borderRadius: 10,
+    fontSize: 16,
+    fontWeight: "600",
+    paddingHorizontal: 5,
+  },
+});

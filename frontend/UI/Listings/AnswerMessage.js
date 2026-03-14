@@ -62,7 +62,7 @@ export default function AnswerMessage({ item }) {
     >
       {(formikProps) => (
         <MessageForm
-          buttonText="ANSWER THE MESSAGE"
+          buttonText="SEND"
           infoModal={infoModal}
           closeInfoModal={closeInfoModal}
           {...formikProps}

@@ -46,8 +46,8 @@ export default function UserMessageItem({ item }) {
         <View style={styles.icons}>
           <Icon
             name="bin"
-            color={colors.icon.black}
-            backgroundColor={colors.icon.red}
+            color={colors.pastelGrey}
+            backgroundColor={colors.pastelPink}
           />
           <TouchableOpacity
             style={styles.container}
@@ -55,8 +55,8 @@ export default function UserMessageItem({ item }) {
           >
             <Icon
               name="mailAnswer"
-              color={colors.icon.black}
-              backgroundColor={colors.icon.red}
+              color={colors.pastelGrey}
+              backgroundColor={colors.pastelPink}
               onPress={() => handlePress()}
             />
           </TouchableOpacity>
@@ -70,6 +70,8 @@ export default function UserMessageItem({ item }) {
 const styles = StyleSheet.create({
   container: {
     display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
   messageRowContainer: {
     display: "flex",
@@ -77,16 +79,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     marginVertical: 4,
-    backgroundColor: colors.bg.primary,
-    borderRadius: 5,
+    backgroundColor: colors.pastelPeach,
+    borderRadius: 15,
   },
   messageContainer: {
     display: "flex",
     color: colors.text.white,
     flexGrow: 1,
     padding: 5,
-    borderRightWidth: 1,
-    borderColor: colors.text.primary,
+    // borderRightWidth: 1,
+    borderColor: colors.pastelGrey,
     width: "80%",
   },
   subjectContainer: {
@@ -106,8 +108,8 @@ const styles = StyleSheet.create({
   content: {
     display: "flex",
     paddingTop: 2,
-    borderTopWidth: 1,
-    borderColor: colors.text.primary,
+    // borderTopWidth: 1,
+    borderColor: colors.pastelGrey,
     minHeight: 50,
   },
   image: {
@@ -118,5 +120,7 @@ const styles = StyleSheet.create({
   icons: {
     display: "flex",
     flexDirection: "column",
+    gap: 3,
+    padding: 3,
   },
 });

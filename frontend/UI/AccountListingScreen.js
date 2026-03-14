@@ -12,7 +12,7 @@ export default function AccountListingScreen({ navigation }) {
 
   return (
     <Screen>
-      <ListingList data={data} error={error} navigation={navigation} />
+      <ListingList listings={data} error={error} navigation={navigation} />
     </Screen>
   );
 }

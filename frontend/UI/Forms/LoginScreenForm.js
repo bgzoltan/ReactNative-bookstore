@@ -23,7 +23,9 @@ export default function LoginScreenForm({
         placeholder={"Type in your email"}
         icon={{
           name: "mail",
-          backgroundColor: colors.bg.white,
+          size: 24,
+          color: colors.pastelGrey,
+          backgroundColor: colors.pastelYellow,
         }}
         required
       />
@@ -36,12 +38,14 @@ export default function LoginScreenForm({
         inputName={"password"}
         icon={{
           name: "lock",
-          backgroundColor: colors.bg.white,
+          size: 24,
+          color: colors.pastelGrey,
+          backgroundColor: colors.pastelYellow,
         }}
         required
       />
       <ErrorModal errorModal={errorModal} closeErrorModal={closeErrorModal} />
-      <AppFormSubmitButton type={"primary"} handleSubmit={handleSubmit}>
+      <AppFormSubmitButton handleSubmit={handleSubmit}>
         LOGIN
       </AppFormSubmitButton>
     </>

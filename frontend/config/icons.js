@@ -31,6 +31,7 @@ import {
   Axe,
   MessageCircleIcon,
   CornerDownLeft,
+  ArrowBigRight,
 } from "lucide-react-native";
 
 const LucideIcons = {
@@ -66,6 +67,7 @@ const LucideIcons = {
   crime: Axe,
   message: MessageCircleIcon,
   mailAnswer: CornerDownLeft,
+  nextImage: ArrowBigRight,
 };
 
 export default LucideIcons;

@@ -1,9 +1,22 @@
+// Pastel Pink #FFADAD for buttons
+// Pastel Peach #FFD6A5 for information text backgroung
+// Pastel Yellow #FDFFB6 for inputs background
+// Pastel Green #CAFFBF for errors
+// Grey #838080ff for text
+
 const colors = {
+  pastelRed: "#EA686B",
+  pastelPink: "#FFADAD",
+  pastelPeach: "#FFD6A5",
+  pastelYellow: "#FDFFB6",
+  pastelGreen: "#d0f5c8",
+  pastelGrey: "#4a4747",
+  pastelWhite: "#f9f6f6",
   text: {
     primary: "#FFFFFF",
     secondary: "#000000",
     separator: "#838080ff",
-    gray: "#535151ff",
+    gray: "#615e5eff",
   },
   bg: {
     primary: "#EA686B",

@@ -17,8 +17,8 @@ export default function MenuItem({ name, icon, onPress }) {
       <Icon
         name="chevronRight"
         size={icon.size ? icon.size : 24}
-        color={colors.icon.darkGrey}
-        backgroundColor={colors.bg.white}
+        color={colors.pastelGrey}
+        backgroundColor={colors.pastelYellow}
       />
     </TouchableOpacity>
   );
@@ -33,10 +33,13 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     width: "100%",
-    backgroundColor: colors.bg.white,
+    backgroundColor: colors.pastelPink,
+    borderRadius: 25,
   },
   item: {
     display: "flex",
     flexGrow: 1,
+    fontSize: 16,
+    fontFamily: "Montserrat",
   },
 });

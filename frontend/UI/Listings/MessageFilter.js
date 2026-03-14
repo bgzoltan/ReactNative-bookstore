@@ -1,6 +1,5 @@
 import AppButton from "../../components/AppButton/AppButton";
 import { StyleSheet, View } from "react-native";
-import colors from "../../config/colors";
 
 export default function MessageFilter({ filter, handleFilter }) {
   return (
@@ -8,9 +7,12 @@ export default function MessageFilter({ filter, handleFilter }) {
       <AppButton
         style={
           filter === "received-messages"
-            ? { backgroundColor: colors.bg.yellow, width: "40%" }
-            : { backgroundColor: colors.bg.primary, width: "40%" }
+            ? {
+                fontWeight: "600",
+              }
+            : ""
         }
+        isActive={filter === "received-messages"}
         handlePress={() => {
           handleFilter("received-messages");
         }}
@@ -20,9 +22,12 @@ export default function MessageFilter({ filter, handleFilter }) {
       <AppButton
         style={
           filter === "sent-messages"
-            ? { backgroundColor: colors.bg.yellow, width: "40%" }
-            : { backgroundColor: colors.bg.primary, width: "40%" }
+            ? {
+                fontWeight: "600",
+              }
+            : ""
         }
+        isActive={filter === "sent-messages"}
         handlePress={() => {
           handleFilter("sent-messages");
         }}
@@ -38,6 +43,9 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
+    alignItems: "center",
+
     gap: 10,
+    height: 70,
   },
 });

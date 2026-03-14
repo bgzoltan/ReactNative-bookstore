@@ -1,4 +1,3 @@
-import Constants from "expo-constants";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import colors from "../config/colors";
@@ -15,6 +14,6 @@ const styles = StyleSheet.create({
     width: "100%",
     // paddingTop: Constants.statusBarHeight,
     paddingHorizontal: 10,
-    backgroundColor: colors.bg.gray,
+    backgroundColor: colors.pastelWhite,
   },
 });

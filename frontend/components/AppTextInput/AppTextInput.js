@@ -6,24 +6,24 @@ import { Platform } from "react-native";
 export function AppTextInput({ icon, width = "100%", ...props }) {
   const { required } = props;
   return (
-    <View style={[styles.container, { width: width }]}>
+    //  The input consists of ICON, REQUIRED *, INPUT TEXT
+    <View style={[styles.inputBackground, { width: width }]}>
       {icon && (
         <Icon
           name={icon.name}
-          size={icon.size ? icon.size : 24}
-          color={icon.color ? icon.color : colors.icon.secondary}
-          backgroundColor={
-            icon.backgroundColor ? icon.backgroundColor : colors.bg.gray
-          }
+          size={icon.size}
+          color={icon.color}
+          backgroundColor={icon.backgroundColor}
         />
       )}
+
       {/*  If required displaying '*'  */}
       {required && <Text style={styles.requiredStar}>*</Text>}
 
       {/* Multiline input for text */}
       <TextInput
         placeholderTextColor={colors.text.gray}
-        style={[styles.text]}
+        style={styles.inputText}
         multiline={props.secureTextEntry ? false : true}
         numberOfLines={4}
         {...props}
@@ -35,28 +35,30 @@ export function AppTextInput({ icon, width = "100%", ...props }) {
 export default AppTextInput;
 
 const styles = StyleSheet.create({
-  container: {
+  inputBackground: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     height: 50,
     width: "100%",
     borderRadius: 25,
-    borderColor: "gray",
+    borderColor: colors.pastelGrey,
     borderWidth: 1,
     padding: 2,
-    backgroundColor: colors.bg.primary,
+    backgroundColor: colors.pastelYellow,
   },
-  text: {
+  inputText: {
     width: "80%",
     paddingLeft: 5,
-    color: colors.text.primary,
-    backgroundColor: colors.bg.primary,
+    color: colors.pastelGrey,
+    backgroundColor: colors.pastelYellow,
+    fontSize: 16,
     fontFamily:
       Platform.OS === "android" ? "MontserratRegular" : "MontserratRegular",
   },
   requiredStar: {
-    color: colors.bg.white,
-    paddingLeft: 5,
+    fontSize: 20,
+    fontWeight: "600",
+    color: colors.pastelPink,
   },
 });

@@ -8,9 +8,9 @@ import {
 } from "react-native";
 import colors from "../config/colors";
 import { FlatList } from "react-native-gesture-handler";
-import { React, useState } from "react";
 
-export default function Card({ title, author, price, images, onPress }) {
+export default function Card({ listing, onPress }) {
+  const { images, title } = listing;
   const Wrapper = onPress ? TouchableWithoutFeedback : View;
   return (
     <Wrapper
@@ -41,11 +41,7 @@ export default function Card({ title, author, price, images, onPress }) {
             )}
           />
         </ScrollView>
-        <Text style={styles.imageDescription}>
-          {title}
-          {"-"}
-          {price}
-        </Text>
+        <Text style={styles.imageTitle}>{title}</Text>
       </View>
     </Wrapper>
   );
@@ -57,25 +53,31 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    borderRadius: 10,
+
     overflow: "hidden",
-    backgroundColor: colors.bg.white,
     marginBottom: 10,
   },
   imageBackground: {
     flex: 1,
     width: "100%",
     alignItems: "center",
-    backgroundColor: colors.bg.white,
+    borderTopWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderColor: colors.pastelPeach,
+    backgroundColor: colors.pastelWhite,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     overflow: "hidden",
     padding: 10,
   },
-  imageDescription: {
+  imageTitle: {
     flex: 1,
     width: "100%",
-    backgroundColor: colors.bg.primary,
+    fontSize: 16,
+    fontFamily: "MontserratRegular",
+    color: colors.pastelGrey,
+    backgroundColor: colors.pastelPeach,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     padding: 10,

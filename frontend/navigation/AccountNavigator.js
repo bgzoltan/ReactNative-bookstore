@@ -16,7 +16,7 @@ export default function AccountNavigator() {
         options={{ headerShown: true }}
       />
       <Stack.Screen
-        name="AccountListing"
+        name="AccountListingScreen"
         component={AccountListingScreen}
         options={{ headerShown: true }}
       />

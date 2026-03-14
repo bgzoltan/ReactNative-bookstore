@@ -8,7 +8,7 @@ import ListItemSeparator from "../../components/ListItemSeparator";
 import colors from "../../config/colors";
 import { routes } from "../../navigation/routes";
 
-export default function ListingList({ data, error, navigation }) {
+export default function ListingList({ listings, error, navigation }) {
   const { isLoading } = useProgress();
   return (
     <>
@@ -18,25 +18,23 @@ export default function ListingList({ data, error, navigation }) {
           <AppButton onPress={getListings}>Retry</AppButton>
         </>
       )}
-
       <LottieModal
         isVisible={isLoading}
         source={require("../../assets/loading.json")}
       />
       <FlatList
-        data={data}
-        keyExtractor={(item) => item._id}
-        renderItem={({ item }) => (
+        data={listings}
+        keyExtractor={(listing) => listing._id}
+        renderItem={(listing) => (
           <Card
-            title={item.title}
-            author={item.author}
-            price={item.price}
-            images={item.images}
-            onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
+            listing={listing.item}
+            onPress={() =>
+              navigation.navigate(routes.LISTING_DETAILS, listing.item)
+            }
           />
         )}
         ItemSeparatorComponent={
-          <ListItemSeparator color={colors.bg.gray} height={15} />
+          <ListItemSeparator color={colors.pastelWhite} height={15} />
         }
       />
     </>

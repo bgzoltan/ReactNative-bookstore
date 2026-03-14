@@ -37,6 +37,8 @@ const styles = StyleSheet.create({
     width: 120,
   },
   infoText: {
-    color: colors.text.secondary,
+    fontFamily: "Montserrat",
+    fontSize: 16,
+    color: colors.pastelGrey,
   },
 });

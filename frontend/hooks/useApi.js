@@ -7,105 +7,87 @@ import { useAuth } from "../context/AuthContext";
 
 export const useApi = (method, route) => {
   const [data, setData] = useState(null);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
   const { startUpload, finishUpload, startLoading, endLoading } = useProgress();
   const { token } = useAuth();
 
   const request = async (payload = null) => {
     const url = `${API_URL}/api/${route}`;
-
-    // Start loading indicator
-    startLoading();
     const methodLower = method.toLowerCase();
 
     try {
       if (methodLower === "get") {
-        //  Cache FIRST
+        // Check cache first
         const cached = await AsyncCache.get(url);
-        //  Don't use cache when loading messages
-        if (
-          !url.includes("received-message") &&
-          !url.includes("sent-messages")
-        ) {
-          if (cached) {
-            // Serving from cache if exists
-            setData(cached);
-            setError(false);
-            // Return the cached data immediately
-            return { data: cached, error: null };
-          }
+
+        // Skip cache for message routes
+        const shouldUseCache =
+          !url.includes("received-message") && !url.includes("sent-messages");
+        if (shouldUseCache && cached) {
+          // Serve from cache without loading indicator
+          setData(cached);
+          setError(null);
+          return { data: cached, error: null };
         }
 
-        // Fetching from network
+        // No cache or shouldn't use cache - fetch from network
+        startLoading();
         const response = await apiClient.get(url, {
           headers: { Authorization: `Bearer ${token}` },
           params: payload || {},
         });
 
-        // Update cache and state with fresh network data
+        // Update cache and state
         await AsyncCache.store(url, response.data);
         setData(response.data);
-        setError(false);
+        setError(null);
         return { data: response.data, error: null };
       } else {
-        // Handling POST, PUT, DELETE requests (which shouldn't use cache)
-        if (["post", "put", "delete"].includes(method.toLowerCase())) {
+        // POST, PUT, DELETE requests
+        startLoading();
+
+        if (["post", "put", "delete"].includes(methodLower)) {
           startUpload();
         }
-        // response = await axios[method](url, payload, { headers });
-        // let headers = {};
-        // if (route !== "/login") {
-        //   headers = { Authorization: `Bearer ${token}` };
-        // }
-        const response = await apiClient[method](url, payload);
 
+        const response = await apiClient[method](url, payload);
         finishUpload();
 
-        setData(response.data);
-        setError(false);
+        setError(null);
         return { data: response.data, error: null };
       }
     } catch (err) {
-      //  * Axios error structure
-      // message: string,
-      // name: "AxiosError",
-      // stack: string,
-      // code: string,          // e.g. "ERR_BAD_REQUEST"
-      // config: { ... },       // axios request config
-      // request: { ... },      // the raw request object (if sent)
-      // response: {            // ONLY exists if server responded
-      //   data: any,           // ← your backend errors & body
-      //   status: number,      // 400, 401, 500, ...
-      //   statusText: string,
-      //   headers: object,
-      //   config: object,
-      //   request: object
-      // },
-      // cause: Error | undefined
-      //  Runs if the Network call failed.
-      // const { status = 500 } = err.response;
-      const errors = err.response?.data?.errors || null;
-      const message = err.response?.data?.message || err.message;
-
-      // If the GET method fails AND the cache was empty
-      if (method.toLowerCase() === "get") {
-        setError(true);
-      } else {
-        // For non-GET methods, the failure is a real error.
-        setError(true);
-      }
-
-      //  *If the errors o bject is not empty then it is a formi error
+      let errorToSet;
       const isEmptyObject = (obj) =>
         obj && obj.constructor === Object && Object.keys(obj).length === 0;
 
-      return {
-        data: null,
-        error: !isEmptyObject(errors) ? errors : message,
-      };
+      if (err.response) {
+        const errors = err.response.data?.errors || null;
+        const message = err.response.data?.message || err.statusText;
+
+        errorToSet = {
+          message: !isEmptyObject(errors) ? JSON.stringify(errors) : message,
+          errors: errors,
+        };
+        console.log("Server error:", err.response.status, errorToSet);
+      } else if (err.request) {
+        errorToSet = {
+          message: "Network error - no response from server",
+        };
+        console.log("Network error:", err.message);
+      } else {
+        errorToSet = {
+          message: err.message || "Unknown error occurred",
+        };
+        console.log("Error:", err.message);
+      }
+
+      setError(errorToSet);
+      return { data: null, error: errorToSet };
     } finally {
       endLoading();
     }
   };
+
   return { data, error, request };
 };

@@ -23,7 +23,9 @@ export default function MessageForm({
         placeholder={"Type here your message..."}
         icon={{
           name: "message",
-          backgroundColor: colors.bg.white,
+          color: colors.pastelGrey,
+          size: 24,
+          backgroundColor: colors.pastelYellow,
         }}
       />
       <InfoModal infoModal={infoModal} closeInfoModal={closeInfoModal} />

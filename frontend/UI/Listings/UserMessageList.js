@@ -6,32 +6,44 @@ import ListItemSeparator from "../../components/ListItemSeparator";
 import { useProgress } from "../../context/ProgressContext";
 import LottieModal from "../../components/LottieModal";
 import { ScrollView } from "react-native";
+import ErrorModal from "../../components/ErrorModal";
+import colors from "../../config/colors";
 
 export default function UserMessageList({ filter }) {
-  const { request: getMessages } = useApi("get", filter);
-  const [messages, setMessages] = useState([]);
-  const { isLoading, startLoading, endLoading } = useProgress();
+  // Get data from 'received-messages' or 'sent-messages' api depending on the value of filter
+  const { data: messages, error, request: getMessages } = useApi("get", filter);
+  const { isLoading } = useProgress();
 
   const [refreshing, setRefreshing] = useState(false);
+  const [errorModal, setErrorModal] = useState({
+    message: "",
+    isVisible: false,
+  });
+
+  const closeErrorModal = () => {
+    setErrorModal({ ...errorModal, isVisible: false });
+  };
 
   const handleDelete = (item) => {
-    setMessages(messages.filter((message) => message.id !== item.id));
+    // setMessages(messages.filter((message) => message.id !== item.id));
   };
 
   useEffect(() => {
-    const fetchMessages = async () => {
-      try {
-        const response = await getMessages();
-        setMessages(response.data);
-      } catch (err) {
-      } finally {
-        endLoading();
-        setRefreshing(false);
-      }
-    };
-    startLoading;
-    fetchMessages();
-  }, [filter, refreshing]);
+    getMessages();
+  }, [filter]);
+
+  useEffect(() => {
+    if (error) {
+      setErrorModal({ message: error.message, isVisible: true });
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (refreshing) {
+      getMessages();
+      setRefreshing(false);
+    }
+  }, [refreshing]);
 
   return (
     <>
@@ -64,13 +76,19 @@ export default function UserMessageList({ filter }) {
                   )}
                 />
               )}
-              ItemSeparatorComponent={<ListItemSeparator />}
+              ItemSeparatorComponent={() => (
+                <ListItemSeparator color={colors.pastelWhite} />
+              )}
               refreshing={refreshing}
               onRefresh={() => {
                 setRefreshing(true);
               }}
             />
           )}
+          <ErrorModal
+            errorModal={errorModal}
+            closeErrorModal={closeErrorModal}
+          />
         </View>
       </ScrollView>
     </>

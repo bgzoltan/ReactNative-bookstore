@@ -24,11 +24,11 @@ export default function BookImage({ bookImages, currentIndex }) {
     <View style={styles.container}>
       <LottieModal
         source={require("../../assets/loading.json")}
-        isVisible={!isLoaded && isLoading && !hasTimedOut}
+        isVisible={!isLoaded && !hasTimedOut}
         info="Loading image..."
       />
-      {isLoaded && <Text>Tap the image to see next image</Text>}
-      {isLoaded && hasTimedOut && (
+      {isLoaded && <Text style={styles.text}>Tap image to next</Text>}
+      {bookImages.length > 0 && (
         <Image
           source={{ uri: bookImages[currentIndex]?.uri }}
           onLoad={() => {
@@ -38,14 +38,14 @@ export default function BookImage({ bookImages, currentIndex }) {
           onError={() => {
             setIsLoading(false);
           }}
-          style={styles.image}
+          style={isLoaded ? styles.image : ""}
         />
       )}
       {hasTimedOut && !isLoaded && bookImages.length > 0 && (
-        <Text>Failed to load image. Try it later! </Text>
+        <Text style={styles.text}>Failed to load image. Try it later! </Text>
       )}
       {hasTimedOut && bookImages.length === 0 && (
-        <Text>No images available for this listing.</Text>
+        <Text style={styles.text}>No images available for this listing.</Text>
       )}
     </View>
   );
@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     width: "100%",
-    height: 250,
-    backgroundColor: colors.bg.primary,
+    height: 280,
+    backgroundColor: colors.pastelWhite,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -66,8 +66,12 @@ const styles = StyleSheet.create({
     height: "90%",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: colors.bg.white,
-    borderWidth: 2,
-    borderColor: colors.bg.secondary,
+  },
+  text: {
+    fontFamily: "Montserrat",
+    backgroundColor: colors.pastelPeach,
+    borderRadius: 10,
+    fontSize: 16,
+    padding: 10,
   },
 });

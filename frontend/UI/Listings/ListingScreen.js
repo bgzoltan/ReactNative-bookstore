@@ -15,7 +15,7 @@ export default function ListingScreen({ navigation }) {
 
   return (
     <Screen>
-      <ListingList data={data} error={error} navigation={navigation} />
+      <ListingList listings={data} error={error} navigation={navigation} />
     </Screen>
   );
 }
