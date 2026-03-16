@@ -8,6 +8,7 @@ import LottieModal from "../../components/LottieModal";
 import { ScrollView } from "react-native";
 import ErrorModal from "../../components/ErrorModal";
 import colors from "../../config/colors";
+import InfoModal from "../../components/InfoModal";
 
 export default function UserMessageList({ filter }) {
   // Get data from 'received-messages' or 'sent-messages' api depending on the value of filter
@@ -22,6 +23,26 @@ export default function UserMessageList({ filter }) {
 
   const closeErrorModal = () => {
     setErrorModal({ ...errorModal, isVisible: false });
+  };
+
+  const [infoModal, setInfoModal] = useState({
+    isVisible: false,
+    message: "",
+  });
+
+  const openInfoModal = () => {
+    setInfoModal((prev) => ({
+      ...prev,
+      message: "Message sent successfully!",
+      isVisible: true,
+    }));
+  };
+  const closeInfoModal = () => {
+    setInfoModal({ isVisible: false, message: "" });
+  };
+
+  const showErrorModal = (errorObject) => {
+    setErrorModal(errorObject);
   };
 
   const handleDelete = (item) => {
@@ -71,6 +92,9 @@ export default function UserMessageList({ filter }) {
               renderItem={({ item }) => (
                 <UserMessageItem
                   item={item}
+                  openInfoModal={openInfoModal}
+                  showErrorModal={showErrorModal}
+                  filter={filter}
                   renderRightActions={() => (
                     <ItemDeleteAction handleDelete={() => handleDelete(item)} />
                   )}
@@ -85,6 +109,7 @@ export default function UserMessageList({ filter }) {
               }}
             />
           )}
+          <InfoModal infoModal={infoModal} closeInfoModal={closeInfoModal} />
           <ErrorModal
             errorModal={errorModal}
             closeErrorModal={closeErrorModal}

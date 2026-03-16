@@ -28,17 +28,13 @@ apiClient.interceptors.request.use(
 // Response intercepor
 apiClient.interceptors.response.use(
   (response) => {
-    return response;
+    // Success: status 2xx
+    console.log("✅ Success:", response.status, response.data);
+    return response; // Response to frontend
   },
   (error) => {
-    console.log(
-      `${error.message.includes("timeout") ? "❌ Network error or cannot acccess the server URL" : "⚠️Response interceptor error"}: `,
-      {
-        message: error.message,
-        status: error.response?.status,
-        data: error.response?.data,
-      },
-    );
+    // Error: status 4xx/5xx or network error
+    console.log("❌ Error:", error.response?.status, error.message);
     return Promise.reject(error);
   },
 );

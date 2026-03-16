@@ -1,14 +1,8 @@
 import AppFormSubmitButton from "../../components/Form/AppFormSubmitButton.js";
 import { AppFormField } from "../../components/Form/AppFormField.js";
 import colors from "../../config/colors.js";
-import InfoModal from "../../components/InfoModal.js";
 
-export default function MessageForm({
-  buttonText = "SEND",
-  infoModal,
-  closeInfoModal,
-  ...formikProps
-}) {
+export default function MessageForm({ buttonText = "SEND", ...formikProps }) {
   const { handleSubmit } = formikProps;
   //  formik handleSubmit runs validation and after that runs onSubmit
 
@@ -28,7 +22,6 @@ export default function MessageForm({
           backgroundColor: colors.pastelYellow,
         }}
       />
-      <InfoModal infoModal={infoModal} closeInfoModal={closeInfoModal} />
       <AppFormSubmitButton type={"primary"} handleSubmit={handleSubmit}>
         {buttonText}
       </AppFormSubmitButton>

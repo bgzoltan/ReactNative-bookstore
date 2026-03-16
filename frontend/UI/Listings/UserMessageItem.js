@@ -7,7 +7,12 @@ import AnswerMessage from "./AnswerMessage";
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 
-export default function UserMessageItem({ item }) {
+export default function UserMessageItem({
+  item,
+  openInfoModal,
+  showErrorModal,
+  filter,
+}) {
   const messageTime = getTheTime(item.timestamp);
   const [isAnswerModal, setIsAnswerModal] = useState(false);
   const { user } = useAuth();
@@ -49,20 +54,28 @@ export default function UserMessageItem({ item }) {
             color={colors.pastelGrey}
             backgroundColor={colors.pastelPink}
           />
-          <TouchableOpacity
-            style={styles.container}
-            onPress={() => handlePress()}
-          >
-            <Icon
-              name="mailAnswer"
-              color={colors.pastelGrey}
-              backgroundColor={colors.pastelPink}
+          {filter === "received-messages" && (
+            <TouchableOpacity
+              style={styles.container}
               onPress={() => handlePress()}
-            />
-          </TouchableOpacity>
+            >
+              <Icon
+                name="mailAnswer"
+                color={colors.pastelGrey}
+                backgroundColor={colors.pastelPink}
+                onPress={() => handlePress()}
+              />
+            </TouchableOpacity>
+          )}
         </View>
       </View>
-      {isAnswerModal && <AnswerMessage item={item} />}
+      {isAnswerModal && (
+        <AnswerMessage
+          item={item}
+          openInfoModal={openInfoModal}
+          showErrorModal={showErrorModal}
+        />
+      )}
     </View>
   );
 }

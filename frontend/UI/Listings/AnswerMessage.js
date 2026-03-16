@@ -2,24 +2,15 @@ import AppForm from "../../components/Form/AppForm.js";
 import MessageForm from "../Forms/MessageForm.js";
 import * as Yup from "yup";
 import { useApi } from "../../hooks/useApi.js";
-import { useState } from "react";
 import { useAuth } from "../../context/AuthContext.js";
 
-export default function AnswerMessage({ item }) {
+export default function AnswerMessage({ item, openInfoModal, showErrorModal }) {
   const initialValues = { message: "" };
   const validationSchema = Yup.object({
-    message: Yup.string().max(255).label("Message"),
+    message: Yup.string().max(100).label("Message"),
   });
   const { user } = useAuth();
   const { sender, subject, relatedBookId } = item;
-
-  const [infoModal, setInfoModal] = useState({
-    isVisible: false,
-    message: "",
-  });
-  const closeInfoModal = () => {
-    setInfoModal({ ...infoModal, isVisible: false, message: "" });
-  };
 
   const { request: sendMessage } = useApi("post", "messages");
 
@@ -28,46 +19,41 @@ export default function AnswerMessage({ item }) {
 
     const { error } = await sendMessage({
       sender: user._id,
-      recipient: sender,
+      recipient: sender._id,
       subject,
       relatedBookId,
       content: message,
     });
 
     if (error) {
-      //  Check wheter error is formik error or not
-      if (error && typeof error === "object" && !Array.isArray(error)) {
-        setErrors(error);
-      } else {
-        console.log(error);
-        // Show error to the user
-        setErrorModal({ ...errorModal, message: error, isVisible: true });
+      // Form(ijk) validation errors from backend
+
+      if (error.errors) {
+        setErrors(error.errors);
+        return;
       }
-      return;
-    } else {
-      // Show success message to the user
-      setInfoModal({
-        ...infoModal,
-        message: "Message sent successfully!",
+
+      // General API error - show error message
+      showErrorModal({
+        message: error.message,
         isVisible: true,
       });
+
+      return;
     }
+    // Show success message
+    openInfoModal();
   };
 
   return (
-    <AppForm
-      initialValues={initialValues}
-      onSubmit={onSubmit}
-      validationSchema={validationSchema}
-    >
-      {(formikProps) => (
-        <MessageForm
-          buttonText="SEND"
-          infoModal={infoModal}
-          closeInfoModal={closeInfoModal}
-          {...formikProps}
-        />
-      )}
-    </AppForm>
+    <>
+      <AppForm
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        validationSchema={validationSchema}
+      >
+        {(formikProps) => <MessageForm buttonText="SEND" {...formikProps} />}
+      </AppForm>
+    </>
   );
 }

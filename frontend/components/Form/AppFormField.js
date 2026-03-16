@@ -10,7 +10,6 @@ export function AppFormField({ inputName, width, ...props }) {
   }
   const { errors, setFieldValue, setFieldTouched, touched, values } =
     useFormikContext();
-
   return (
     <>
       {/*  Input field  */}

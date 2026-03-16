@@ -25,20 +25,22 @@ export default function LoginScreen({ navigation }) {
   const closeErrorModal = () => {
     setErrorModal({ ...errorModal, isVisible: false });
   };
-
   const onSubmit = async (values, { setErrors }) => {
     const { email, password } = values;
     const { data, error } = await login({ email, password });
 
     if (error) {
-      //  Check wheter error is formik error or not
-      if (error && typeof error === "object" && !Array.isArray(error)) {
-        setErrors(error);
-      } else {
-        console.log(error);
-        // Show error to the user
-        setErrorModal({ ...errorModal, message: error, isVisible: true });
+      // Form(ik) validation errors from backend
+      if (error.errors) {
+        setErrors(error.errors);
+        return;
       }
+      // General API error
+      setErrorModal({
+        message: error.message,
+        isVisible: true,
+      });
+
       return;
     }
 

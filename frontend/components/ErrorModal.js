@@ -17,7 +17,7 @@ export default function ErrorModal({ errorModal, closeErrorModal }) {
         <View style={styles.container}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>{message}</Text>
-            <AppButton handlePress={closeErrorModal}>TRY AGAIN</AppButton>
+            <AppButton handlePress={closeErrorModal}>CONTINUE</AppButton>
           </View>
         </View>
       </Modal>
