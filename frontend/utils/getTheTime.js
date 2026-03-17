@@ -8,11 +8,12 @@ function hasOneDayPassed(timestamp) {
 
 export default function getTheTime(timestamp) {
   const date = new Date(timestamp);
-  const time = date.getHours() + ":" + date.getMinutes();
-  const day = date.getDay() + 1 + "." + date.getMonth();
+  const minutes = date.getMinutes().toString();
+  const time = date.getHours() + ":" + minutes.padStart(2, "0");
+  const day = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 
   if (hasOneDayPassed(timestamp)) {
-    return day;
+    return day + " " + time;
   } else {
     return time;
   }

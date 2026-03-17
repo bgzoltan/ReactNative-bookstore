@@ -55,7 +55,7 @@ export default function UserMessageList({ filter }) {
     if (data) {
       // Success message
       setInfoModal({
-        message: response.data.message,
+        message: data.message,
         isVisible: true,
       });
       setRefreshing(true);
