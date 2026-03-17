@@ -2,6 +2,7 @@ import { Router } from "express";
 import authMiddleware from "../middleware/authMiddleware.js";
 import { Message } from "../schema/messages.js";
 import { validateMessage } from "../schema/messages.js";
+import { isValidObjectId } from "mongoose";
 
 export const router = Router();
 
@@ -68,6 +69,39 @@ router.get("/received-messages", authMiddleware, async (req, res, next) => {
     res.status(200).json(messages);
   } catch (err) {
     console.log("Error get received messages.", err);
+    next(err);
+  }
+});
+
+router.delete("/messages/:id", authMiddleware, async (req, res, next) => {
+  const messageId = req.params.id;
+  try {
+    // Checking id
+    if (!isValidObjectId(messageId)) {
+      let error = new Error("Invalid message format.");
+      error.status = 400;
+      throw error;
+    }
+
+    const message = await Message.findById(messageId);
+
+    // Check if message exists
+    if (message) {
+      // Delete message
+      const response = await message.deleteOne();
+      if (response.acknowledged) {
+        res.status(200).json({ message: "Message deleted." });
+      } else {
+        let error = new Error("Cannot delete message.");
+        error.status = 400;
+        throw error;
+      }
+    } else {
+      const error = new Error("The message does not exists.");
+      error.status = 404;
+      throw error;
+    }
+  } catch (err) {
     next(err);
   }
 });
