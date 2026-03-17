@@ -11,6 +11,7 @@ export default function UserMessageItem({
   item,
   openInfoModal,
   showErrorModal,
+  handleDelete,
   filter,
 }) {
   const messageTime = getTheTime(item.timestamp);
@@ -53,6 +54,7 @@ export default function UserMessageItem({
             name="bin"
             color={colors.pastelGrey}
             backgroundColor={colors.pastelPink}
+            handlePress={handleDelete}
           />
           {filter === "received-messages" && (
             <TouchableOpacity

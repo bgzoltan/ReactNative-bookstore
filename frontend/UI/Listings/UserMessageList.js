@@ -9,10 +9,13 @@ import { ScrollView } from "react-native";
 import ErrorModal from "../../components/ErrorModal";
 import colors from "../../config/colors";
 import InfoModal from "../../components/InfoModal";
+import ItemDeleteAction from "../../components/ItemDeleteAction";
 
 export default function UserMessageList({ filter }) {
   // Get data from 'received-messages' or 'sent-messages' api depending on the value of filter
   const { data: messages, error, request: getMessages } = useApi("get", filter);
+  const { request: deleteMessage } = useApi("delete", "messages/:id");
+
   const { isLoading } = useProgress();
 
   const [refreshing, setRefreshing] = useState(false);
@@ -41,12 +44,28 @@ export default function UserMessageList({ filter }) {
     setInfoModal({ isVisible: false, message: "" });
   };
 
-  const showErrorModal = (errorObject) => {
-    setErrorModal(errorObject);
+  const showErrorModal = () => {
+    setErrorModal({ message: "Sent succesfully.", isVisible: true });
   };
 
-  const handleDelete = (item) => {
-    // setMessages(messages.filter((message) => message.id !== item.id));
+  const handleDelete = async (messageId) => {
+    // try-catch is not necessary because useAPi handles the errors consistently
+    const { data, error } = await deleteMessage(null, { id: messageId });
+
+    if (data) {
+      // Success message
+      setInfoModal({
+        message: response.data.message,
+        isVisible: true,
+      });
+      setRefreshing(true);
+    } else {
+      // Delete failed
+      setErrorModal({
+        message: error.message,
+        isVisible: true,
+      });
+    }
   };
 
   useEffect(() => {
@@ -94,10 +113,14 @@ export default function UserMessageList({ filter }) {
                   item={item}
                   openInfoModal={openInfoModal}
                   showErrorModal={showErrorModal}
+                  handleDelete={() => handleDelete(item._id)}
                   filter={filter}
-                  renderRightActions={() => (
-                    <ItemDeleteAction handleDelete={() => handleDelete(item)} />
-                  )}
+                  //  * Might be later add this functionality
+                  // renderRightActions={() => (
+                  //   <ItemDeleteAction
+                  //     handleDelete={() => handleDelete(item._id)}
+                  //   />
+                  // )}
                 />
               )}
               ItemSeparatorComponent={() => (

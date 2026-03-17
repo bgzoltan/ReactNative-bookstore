@@ -29,7 +29,7 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response) => {
     // Success: status 2xx
-    console.log("✅ Success:", response.status, response.data);
+    console.log("✅ Success:", response.status);
     return response; // Response to frontend
   },
   (error) => {

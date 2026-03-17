@@ -14,9 +14,10 @@ export const useApi = (method, route) => {
   const { token } = useAuth();
 
   // The frontend request
-  const request = async (payload = null) => {
+  const request = async (payload = null, params = {}) => {
     // Creating the whole url
-    const url = `${API_URL}/api/${route}`;
+    let url = `${API_URL}/api/${route}`;
+
     const methodLower = method.toLowerCase();
 
     try {
@@ -59,6 +60,12 @@ export const useApi = (method, route) => {
           startUpload();
         }
 
+        // Adding the params value to the url
+        if (params)
+          Object.keys(params).forEach((key) => {
+            url = url.replace(`:${key}`, params[key]);
+          });
+
         const response = await apiClient[method](url, payload);
         finishUpload();
 
@@ -77,7 +84,7 @@ export const useApi = (method, route) => {
       let errorToSet;
       const getErrorMessage = (status) => {
         const errorMap = {
-          400: "Bad request. Please check your input.",
+          400: "Bad request.",
           401: "Please log in again.",
           403: "You don't have permission to access this resource.",
           404: "Sorry, resource not found.",
@@ -93,8 +100,8 @@ export const useApi = (method, route) => {
       if (err.response) {
         const errors = err.response.data?.errors || null;
         const status = err.response.status;
-        // const message = err.response.data?.message || getErrorMessage(status);
-        const message = getErrorMessage(status);
+        const message =
+          getErrorMessage(status) + " " + err.response.data?.message;
 
         errorToSet = {
           message:
