@@ -44,8 +44,8 @@ export default function UserMessageList({ filter }) {
     setInfoModal({ isVisible: false, message: "" });
   };
 
-  const showErrorModal = () => {
-    setErrorModal({ message: "Sent succesfully.", isVisible: true });
+  const showErrorModal = (errorMessage) => {
+    setErrorModal(errorMessage);
   };
 
   const handleDelete = async (messageId) => {

@@ -2,23 +2,19 @@ import AppForm from "../../components/Form/AppForm.js";
 import MessageForm from "../Forms/MessageForm.js";
 import * as Yup from "yup";
 import { useApi } from "../../hooks/useApi.js";
-import { useState } from "react";
 import { useAuth } from "../../context/AuthContext.js";
 
-export default function ContactSeller({ sellerId, book }) {
+export default function ContactSeller({
+  sellerId,
+  book,
+  openInfoModal,
+  showErrorModal,
+}) {
   const initialValues = { message: "" };
   const validationSchema = Yup.object({
-    message: Yup.string().max(255).label("Message"),
+    message: Yup.string().max(100).label("Message"),
   });
   const { user } = useAuth();
-
-  const [infoModal, setInfoModal] = useState({
-    isVisible: false,
-    message: "",
-  });
-  const closeInfoModal = () => {
-    setInfoModal({ ...infoModal, isVisible: false, message: "" });
-  };
 
   const { request: sendMessage } = useApi("post", "messages");
 
@@ -40,16 +36,12 @@ export default function ContactSeller({ sellerId, book }) {
       } else {
         console.log(error);
         // Show error to the user
-        setErrorModal({ ...errorModal, message: error, isVisible: true });
+        showErrorModal({ ...errorModal, message: error, isVisible: true });
       }
       return;
     } else {
       // Show success message to the user
-      setInfoModal({
-        ...infoModal,
-        message: "Message sent successfully!",
-        isVisible: true,
-      });
+      openInfoModal();
     }
   };
 
@@ -59,13 +51,7 @@ export default function ContactSeller({ sellerId, book }) {
       onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
-      {(formikProps) => (
-        <MessageForm
-          infoModal={infoModal}
-          closeInfoModal={closeInfoModal}
-          {...formikProps}
-        />
-      )}
+      {(formikProps) => <MessageForm {...formikProps} />}
     </AppForm>
   );
 }

@@ -8,28 +8,57 @@ import ContactSeller from "./ContactSeller";
 import BookImage from "./BookImage";
 import { useAuth } from "../../context/AuthContext";
 import { StyleSheet } from "react-native";
+import ErrorModal from "../../components/ErrorModal";
+import InfoModal from "../../components/InfoModal";
 
 export default function ListingDetailScreen({ route }) {
-  const [seller, setSeller] = useState(null);
   const { user } = useAuth();
+
+  const [errorModal, setErrorModal] = useState({
+    message: "",
+    isVisible: false,
+  });
+
+  const closeErrorModal = () => {
+    setErrorModal({ ...errorModal, isVisible: false });
+  };
+
+  const [infoModal, setInfoModal] = useState({
+    isVisible: false,
+    message: "",
+  });
+
+  const openInfoModal = () => {
+    setInfoModal((prev) => ({
+      ...prev,
+      message: "Message sent successfully!",
+      isVisible: true,
+    }));
+  };
+  const closeInfoModal = () => {
+    setInfoModal({ isVisible: false, message: "" });
+  };
+
+  const showErrorModal = (errorMessage) => {
+    setErrorModal(errorMessage);
+  };
 
   // Get the details of the listing which is passed as a parameter when navigating to this screen.
   const book = route.params;
   const { images: bookImages = [], userId: sellerId } = book;
 
   // Get the details of the seller using the userId
-  const { request: getUser } = useApi("get", `users/${sellerId}`);
+  const { data: seller, error, request: getUser } = useApi("get", "users/:id");
+
   useEffect(() => {
-    async function fetchUser() {
-      try {
-        const response = await getUser();
-        setSeller(response.data);
-      } catch (error) {
-        console.error("Error fetching user:", error);
-      }
-    }
-    fetchUser();
+    getUser(null, { id: sellerId });
   }, []);
+
+  useEffect(() => {
+    if (error) {
+      setErrorModal({ message: error.message, isVisible: true });
+    }
+  }, [error]);
 
   const numberOfImages = bookImages.length;
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -56,9 +85,16 @@ export default function ListingDetailScreen({ route }) {
             <Text style={styles.text}>Owner</Text>
             <UserDetails user={seller ? seller : null} />
 
-            <ContactSeller sellerId={seller?._id} book={book} />
+            <ContactSeller
+              sellerId={seller?._id}
+              book={book}
+              openInfoModal={openInfoModal}
+              showErrorModal={showErrorModal}
+            />
           </>
         )}
+        <InfoModal infoModal={infoModal} closeInfoModal={closeInfoModal} />
+        <ErrorModal errorModal={errorModal} closeErrorModal={closeErrorModal} />
       </ScrollView>
     </Screen>
   );
