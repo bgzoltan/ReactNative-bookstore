@@ -24,7 +24,9 @@ export default function RegisterScreenForm({
         placeholder={"Type in your firstname"}
         icon={{
           name: "user",
-          backgroundColor: colors.bg.white,
+          size: 24,
+          color: colors.pastelGrey,
+          backgroundColor: colors.pastelYellow,
         }}
         required
       />
@@ -38,7 +40,9 @@ export default function RegisterScreenForm({
         placeholder={"Type in your lastname"}
         icon={{
           name: "user",
-          backgroundColor: colors.bg.white,
+          size: 24,
+          color: colors.pastelGrey,
+          backgroundColor: colors.pastelYellow,
         }}
         required
       />
@@ -52,7 +56,9 @@ export default function RegisterScreenForm({
         placeholder={"Type in your email"}
         icon={{
           name: "mail",
-          backgroundColor: colors.bg.white,
+          size: 24,
+          color: colors.pastelGrey,
+          backgroundColor: colors.pastelYellow,
         }}
         required
       />
@@ -65,7 +71,9 @@ export default function RegisterScreenForm({
         inputName={"password"}
         icon={{
           name: "lock",
-          backgroundColor: colors.bg.white,
+          size: 24,
+          color: colors.pastelGrey,
+          backgroundColor: colors.pastelYellow,
         }}
         required
       />

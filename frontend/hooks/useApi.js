@@ -39,6 +39,13 @@ export const useApi = (method, route) => {
 
         // No cache or shouldn't use cache - fetch from network
         startLoading();
+
+        // Adding the params value to the url
+        if (params)
+          Object.keys(params).forEach((key) => {
+            url = url.replace(`:${key}`, params[key]);
+          });
+
         // Use the axios apiClient to fetch the data / add the token to authenticate the user -> the backend middleware will check it
         const response = await apiClient.get(url, {
           headers: { Authorization: `Bearer ${token}` },

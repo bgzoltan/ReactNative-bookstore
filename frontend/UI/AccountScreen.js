@@ -8,24 +8,35 @@ import { useAuth } from "../context/AuthContext.js";
 import { useApi } from "../hooks/useApi.js";
 import { useEffect, useState } from "react";
 import UserDetails from "./Listings/UserDetails.js";
+import ErrorModal from "../components/ErrorModal.js";
 
 export function AccountScreen({ navigation }) {
   const { user, auth } = useAuth();
-  const [userDetails, setUserDetails] = useState(null);
 
-  const { request: getUser } = useApi("get", `users/${user._id}`);
+  const {
+    data: userDetails,
+    error,
+    request: getUser,
+  } = useApi("get", "users/:id");
+
+  const [errorModal, setErrorModal] = useState({
+    message: "",
+    isVisible: false,
+  });
+
+  const closeErrorModal = () => {
+    setErrorModal({ ...errorModal, isVisible: false });
+  };
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const { data: user } = await getUser();
-        setUserDetails(user);
-      } catch (err) {
-        console.log("Error", err);
-      }
-    };
-    fetchUser();
+    getUser(null, { id: user._id });
   }, []);
+
+  useEffect(() => {
+    if (error) {
+      setErrorModal({ message: error.message, isVisible: true });
+    }
+  }, [error]);
 
   const menuItems = [
     {
@@ -92,6 +103,7 @@ export function AccountScreen({ navigation }) {
             <ListItemSeparator color={colors.pastelWhite} height={6} />
           }
         />
+        <ErrorModal errorModal={errorModal} closeErrorModal={closeErrorModal} />
       </View>
     </Screen>
   );
