@@ -65,7 +65,8 @@ router.get("/received-messages", authMiddleware, async (req, res, next) => {
   try {
     const messages = await Message.find({ recipient: req.user._id })
       .populate(["recipient", "sender"])
-      .select("sender recipient subject relatedBookId content timestamp");
+      .select("sender recipient subject relatedBookId content timestamp")
+      .sort({ timestamp: -1 });
     res.status(200).json(messages);
   } catch (err) {
     console.log("Error get received messages.", err);
