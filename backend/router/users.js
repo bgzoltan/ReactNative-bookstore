@@ -1,7 +1,9 @@
 import express from "express";
 import { validateUser, Users } from "../schema/users.js";
 import bcrypt from "bcrypt";
+import authMiddleware from "../middleware/authMiddleware.js";
 
+// To handle the routes in different files
 export const router = express.Router();
 
 router.post("/users", async (req, res, next) => {
@@ -58,7 +60,7 @@ router.post("/users", async (req, res, next) => {
   }
 });
 
-router.get("/users", async (req, res, next) => {
+router.get("/users", authMiddleware, async (req, res, next) => {
   const { id } = req.query;
   try {
     const user = await Users.findById(id);
@@ -74,7 +76,7 @@ router.get("/users", async (req, res, next) => {
   }
 });
 
-router.get("/users/:id", async (req, res, next) => {
+router.get("/users/:id", authMiddleware, async (req, res, next) => {
   try {
     const { id } = req.params;
 
