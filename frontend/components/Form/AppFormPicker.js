@@ -10,6 +10,7 @@ export function AppFormPicker({
   items,
   placeHolder,
   width,
+  onSelectItem,
   PickerItemComponent,
   ...otherProps
 }) {

@@ -14,7 +14,7 @@ export const useApi = (method, route) => {
   const { token } = useAuth();
 
   // The frontend request
-  const request = async (payload = null, params = {}) => {
+  const request = async (payload = null, params = {}, query = "") => {
     // Creating the whole url
     let url = `${API_URL}/api/${route}`;
 
@@ -46,6 +46,13 @@ export const useApi = (method, route) => {
             url = url.replace(`:${key}`, params[key]);
           });
 
+        // Adding the query keys to the url
+        if (query) {
+          url += "/?";
+          Object.keys(query).forEach((key) => {
+            url += `${key}=${query[key]}`;
+          });
+        }
         // Use the axios apiClient to fetch the data / add the token to authenticate the user -> the backend middleware will check it
         const response = await apiClient.get(url, {
           headers: { Authorization: `Bearer ${token}` },
