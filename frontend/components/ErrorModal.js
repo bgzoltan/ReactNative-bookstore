@@ -1,5 +1,6 @@
 import { Modal, StyleSheet, View, Text } from "react-native";
 import AppButton from "./AppButton/AppButton";
+import colors from "../config/colors";
 
 export default function ErrorModal({ errorModal, closeErrorModal }) {
   const { message, isVisible } = errorModal;
@@ -33,11 +34,11 @@ const styles = StyleSheet.create({
   },
   modalView: {
     width: "60%",
-    backgroundColor: "white",
+    backgroundColor: colors.pastelWhite,
     borderRadius: 25,
     padding: 35,
     alignItems: "center",
-    shadowColor: "#000",
+    shadowColor: colors.pastelGrey,
     shadowOffset: {
       width: 0,
       height: 2,

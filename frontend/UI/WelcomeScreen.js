@@ -50,18 +50,13 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     flex: 1,
-    backgroundColor: colors.bg.gray,
+    backgroundColor: colors.pastelWhite,
   },
   logoContainer: {
     flex: 6,
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-  },
-  controllerBoxes: {
-    backgroundColor: "#9ec560ff",
-    width: 50,
-    height: 50,
   },
   mainAreaContainer: {
     marginTop: 5,

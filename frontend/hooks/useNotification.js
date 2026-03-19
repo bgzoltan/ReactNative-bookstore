@@ -60,7 +60,7 @@ export default function usePushNotification(notificationListener) {
           error.status = 500;
           throw error;
         } else {
-          console.log("Push token saved successfully.", response);
+          console.log("Push token saved successfully.");
         }
       }
     } catch (error) {

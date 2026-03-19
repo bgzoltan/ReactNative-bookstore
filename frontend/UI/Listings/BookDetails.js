@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
   textTitle: {
     fontSize: 16,
-    fontFamily: "Montserrat",
+    fontFamily: "MontserratRegular",
     fontWeight: "600",
     paddingVertical: 2,
   },

@@ -111,7 +111,7 @@ export function AccountScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.bg.white,
+    backgroundColor: colors.pastelWhite,
     width: "100%",
   },
   menuItem: {
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "flex-start",
     height: 80,
-    backgroundColor: colors.bg.white,
+    backgroundColor: colors.pastelWhite,
   },
   userDetails: {
     backgroundColor: colors.pastelPeach,

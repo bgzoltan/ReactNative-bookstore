@@ -27,7 +27,12 @@ export function AppPicker({
           { width: width },
         ]}
       >
-        <AppText style={styles.selected}>
+        <Icon
+          name={values[inputName].toLowerCase()}
+          color={colors.pastelGrey}
+          backgroundColor={colors.pastelYellow}
+        />
+        <AppText style={styles.selectedCategory}>
           {values[inputName] ? values[inputName] : placeHolder}
         </AppText>
         <View
@@ -57,6 +62,13 @@ export function AppPicker({
             numColumns={
               PickerItemComponent.name == "CategoryPickerItem" ? 3 : 0
             }
+            contentContainerStyle={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              backgroundColor: colors.pastelPink,
+            }}
             renderItem={({ item }) => (
               <PickerItemComponent
                 item={item}
@@ -79,26 +91,36 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     position: "relative",
+    backgroundColor: colors.pastelYellow,
   },
-  selected: {
-    padding: 10,
-    width: "100%",
+  selectedCategory: {
+    fontFamily: "MontserratRegular",
+    display: "flex",
+    flexGrow: 1,
+    color: colors.pastelGrey,
+    backgroundColor: colors.pastelYellow,
+    borderRadius: 25,
+    fontSize: 16,
   },
   itemContainer: {
     display: "flex",
+    backgroundColor: colors.pastelYellow,
+    borderRadius: 25,
   },
   modal: {
     display: "flex",
     position: "absolute",
     top: 50,
     zIndex: 10,
-    borderColor: colors.bg.border,
+    borderColor: colors.pastelGrey,
     borderTopWidth: 0,
     borderLeftWidth: 1,
     borderRightWidth: 1,
     borderBottomWidth: 1,
-    backgroundColor: colors.bg.white,
-    height: 250,
+    backgroundColor: colors.pastelYellow,
+    height: 300,
     opacity: 0.95,
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
   },
 });

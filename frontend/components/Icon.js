@@ -5,8 +5,8 @@ import colors from "../config/colors";
 export function Icon({
   name,
   size = 24,
-  color = colors.icon.primary,
-  backgroundColor = colors.icon.primary,
+  color = colors.pastelGrey,
+  backgroundColor = colors.pastelYellow,
   handlePress,
   style,
 }) {

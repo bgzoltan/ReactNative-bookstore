@@ -5,9 +5,8 @@ export const defaultStyles = {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    padding: 2,
     gap: 10,
-    backgroundColor: colors.bg.white,
+    backgroundColor: colors.pastelYellow,
     borderColor: "gray",
     borderWidth: 1,
     height: 50,
@@ -19,8 +18,8 @@ export const defaultStyles = {
   },
   error: {
     marginLeft: 15,
-    color: colors.bg.danger,
-    backgroundColor: colors.bg.gray,
+    color: colors.pastelRed,
+    backgroundColor: colors.pastelWhite,
   },
   logo: {
     width: 120,

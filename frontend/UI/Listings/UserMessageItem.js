@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   },
   messageContainer: {
     display: "flex",
-    color: colors.text.white,
+    color: colors.pastelWhite,
     flexGrow: 1,
     padding: 5,
     // borderRightWidth: 1,

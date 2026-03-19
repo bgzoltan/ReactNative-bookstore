@@ -26,17 +26,25 @@ export default function ListingFilter({ showErrorModal }) {
     }
   }, [error]);
 
+  const allBook = {
+    content: "Allbook",
+    icon: {
+      name: "allbook",
+      color: colors.pastelWhite,
+      backgroundColor: colors.pastelRed,
+    },
+  };
   return (
     <AppFormPicker
       inputName="categoryFilter"
-      placeHolder="Select CATEGORY to filter"
-      items={data || []}
+      placeHolder=" Select CATEGORY to filter"
+      items={data ? [allBook, ...data] : []}
       icon={{
         name: "list",
         size: 25,
         type: "Lucide",
-        color: colors.icon.secondary,
-        backgroundColor: colors.icon.white,
+        color: colors.pastelGrey,
+        backgroundColor: colors.pastelYellow,
       }}
       width={"90%"}
       PickerItemComponent={CategoryPickerItem}

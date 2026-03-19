@@ -29,13 +29,13 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: colors.bg.danger,
+    backgroundColor: colors.pastelRed,
     width: "100%",
     height: 50,
     top: Constants.statusBarHeight,
     zIndex: 10,
   },
   infoText: {
-    color: colors.text.primary,
+    color: colors.pastelWhite,
   },
 });

@@ -1,5 +1,6 @@
 import { Modal, StyleSheet, View, Text } from "react-native";
 import AppButton from "./AppButton/AppButton";
+import colors from "../config/colors";
 
 export default function InfoModal({ infoModal, closeInfoModal }) {
   const { message, isVisible } = infoModal;
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     width: "60%",
-    backgroundColor: "white",
+    backgroundColor: colors.pastelWhite,
     borderRadius: 25,
     paddingTop: 30,
     paddingBottom: 20,

@@ -32,6 +32,7 @@ import {
   MessageCircleIcon,
   CornerDownLeft,
   ArrowBigRight,
+  FileStack,
 } from "lucide-react-native";
 
 const LucideIcons = {
@@ -68,6 +69,8 @@ const LucideIcons = {
   message: MessageCircleIcon,
   mailAnswer: CornerDownLeft,
   nextImage: ArrowBigRight,
+  other: Book,
+  allbook: FileStack,
 };
 
 export default LucideIcons;

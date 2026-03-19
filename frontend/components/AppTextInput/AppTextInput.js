@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     borderColor: colors.pastelGrey,
     borderWidth: 1,
-    padding: 2,
+    padding: 3,
     backgroundColor: colors.pastelYellow,
   },
   inputText: {
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
     fontFamily:
       Platform.OS === "android" ? "MontserratRegular" : "MontserratRegular",
   },
+
   requiredStar: {
     fontSize: 20,
     fontWeight: "600",

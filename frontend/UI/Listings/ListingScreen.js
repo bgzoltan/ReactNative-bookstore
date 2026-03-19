@@ -13,9 +13,13 @@ function CategoryListener({ getListings }) {
   const { values } = useFormikContext();
 
   useEffect(() => {
-    if (values.categoryFilter) {
+    if (values.categoryFilter !== "") {
       // Get  filtered listings data
-      getListings(null, {}, { category: values.categoryFilter });
+      if (values.categoryFilter == "Allbook") {
+        getListings();
+      } else {
+        getListings(null, {}, { category: values.categoryFilter });
+      }
     }
   }, [values.categoryFilter]);
 

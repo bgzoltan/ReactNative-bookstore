@@ -74,17 +74,18 @@ export default function ListingEditScreenForm() {
         maxLength={8}
         width={120}
         textAlign="right"
+        required
       />
       <AppFormPicker
         inputName="category"
-        placeHolder="Select CATEGORY from scrollabel list"
+        placeHolder=" Select a CATEGORY"
         items={data || []}
         icon={{
           name: "list",
           size: 25,
           type: "Lucide",
-          color: colors.icon.secondary,
-          backgroundColor: colors.icon.white,
+          color: colors.pastelGrey,
+          backgroundColor: colors.pastelYellow,
         }}
         width={"90%"}
         PickerItemComponent={CategoryPickerItem}

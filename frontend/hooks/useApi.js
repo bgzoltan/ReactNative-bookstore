@@ -23,23 +23,6 @@ export const useApi = (method, route) => {
     try {
       // Do these if the method is 'GET'
       if (methodLower === "get") {
-        // Check cache first
-        const cached = await AsyncCache.get(url);
-
-        // Skip cache for message routes
-        const shouldUseCache =
-          !url.includes("received-message") && !url.includes("sent-messages");
-
-        if (shouldUseCache && cached) {
-          // Serve from cache without loading indicator
-          setData(cached);
-          setError(null);
-          return { data: cached, error: null };
-        }
-
-        // No cache or shouldn't use cache - fetch from network
-        startLoading();
-
         // Adding the params value to the url
         if (params)
           Object.keys(params).forEach((key) => {
@@ -53,6 +36,24 @@ export const useApi = (method, route) => {
             url += `${key}=${query[key]}`;
           });
         }
+
+        // Check cache first
+        const cached = await AsyncCache.get(url);
+
+        // Skip cache for message routes
+        // const shouldUseCache =
+        //   !url.includes("received-message") && !url.includes("sent-messages");
+
+        if (cached) {
+          // Serve from cache without loading indicator
+          setData(cached);
+          setError(null);
+          return { data: cached, error: null };
+        }
+
+        // No cache or shouldn't use cache - fetch from network
+        startLoading();
+
         // Use the axios apiClient to fetch the data / add the token to authenticate the user -> the backend middleware will check it
         const response = await apiClient.get(url, {
           headers: { Authorization: `Bearer ${token}` },

@@ -13,7 +13,8 @@ export function AppText({ children, weight = "regular", style, ...props }) {
 
 const styles = StyleSheet.create({
   text: {
-    color: colors.text.secondary,
+    fontFamily: "MonteserratRegular",
+    color: colors.pastelGrey,
   },
 });
 

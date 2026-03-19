@@ -17,7 +17,7 @@ export default function UserDetails({ user, ...props }) {
 const styles = StyleSheet.create({
   container: {
     display: "flex",
-    color: colors.text.gray,
+    color: colors.pastelGrey,
     flexDirection: "row",
     alignItems: "center",
     width: "100%",
