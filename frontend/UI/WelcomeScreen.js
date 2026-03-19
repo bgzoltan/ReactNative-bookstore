@@ -14,7 +14,7 @@ export default function WelcomeScreen({ navigation }) {
   };
   return (
     <ImageBackground
-      source={require("../assets/booksBackground-cutout.png")}
+      source={require("../assets/books.png")}
       resizeMode="fill"
       blurRadius={0}
       style={styles.imageBackground}
@@ -23,7 +23,7 @@ export default function WelcomeScreen({ navigation }) {
         <View style={styles.logoContainer}>
           <Image
             style={defaultStyles.logo}
-            source={require("../assets/booksStopLogo-cutout.png")}
+            source={require("../assets/logo.png")}
           />
           <Text style={defaultStyles.logoText}>To buy and sell books</Text>
         </View>

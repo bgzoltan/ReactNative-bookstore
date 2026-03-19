@@ -31,10 +31,7 @@ export const defaultStyles = {
   },
   logoText: {
     fontSize: 12,
-    color: "black",
-  },
-  logoText: {
-    fontSize: 12,
+    fontFamily: "MontserratRegular",
     color: "black",
   },
 };

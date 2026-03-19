@@ -13,6 +13,7 @@ import { AuthProvider } from "./context/AuthContext";
 import NavigatorSelector from "./components/NavigatorSelector";
 import { useFonts } from "expo-font";
 import { View, Text } from "react-native";
+import LottieModal from "./components/LottieModal";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -21,8 +22,11 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    console.log("Fonts are not loaded!!!");
-    return null;
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <LottieModal isVisible={true} info="Loading fonts..." />
+      </View>
+    );
   }
 
   return (

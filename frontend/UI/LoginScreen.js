@@ -67,7 +67,7 @@ export default function LoginScreen({ navigation }) {
       {/* <Screen> */}
       <Image
         style={defaultStyles.logo}
-        source={require("../assets/booksStopLogo-cutout.png")}
+        source={require("../assets/logo.png")}
       />
       <AppForm
         initialValues={initialValues}
