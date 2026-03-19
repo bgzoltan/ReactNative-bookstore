@@ -44,8 +44,15 @@ router.post("/listings", multerUpload.array("images", 5), async (req, res) => {
 });
 
 router.get("/listings", async (req, res) => {
+  let listings;
   try {
-    const listings = await Listings.find();
+    const { category } = req.query;
+
+    if (!category) {
+      listings = await Listings.find();
+    } else {
+      listings = await Listings.find({ category });
+    }
     res.status(200).send(listings);
   } catch (err) {
     console.log("Error: ", err);
