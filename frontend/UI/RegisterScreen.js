@@ -43,12 +43,15 @@ export default function RegisterScreen({ navigation }) {
 
     if (error) {
       //  Check if error is formik error or not
-      if (error && typeof error === "object" && !Array.isArray(error)) {
+      if (error.errors) {
         setErrors(error);
       } else {
-        console.log(error);
         // Show error to the user
-        setErrorModal({ ...errorModal, message: error, isVisible: true });
+        setErrorModal({
+          ...errorModal,
+          message: error.message,
+          isVisible: true,
+        });
       }
       return;
     }

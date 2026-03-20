@@ -3,7 +3,6 @@ import ListingEditScreenForm, {
   initialValues,
   validationSchema,
 } from "../Forms/ListingEditScreenForm.js";
-
 import AppForm from "../../components/Form/AppForm.js";
 import { useApi } from "../../hooks/useApi.js";
 import useLocation from "../../hooks/useLocation.js";
@@ -12,13 +11,22 @@ import { useProgress } from "../../context/ProgressContext.js";
 import ProgressBar from "../../components/ProgressBar.js";
 import { useAuth } from "../../context/AuthContext.js";
 import { useFocusEffect } from "@react-navigation/native";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
+import ErrorModal from "../../components/ErrorModal.js";
 
 export default function ListingEditScreen({ navigation }) {
   // axios will automatically add multipart/form-data content type header
   const { request: submitListing } = useApi("post", "listings");
   const location = useLocation();
   const { isUploaded, setIsUploaded } = useProgress();
+  const [errorModal, setErrorModal] = useState({
+    message: "",
+    isVisible: false,
+  });
+
+  const closeErrorModal = () => {
+    setErrorModal({ ...errorModal, isVisible: false });
+  };
 
   // To reset isUploaded when the screen is focused in order no to show the LottieModal
   useFocusEffect(
@@ -48,7 +56,7 @@ export default function ListingEditScreen({ navigation }) {
     );
 
     // Append multiple images
-    images.forEach((image, index) => {
+    images.forEach((image) => {
       formData.append("images", {
         uri: image.uri,
         name: image.fileName,
@@ -56,11 +64,10 @@ export default function ListingEditScreen({ navigation }) {
       });
     });
 
-    const { data, error } = await submitListing(formData);
+    const { error } = await submitListing(formData);
 
     if (error) {
-      console.log("LISTING SUBMIT ERROR", error);
-      return;
+      setErrorModal({ message: error.message, isVisible: true });
     }
   };
   return (
@@ -87,6 +94,7 @@ export default function ListingEditScreen({ navigation }) {
           </>
         )}
       </AppForm>
+      <ErrorModal errorModal={errorModal} closeErrorModal={closeErrorModal} />
     </Screen>
   );
 }

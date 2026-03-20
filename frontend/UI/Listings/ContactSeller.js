@@ -31,12 +31,10 @@ export default function ContactSeller({
 
     if (error) {
       //  Check wheter error is formik error or not
-      if (error && typeof error === "object" && !Array.isArray(error)) {
+      if (error.errors) {
         setErrors(error);
       } else {
-        console.log(error);
-        // Show error to the user
-        showErrorModal({ ...errorModal, message: error, isVisible: true });
+        showErrorModal({ message: error.message, isVisible: true });
       }
       return;
     } else {

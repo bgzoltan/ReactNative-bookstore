@@ -41,10 +41,10 @@ export const useApi = (method, route) => {
         const cached = await AsyncCache.get(url);
 
         // Skip cache for message routes
-        // const shouldUseCache =
-        //   !url.includes("received-message") && !url.includes("sent-messages");
+        const shouldUseCache =
+          !url.includes("received-message") && !url.includes("sent-messages");
 
-        if (cached) {
+        if (shouldUseCache && cached) {
           // Serve from cache without loading indicator
           setData(cached);
           setError(null);
