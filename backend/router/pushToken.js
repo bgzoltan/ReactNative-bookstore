@@ -1,13 +1,13 @@
 import express from "express";
 import { validatePushToken, Users } from "../schema/users.js";
 import sendPushNotification from "../utility/expoPushNotification.ts";
-
+import authMiddleware from "../middleware/authMiddleware.js";
 export const router = express.Router();
 
-router.post("/push-token", async (req, res, next) => {
+router.post("/push-token", authMiddleware, async (req, res, next) => {
   try {
     if (!req.body) {
-      let error = new Error("Missing data!");
+      let error = new Error("API error during post push token - missing data");
       error.status = 400;
       throw error;
     }
@@ -17,7 +17,6 @@ router.post("/push-token", async (req, res, next) => {
     const { error } = validatePushToken({ expoPushToken: pushToken });
 
     if (error) {
-      console.log("Push token validation failed:", error.details[0].message);
       const err = new Error(error.details[0].message);
       err.status = 400;
       throw err;
@@ -30,6 +29,7 @@ router.post("/push-token", async (req, res, next) => {
       { new: true }, // returns the updated user
     );
 
+    // Send notification to user
     sendPushNotification({
       targetDevices: [pushToken],
       message: {
@@ -40,16 +40,12 @@ router.post("/push-token", async (req, res, next) => {
       },
     });
 
-    if (!updatedUser) {
-      let error = new Error("Error during pushToken save!");
-      error.status = 500;
-      throw error;
-    }
-
+    // Return the pushToken value to frontend
     res.status(200).json({
       pushToken: updatedUser.expoPushToken,
     });
   } catch (err) {
+    console.log("API error during post push token: ", err);
     next(err);
   }
 });

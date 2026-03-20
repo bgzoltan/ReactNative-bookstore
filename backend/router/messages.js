@@ -9,54 +9,58 @@ export const router = Router();
 router.post("/messages", authMiddleware, async (req, res, next) => {
   const { sender, recipient, subject, relatedBookId, content } = req.body;
 
-  const { error } = validateMessage({
-    sender,
-    recipient,
-    subject,
-    relatedBookId,
-    content,
-  });
-
-  if (error) {
-    console.error("Message validation error:", error.details[0].message);
-    return res.status(400).json({ error: error.details[0].message });
-  }
-
-  // Create a new message document and save it to the database
-  const newMessage = new Message({
-    sender,
-    recipient,
-    subject,
-    relatedBookId,
-    content,
-    timestamp: new Date(),
-  });
-
-  const response = await newMessage.save();
-  if (!response) {
-    let error = new Error("Error during saving message into database!");
-    error.status = 500;
-    throw error;
-  }
-  res.status(201).json({
-    message: {
+  try {
+    const { error } = validateMessage({
       sender,
       recipient,
       subject,
       relatedBookId,
       content,
-    },
-  });
+    });
+
+    if (error) {
+      const err = new Error();
+      err.message = error.details[0].message;
+      err.status = 400;
+      throw err;
+    }
+
+    // Create a new message document and save it to the database
+    const newMessage = new Message({
+      sender,
+      recipient,
+      subject,
+      relatedBookId,
+      content,
+      timestamp: new Date(),
+    });
+
+    await newMessage.save();
+
+    res.status(201).json({
+      message: {
+        sender,
+        recipient,
+        subject,
+        relatedBookId,
+        content,
+      },
+    });
+  } catch (err) {
+    console.log("Error during post a message: ", err);
+    next(err);
+  }
 });
 
 router.get("/sent-messages", authMiddleware, async (req, res, next) => {
   try {
     const messages = await Message.find({ sender: req.user._id })
       .populate(["sender", "recipient"])
-      .select("sender recipient subject relatedBookId content timestamp");
+      .select("sender recipient subject relatedBookId content timestamp")
+      .sort({ timestamp: -1 });
     res.status(200).json(messages);
   } catch (err) {
-    console.log("Error get sent messages.", err);
+    console.log("Error during get sent messages.", err);
     next(err);
   }
 });
@@ -69,7 +73,7 @@ router.get("/received-messages", authMiddleware, async (req, res, next) => {
       .sort({ timestamp: -1 });
     res.status(200).json(messages);
   } catch (err) {
-    console.log("Error get received messages.", err);
+    console.log("Error during get received messages: ", err);
     next(err);
   }
 });
@@ -93,7 +97,7 @@ router.delete("/messages/:id", authMiddleware, async (req, res, next) => {
       if (response.acknowledged) {
         res.status(200).json({ message: "Message deleted." });
       } else {
-        let error = new Error("Cannot delete message.");
+        let error = new Error("Cannot delete message: ");
         error.status = 400;
         throw error;
       }
@@ -103,6 +107,7 @@ router.delete("/messages/:id", authMiddleware, async (req, res, next) => {
       throw error;
     }
   } catch (err) {
+    console.log("Error during delete messages: ", err);
     next(err);
   }
 });
