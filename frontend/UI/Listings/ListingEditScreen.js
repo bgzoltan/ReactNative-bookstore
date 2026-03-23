@@ -19,13 +19,17 @@ export default function ListingEditScreen({ navigation }) {
   const { request: submitListing } = useApi("post", "listings");
   const location = useLocation();
   const { isUploaded, setIsUploaded } = useProgress();
-  const [errorModal, setErrorModal] = useState({
+  const [errorModalState, setErrorModal] = useState({
     message: "",
     isVisible: false,
   });
 
+  const showErrorModal = (errorMessage) => {
+    setErrorModal(errorMessage);
+  };
+
   const closeErrorModal = () => {
-    setErrorModal({ ...errorModal, isVisible: false });
+    setErrorModal({ ...errorModalState, isVisible: false });
   };
 
   // To reset isUploaded when the screen is focused in order no to show the LottieModal
@@ -72,29 +76,27 @@ export default function ListingEditScreen({ navigation }) {
   };
   return (
     <Screen>
+      <ProgressBar />
+      <LottieModal
+        isVisible={isUploaded}
+        info={"Saved. Tap to continue!"}
+        handlePress={() => {
+          navigation.navigate("Feed");
+          setIsUploaded(false);
+        }}
+        source={require("../../assets/done.json")}
+      />
       <AppForm
         initialValues={initialValues}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
-        {({ resetForm }) => (
-          <>
-            <ProgressBar />
-            <LottieModal
-              isVisible={isUploaded}
-              info={"Saved. Tap to continue!"}
-              handlePress={() => {
-                navigation.navigate("Feed");
-                setIsUploaded(false);
-                resetForm();
-              }}
-              source={require("../../assets/done.json")}
-            />
-            <ListingEditScreenForm />
-          </>
-        )}
+        <ListingEditScreenForm showErrorModal={showErrorModal} />
       </AppForm>
-      <ErrorModal errorModal={errorModal} closeErrorModal={closeErrorModal} />
+      <ErrorModal
+        errorModal={errorModalState}
+        closeErrorModal={closeErrorModal}
+      />
     </Screen>
   );
 }

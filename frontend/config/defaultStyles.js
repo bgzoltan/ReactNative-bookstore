@@ -12,15 +12,6 @@ export const defaultStyles = {
     height: 50,
     borderRadius: 25,
   },
-  errorContainer: {
-    height: 18,
-    paddingVertical: 1,
-  },
-  error: {
-    marginLeft: 15,
-    color: colors.pastelRed,
-    backgroundColor: colors.pastelWhite,
-  },
   logo: {
     width: 120,
     height: 102,

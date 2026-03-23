@@ -64,6 +64,7 @@ export const useApi = (method, route) => {
         await AsyncCache.store(url, response.data);
         setData(response.data);
         setError(null);
+        endLoading();
         // Return the data to the component
         return { data: response.data, error: null };
       } else {
@@ -83,8 +84,8 @@ export const useApi = (method, route) => {
 
         const response = await apiClient[method](url, payload);
         finishUpload();
-
         setError(null);
+
         // Return the data to the component
         return { data: response.data, error: null };
       }
@@ -119,13 +120,11 @@ export const useApi = (method, route) => {
           getErrorMessage(status) + " " + err.response.data?.message;
 
         errorToSet = {
-          message:
-            !isEmptyObject(errors) && errors != null
-              ? JSON.stringify(errors)
-              : message,
+          message: message,
           errors: errors,
           status: status,
         };
+
         console.log("Server error:", err.response.status, message);
       } else if (err.request) {
         errorToSet = {

@@ -5,7 +5,7 @@ import LoginScreenForm from "./Forms/LoginScreenForm.js";
 import * as Yup from "yup";
 import { useApi } from "../hooks/useApi.js";
 import { useState } from "react";
-
+import ErrorModal from "../components/ErrorModal.js";
 import { useAuth } from "../context/AuthContext.js";
 
 export default function LoginScreen({ navigation }) {
@@ -15,12 +15,15 @@ export default function LoginScreen({ navigation }) {
     password: Yup.string().required().label("Password"),
   });
   const { request: login } = useApi("post", "login");
+  const { auth } = useAuth();
   const [errorModal, setErrorModal] = useState({
     message: "",
     isVisible: false,
   });
 
-  const { auth } = useAuth();
+  const showErrorModal = (errorMessage) => {
+    setErrorModal(errorMessage);
+  };
 
   const closeErrorModal = () => {
     setErrorModal({ ...errorModal, isVisible: false });
@@ -74,14 +77,9 @@ export default function LoginScreen({ navigation }) {
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
-        {(formikProps) => (
-          <LoginScreenForm
-            errorModal={errorModal}
-            closeErrorModal={closeErrorModal}
-            {...formikProps}
-          />
-        )}
+        <LoginScreenForm showErrorModal={showErrorModal} />
       </AppForm>
+      <ErrorModal errorModal={errorModal} closeErrorModal={closeErrorModal} />
     </KeyboardAvoidingView>
   );
 }

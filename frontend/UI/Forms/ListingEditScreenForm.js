@@ -37,7 +37,7 @@ export const validationSchema = Yup.object({
     .label("Images"),
 });
 
-export default function ListingEditScreenForm() {
+export default function ListingEditScreenForm({ showErrorModal }) {
   const { data, error, request: getCategories } = useApi("get", "categories");
 
   useEffect(() => {
@@ -46,7 +46,11 @@ export default function ListingEditScreenForm() {
 
   const { handleSubmit } = useFormikContext();
 
-  error && console.log("CATEGORIES ERROR", error);
+  useEffect(() => {
+    if (error) {
+      showErrorModal({ message: error.message, isVisible: true });
+    }
+  }, [error]);
 
   return (
     <>
@@ -97,7 +101,6 @@ export default function ListingEditScreenForm() {
         autoCorrect={false}
         maxLength={255}
       />
-
       <AppFormSubmitButton type={"primary"} handleSubmit={handleSubmit}>
         POST
       </AppFormSubmitButton>

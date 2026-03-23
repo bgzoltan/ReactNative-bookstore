@@ -1,15 +1,10 @@
 import AppFormSubmitButton from "../../components/Form/AppFormSubmitButton.js";
 import { AppFormField } from "../../components/Form/AppFormField.js";
 import colors from "../../config/colors.js";
+import { useFormikContext } from "formik";
 
-import ErrorModal from "../../components/ErrorModal.js";
-
-export default function RegisterScreenForm({
-  errorModal,
-  closeErrorModal,
-  ...formikProps
-}) {
-  const { handleSubmit } = formikProps;
+export default function RegisterScreenForm() {
+  const { handleSubmit } = useFormikContext();
   //  formik handleSubmit runs validation and after that runs onSubmit
 
   return (
@@ -77,7 +72,6 @@ export default function RegisterScreenForm({
         }}
         required
       />
-      <ErrorModal errorModal={errorModal} closeErrorModal={closeErrorModal} />
       <AppFormSubmitButton type={"primary"} handleSubmit={handleSubmit}>
         REGISTER
       </AppFormSubmitButton>
