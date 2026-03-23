@@ -21,14 +21,13 @@ export default (err, req, res, next) => {
   //   }
   // }
 
-  // JOI error
+  // JOI error (isJoi is added by JOI)
   if (err.isJoi) {
     return res.status(400).json({
       message: "Validation failed",
       errors: mapJoiErrorsToFormik(err),
     });
   }
-
   // Mongo , Axios and custom errors
   if (err.status) {
     return res.status(err.status).json({

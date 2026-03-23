@@ -18,9 +18,7 @@ router.post("/users", async (req, res, next) => {
     const { error } = validateUser(user);
 
     if (error) {
-      const err = new Error(error.details[0].message);
-      err.status = 400;
-      throw err;
+      throw error;
     }
 
     const { email } = user;
@@ -50,9 +48,10 @@ router.post("/users", async (req, res, next) => {
     res.status(201).json({
       token,
       user: {
-        firstName: newUser.firstName,
-        lastName: newUser.lastName,
-        email: newUser.email,
+        firstName: response.firstName,
+        lastName: response.lastName,
+        email: response.email,
+        _id: response._id,
       },
     });
   } catch (err) {
